@@ -1,0 +1,220 @@
+{
+  "network": "confluxtest",
+  "codeHash": "0xb7ac02d683f2081cc2e3b5a1f094ecddbe407d0547ab7750d98de37fadb17efd",
+  "array": [
+    "0xd8F4357aB72AB280311576E27c547bDFc5F723a7",
+    {}
+  ],
+  "json": {
+    "logic": "0xd8F4357aB72AB280311576E27c547bDFc5F723a7",
+    "data": {}
+  },
+  "obj": {
+    "logic": {
+      "type": "address",
+      "value": "0xd8F4357aB72AB280311576E27c547bDFc5F723a7"
+    },
+    "data": {
+      "type": "bytes",
+      "value": "0x"
+    }
+  },
+  "empty": false,
+  "receipt": {
+    "to": null,
+    "from": "0x883204664e48bAd00b4df1B140fBfF48e3a74a1C",
+    "contractAddress": "0xF2c569713F715B84A9A493CCd69A7573bA256db1",
+    "transactionIndex": 0,
+    "gasUsed": "1659522",
+    "logsBloom": "0x00000000000000000000000000000000400000000000000000800000000000000010000000000000001000000000000000000000000000000000000000000000000000000000000000000000000002000001000000000000000000000000000000000000020000400000000000000800000000000000000000000000000000400000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000004000008000000000020000000000000000000000000000000000200000000000000000020000008000000000800000000000000000000000000000000000000000000000000",
+    "blockHash": "0x790deee7037e14d5ec6c523c17b8ce053fdc5420973a200bfb6da23c81db50fa",
+    "transactionHash": "0x49838caa7b46d11de7474258b0e0b3e2afc54c12be8d6178683215338c72fd43",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 78986715,
+        "transactionHash": "0x49838caa7b46d11de7474258b0e0b3e2afc54c12be8d6178683215338c72fd43",
+        "address": "0xF2c569713F715B84A9A493CCd69A7573bA256db1",
+        "topics": [
+          "0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b",
+          "0x000000000000000000000000d8f4357ab72ab280311576e27c547bdfc5f723a7"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x790deee7037e14d5ec6c523c17b8ce053fdc5420973a200bfb6da23c81db50fa"
+      },
+      {
+        "transactionIndex": 0,
+        "blockNumber": 78986715,
+        "transactionHash": "0x49838caa7b46d11de7474258b0e0b3e2afc54c12be8d6178683215338c72fd43",
+        "address": "0xF2c569713F715B84A9A493CCd69A7573bA256db1",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000883204664e48bad00b4df1b140fbff48e3a74a1c"
+        ],
+        "data": "0x",
+        "logIndex": 1,
+        "blockHash": "0x790deee7037e14d5ec6c523c17b8ce053fdc5420973a200bfb6da23c81db50fa"
+      }
+    ],
+    "blockNumber": 78986715,
+    "cumulativeGasUsed": "1659522",
+    "effectiveGasPrice": {
+      "type": "BigNumber",
+      "hex": "0x3b9aca00"
+    },
+    "status": 1,
+    "type": 0,
+    "byzantium": true
+  },
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "logic",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "previousAdmin",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newAdmin",
+          "type": "address"
+        }
+      ],
+      "name": "AdminChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "beacon",
+          "type": "address"
+        }
+      ],
+      "name": "BeaconUpgraded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "Upgraded",
+      "type": "event"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    },
+    {
+      "inputs": [],
+      "name": "implementation",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newImplementation",
+          "type": "address"
+        }
+      ],
+      "name": "upgradeTo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

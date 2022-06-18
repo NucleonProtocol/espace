@@ -1,0 +1,338 @@
+{
+  "network": "testnet",
+  "codeHash": "0x6952260891d2bc3dcacf39b5add120c902d10c152bc7cd097a82f388fe4df3d9",
+  "array": [],
+  "json": {},
+  "obj": {},
+  "empty": true,
+  "receipt": {
+    "transactionHash": "0x3f4ccb29c308b18e5e2ceec128579c541868ee9a7ebbbd2fddd99b1142f18ea4",
+    "index": 0,
+    "blockHash": "0x6d260afe1fc50d7116f6c196f90e3632625ae26ecbe7589a6449111d264629e5",
+    "epochNumber": 78128554,
+    "from": "cfxtest:aamz40xgadh5ycexgynx9drg7d1hm05vmev0bh27ev",
+    "to": null,
+    "gasUsed": "3045935",
+    "gasFee": "3045935000000000",
+    "contractCreated": "cfxtest:accx5xsrvcuh4npaa4gs7k0au97a4tkugyyyr4spdp",
+    "logs": [
+      {
+        "address": "cfxtest:accx5xsrvcuh4npaa4gs7k0au97a4tkugyyyr4spdp",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000155d5a6600cfba089335173f8da6e8ee755b7151"
+        ],
+        "data": "0x"
+      }
+    ],
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000000000800000020000000000000000000100000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000020000000000000000004000000000000000000000000000000000020000000000000",
+    "stateRoot": "0xee01db0b1b24eaa12fc5de7b82301c5c8ab5c3aaa01ed7a49a95a1b595df7f6d",
+    "outcomeStatus": 0,
+    "txExecErrorMsg": null,
+    "gasCoveredBySponsor": false,
+    "storageCoveredBySponsor": false,
+    "storageCollateralized": "6272",
+    "storageReleased": []
+  },
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor",
+      "name": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address",
+          "networkId": 1
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address",
+          "networkId": 1
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "inputs": [],
+      "name": "eSpacePoolAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+          "networkId": 1
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+          "networkId": 1
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "poolAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+          "networkId": 1
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address",
+          "networkId": 1
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    },
+    {
+      "inputs": [],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_poolAddress",
+          "type": "address",
+          "networkId": 1
+        }
+      ],
+      "name": "setPoolAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_eSpacePoolAddress",
+          "type": "address",
+          "networkId": 1
+        }
+      ],
+      "name": "setESpacePoolAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ePoolAddrB20",
+      "outputs": [
+        {
+          "internalType": "bytes20",
+          "name": "",
+          "type": "bytes20"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "queryCrossingVotes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "queryUnstakeLen",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "queryInterest",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "queryUserSummary",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint64",
+              "name": "votes",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "available",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "locked",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "unlocked",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint256",
+              "name": "claimedInterest",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "currentInterest",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct IPoSPool.UserSummary",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "syncAPYandClaimInterest",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "syncAPY",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "crossStake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "claimInterest",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "claimAndCrossInterest",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "handleUnstake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawVotes",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address",
+          "networkId": 1
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "callEVM",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

@@ -1,0 +1,3277 @@
+{
+  "contractName": "PoolAPY",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.2+commit.661d1103\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PoolAPY.sol\":\"PoolAPY\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/PoolAPY.sol\":{\"keccak256\":\"0xce20e3a5295c542130adf77c42da03d7db4a9ea6946d4605e53873392a821d28\",\"license\":\"Unlicense\",\"urls\":[\"bzz-raw://605b1a08b5ceeaa4e03ba5c8b9961638eed7c87798b74b8d983d2a5aa8c9cc34\",\"dweb:/ipfs/QmP46BRU2wXjVn4P6hF9ovYDVufr62yL73ipSgZ2QH7PDV\"]}},\"version\":1}",
+  "bytecode": "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220eb43d3005c5cc3e908f116d4ac4265491dbd9f4774007dc07328382f0885500464736f6c63430008020033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220eb43d3005c5cc3e908f116d4ac4265491dbd9f4774007dc07328382f0885500464736f6c63430008020033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "62:1033:35:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "62:1033:35:-:0;;;;;;;;",
+  "source": "//SPDX-License-Identifier: Unlicense\npragma solidity ^0.8.0;\n\nlibrary PoolAPY {\n  struct ApyNode {\n    uint256 startBlock;\n    uint256 endBlock;\n    uint256 reward;\n    uint256 available;\n  }\n\n  struct ApyQueue {\n    uint256 start;\n    uint256 end;\n    mapping(uint256 => ApyNode) items;\n  }\n\n  function enqueue(ApyQueue storage queue, ApyNode memory item) internal {\n    queue.items[queue.end++] = item;\n  }\n\n  function dequeue(ApyQueue storage queue) internal returns (ApyNode memory) {\n    ApyNode memory item = queue.items[queue.start];\n    delete queue.items[queue.start++];\n    return item;\n  }\n\n  function clearOutdatedNode(ApyQueue storage queue, uint256 outdatedBlock) internal {\n    uint256 start = queue.start;\n    uint256 end = queue.end;\n    for (uint256 i = start; i < end; i++) {\n      if (queue.items[i].endBlock > outdatedBlock) {\n        break;\n      }\n      dequeue(queue);\n    }\n  }\n\n  function enqueueAndClearOutdated(ApyQueue storage queue, ApyNode memory item, uint256 outdatedBlock) internal {\n    enqueue(queue, item);\n    clearOutdatedNode(queue, outdatedBlock);\n  }\n\n}",
+  "sourcePath": "C:\\Users\\artii\\Black IDE\\espace\\contracts\\PoolAPY.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/PoolAPY.sol",
+    "exportedSymbols": {
+      "PoolAPY": [
+        6156
+      ]
+    },
+    "id": 6157,
+    "license": "Unlicense",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6020,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "37:23:35"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 6156,
+        "linearizedBaseContracts": [
+          6156
+        ],
+        "name": "PoolAPY",
+        "nameLocation": "70:7:35",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "PoolAPY.ApyNode",
+            "id": 6029,
+            "members": [
+              {
+                "constant": false,
+                "id": 6022,
+                "mutability": "mutable",
+                "name": "startBlock",
+                "nameLocation": "111:10:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6029,
+                "src": "103:18:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6021,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "103:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6024,
+                "mutability": "mutable",
+                "name": "endBlock",
+                "nameLocation": "135:8:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6029,
+                "src": "127:16:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6023,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "127:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6026,
+                "mutability": "mutable",
+                "name": "reward",
+                "nameLocation": "157:6:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6029,
+                "src": "149:14:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6025,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "149:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6028,
+                "mutability": "mutable",
+                "name": "available",
+                "nameLocation": "177:9:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6029,
+                "src": "169:17:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6027,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "169:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "ApyNode",
+            "nameLocation": "89:7:35",
+            "nodeType": "StructDefinition",
+            "scope": 6156,
+            "src": "82:109:35",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "PoolAPY.ApyQueue",
+            "id": 6039,
+            "members": [
+              {
+                "constant": false,
+                "id": 6031,
+                "mutability": "mutable",
+                "name": "start",
+                "nameLocation": "225:5:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6039,
+                "src": "217:13:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6030,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "217:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6033,
+                "mutability": "mutable",
+                "name": "end",
+                "nameLocation": "244:3:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6039,
+                "src": "236:11:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6032,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "236:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6038,
+                "mutability": "mutable",
+                "name": "items",
+                "nameLocation": "281:5:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6039,
+                "src": "253:33:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                  "typeString": "mapping(uint256 => struct PoolAPY.ApyNode)"
+                },
+                "typeName": {
+                  "id": 6037,
+                  "keyType": {
+                    "id": 6034,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "261:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "253:27:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                    "typeString": "mapping(uint256 => struct PoolAPY.ApyNode)"
+                  },
+                  "valueType": {
+                    "id": 6036,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6035,
+                      "name": "ApyNode",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6029,
+                      "src": "272:7:35"
+                    },
+                    "referencedDeclaration": 6029,
+                    "src": "272:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyNode"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "ApyQueue",
+            "nameLocation": "202:8:35",
+            "nodeType": "StructDefinition",
+            "scope": 6156,
+            "src": "195:96:35",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 6058,
+              "nodeType": "Block",
+              "src": "366:42:35",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 6056,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 6048,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 6042,
+                          "src": "372:5:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                            "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                          }
+                        },
+                        "id": 6053,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "items",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 6038,
+                        "src": "372:11:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                          "typeString": "mapping(uint256 => struct PoolAPY.ApyNode storage ref)"
+                        }
+                      },
+                      "id": 6054,
+                      "indexExpression": {
+                        "id": 6052,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "++",
+                        "prefix": false,
+                        "src": "384:11:35",
+                        "subExpression": {
+                          "expression": {
+                            "id": 6050,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6042,
+                            "src": "384:5:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                              "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                            }
+                          },
+                          "id": 6051,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberName": "end",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 6033,
+                          "src": "384:9:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "372:24:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                        "typeString": "struct PoolAPY.ApyNode storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 6055,
+                      "name": "item",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6045,
+                      "src": "399:4:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                        "typeString": "struct PoolAPY.ApyNode memory"
+                      }
+                    },
+                    "src": "372:31:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                      "typeString": "struct PoolAPY.ApyNode storage ref"
+                    }
+                  },
+                  "id": 6057,
+                  "nodeType": "ExpressionStatement",
+                  "src": "372:31:35"
+                }
+              ]
+            },
+            "id": 6059,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "enqueue",
+            "nameLocation": "304:7:35",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6046,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6042,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "329:5:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6059,
+                  "src": "312:22:35",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                    "typeString": "struct PoolAPY.ApyQueue"
+                  },
+                  "typeName": {
+                    "id": 6041,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6040,
+                      "name": "ApyQueue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6039,
+                      "src": "312:8:35"
+                    },
+                    "referencedDeclaration": 6039,
+                    "src": "312:8:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyQueue"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6045,
+                  "mutability": "mutable",
+                  "name": "item",
+                  "nameLocation": "351:4:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6059,
+                  "src": "336:19:35",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                    "typeString": "struct PoolAPY.ApyNode"
+                  },
+                  "typeName": {
+                    "id": 6044,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6043,
+                      "name": "ApyNode",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6029,
+                      "src": "336:7:35"
+                    },
+                    "referencedDeclaration": 6029,
+                    "src": "336:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyNode"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "311:45:35"
+            },
+            "returnParameters": {
+              "id": 6047,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "366:0:35"
+            },
+            "scope": 6156,
+            "src": "295:113:35",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 6087,
+              "nodeType": "Block",
+              "src": "487:113:35",
+              "statements": [
+                {
+                  "assignments": [
+                    6070
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 6070,
+                      "mutability": "mutable",
+                      "name": "item",
+                      "nameLocation": "508:4:35",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 6087,
+                      "src": "493:19:35",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                        "typeString": "struct PoolAPY.ApyNode"
+                      },
+                      "typeName": {
+                        "id": 6069,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 6068,
+                          "name": "ApyNode",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 6029,
+                          "src": "493:7:35"
+                        },
+                        "referencedDeclaration": 6029,
+                        "src": "493:7:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyNode"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 6076,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 6071,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6062,
+                        "src": "515:5:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        }
+                      },
+                      "id": 6072,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "items",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 6038,
+                      "src": "515:11:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                        "typeString": "mapping(uint256 => struct PoolAPY.ApyNode storage ref)"
+                      }
+                    },
+                    "id": 6075,
+                    "indexExpression": {
+                      "expression": {
+                        "id": 6073,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6062,
+                        "src": "527:5:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        }
+                      },
+                      "id": 6074,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "start",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 6031,
+                      "src": "527:11:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "515:24:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                      "typeString": "struct PoolAPY.ApyNode storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "493:46:35"
+                },
+                {
+                  "expression": {
+                    "id": 6083,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "delete",
+                    "prefix": true,
+                    "src": "545:33:35",
+                    "subExpression": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 6077,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 6062,
+                          "src": "552:5:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                            "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                          }
+                        },
+                        "id": 6078,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "items",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 6038,
+                        "src": "552:11:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                          "typeString": "mapping(uint256 => struct PoolAPY.ApyNode storage ref)"
+                        }
+                      },
+                      "id": 6082,
+                      "indexExpression": {
+                        "id": 6081,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "++",
+                        "prefix": false,
+                        "src": "564:13:35",
+                        "subExpression": {
+                          "expression": {
+                            "id": 6079,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6062,
+                            "src": "564:5:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                              "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                            }
+                          },
+                          "id": 6080,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberName": "start",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 6031,
+                          "src": "564:11:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "552:26:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                        "typeString": "struct PoolAPY.ApyNode storage ref"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 6084,
+                  "nodeType": "ExpressionStatement",
+                  "src": "545:33:35"
+                },
+                {
+                  "expression": {
+                    "id": 6085,
+                    "name": "item",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 6070,
+                    "src": "591:4:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                      "typeString": "struct PoolAPY.ApyNode memory"
+                    }
+                  },
+                  "functionReturnParameters": 6067,
+                  "id": 6086,
+                  "nodeType": "Return",
+                  "src": "584:11:35"
+                }
+              ]
+            },
+            "id": 6088,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "dequeue",
+            "nameLocation": "421:7:35",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6063,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6062,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "446:5:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6088,
+                  "src": "429:22:35",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                    "typeString": "struct PoolAPY.ApyQueue"
+                  },
+                  "typeName": {
+                    "id": 6061,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6060,
+                      "name": "ApyQueue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6039,
+                      "src": "429:8:35"
+                    },
+                    "referencedDeclaration": 6039,
+                    "src": "429:8:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyQueue"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "428:24:35"
+            },
+            "returnParameters": {
+              "id": 6067,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6066,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6088,
+                  "src": "471:14:35",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                    "typeString": "struct PoolAPY.ApyNode"
+                  },
+                  "typeName": {
+                    "id": 6065,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6064,
+                      "name": "ApyNode",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6029,
+                      "src": "471:7:35"
+                    },
+                    "referencedDeclaration": 6029,
+                    "src": "471:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyNode"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "470:16:35"
+            },
+            "scope": 6156,
+            "src": "412:188:35",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 6132,
+              "nodeType": "Block",
+              "src": "687:215:35",
+              "statements": [
+                {
+                  "assignments": [
+                    6097
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 6097,
+                      "mutability": "mutable",
+                      "name": "start",
+                      "nameLocation": "701:5:35",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 6132,
+                      "src": "693:13:35",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 6096,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "693:7:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 6100,
+                  "initialValue": {
+                    "expression": {
+                      "id": 6098,
+                      "name": "queue",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6091,
+                      "src": "709:5:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                        "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                      }
+                    },
+                    "id": 6099,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "start",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 6031,
+                    "src": "709:11:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "693:27:35"
+                },
+                {
+                  "assignments": [
+                    6102
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 6102,
+                      "mutability": "mutable",
+                      "name": "end",
+                      "nameLocation": "734:3:35",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 6132,
+                      "src": "726:11:35",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 6101,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "726:7:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 6105,
+                  "initialValue": {
+                    "expression": {
+                      "id": 6103,
+                      "name": "queue",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6091,
+                      "src": "740:5:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                        "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                      }
+                    },
+                    "id": 6104,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "end",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 6033,
+                    "src": "740:9:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "726:23:35"
+                },
+                {
+                  "body": {
+                    "id": 6130,
+                    "nodeType": "Block",
+                    "src": "793:105:35",
+                    "statements": [
+                      {
+                        "condition": {
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 6122,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "expression": {
+                              "baseExpression": {
+                                "expression": {
+                                  "id": 6116,
+                                  "name": "queue",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 6091,
+                                  "src": "805:5:35",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                                    "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                                  }
+                                },
+                                "id": 6117,
+                                "isConstant": false,
+                                "isLValue": true,
+                                "isPure": false,
+                                "lValueRequested": false,
+                                "memberName": "items",
+                                "nodeType": "MemberAccess",
+                                "referencedDeclaration": 6038,
+                                "src": "805:11:35",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                                  "typeString": "mapping(uint256 => struct PoolAPY.ApyNode storage ref)"
+                                }
+                              },
+                              "id": 6119,
+                              "indexExpression": {
+                                "id": 6118,
+                                "name": "i",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 6107,
+                                "src": "817:1:35",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              },
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "nodeType": "IndexAccess",
+                              "src": "805:14:35",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                                "typeString": "struct PoolAPY.ApyNode storage ref"
+                              }
+                            },
+                            "id": 6120,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "endBlock",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 6024,
+                            "src": "805:23:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": ">",
+                          "rightExpression": {
+                            "id": 6121,
+                            "name": "outdatedBlock",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6093,
+                            "src": "831:13:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "src": "805:39:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "id": 6125,
+                        "nodeType": "IfStatement",
+                        "src": "801:69:35",
+                        "trueBody": {
+                          "id": 6124,
+                          "nodeType": "Block",
+                          "src": "846:24:35",
+                          "statements": [
+                            {
+                              "id": 6123,
+                              "nodeType": "Break",
+                              "src": "856:5:35"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "expression": {
+                          "arguments": [
+                            {
+                              "id": 6127,
+                              "name": "queue",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 6091,
+                              "src": "885:5:35",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                                "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                                "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                              }
+                            ],
+                            "id": 6126,
+                            "name": "dequeue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6088,
+                            "src": "877:7:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_ApyQueue_$6039_storage_ptr_$returns$_t_struct$_ApyNode_$6029_memory_ptr_$",
+                              "typeString": "function (struct PoolAPY.ApyQueue storage pointer) returns (struct PoolAPY.ApyNode memory)"
+                            }
+                          },
+                          "id": 6128,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "877:14:35",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                            "typeString": "struct PoolAPY.ApyNode memory"
+                          }
+                        },
+                        "id": 6129,
+                        "nodeType": "ExpressionStatement",
+                        "src": "877:14:35"
+                      }
+                    ]
+                  },
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 6112,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "id": 6110,
+                      "name": "i",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6107,
+                      "src": "779:1:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "<",
+                    "rightExpression": {
+                      "id": 6111,
+                      "name": "end",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6102,
+                      "src": "783:3:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "779:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 6131,
+                  "initializationExpression": {
+                    "assignments": [
+                      6107
+                    ],
+                    "declarations": [
+                      {
+                        "constant": false,
+                        "id": 6107,
+                        "mutability": "mutable",
+                        "name": "i",
+                        "nameLocation": "768:1:35",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 6131,
+                        "src": "760:9:35",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 6106,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "760:7:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "id": 6109,
+                    "initialValue": {
+                      "id": 6108,
+                      "name": "start",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6097,
+                      "src": "772:5:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "VariableDeclarationStatement",
+                    "src": "760:17:35"
+                  },
+                  "loopExpression": {
+                    "expression": {
+                      "id": 6114,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": false,
+                      "src": "788:3:35",
+                      "subExpression": {
+                        "id": 6113,
+                        "name": "i",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6107,
+                        "src": "788:1:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 6115,
+                    "nodeType": "ExpressionStatement",
+                    "src": "788:3:35"
+                  },
+                  "nodeType": "ForStatement",
+                  "src": "755:143:35"
+                }
+              ]
+            },
+            "id": 6133,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "clearOutdatedNode",
+            "nameLocation": "613:17:35",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6094,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6091,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "648:5:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6133,
+                  "src": "631:22:35",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                    "typeString": "struct PoolAPY.ApyQueue"
+                  },
+                  "typeName": {
+                    "id": 6090,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6089,
+                      "name": "ApyQueue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6039,
+                      "src": "631:8:35"
+                    },
+                    "referencedDeclaration": 6039,
+                    "src": "631:8:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyQueue"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6093,
+                  "mutability": "mutable",
+                  "name": "outdatedBlock",
+                  "nameLocation": "663:13:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6133,
+                  "src": "655:21:35",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6092,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "655:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "630:47:35"
+            },
+            "returnParameters": {
+              "id": 6095,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "687:0:35"
+            },
+            "scope": 6156,
+            "src": "604:298:35",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 6154,
+              "nodeType": "Block",
+              "src": "1016:76:35",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 6145,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6136,
+                        "src": "1030:5:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        }
+                      },
+                      {
+                        "id": 6146,
+                        "name": "item",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6139,
+                        "src": "1037:4:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                          "typeString": "struct PoolAPY.ApyNode memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        },
+                        {
+                          "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                          "typeString": "struct PoolAPY.ApyNode memory"
+                        }
+                      ],
+                      "id": 6144,
+                      "name": "enqueue",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6059,
+                      "src": "1022:7:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_ApyQueue_$6039_storage_ptr_$_t_struct$_ApyNode_$6029_memory_ptr_$returns$__$",
+                        "typeString": "function (struct PoolAPY.ApyQueue storage pointer,struct PoolAPY.ApyNode memory)"
+                      }
+                    },
+                    "id": 6147,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1022:20:35",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 6148,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1022:20:35"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 6150,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6136,
+                        "src": "1066:5:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        }
+                      },
+                      {
+                        "id": 6151,
+                        "name": "outdatedBlock",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6141,
+                        "src": "1073:13:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 6149,
+                      "name": "clearOutdatedNode",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6133,
+                      "src": "1048:17:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_ApyQueue_$6039_storage_ptr_$_t_uint256_$returns$__$",
+                        "typeString": "function (struct PoolAPY.ApyQueue storage pointer,uint256)"
+                      }
+                    },
+                    "id": 6152,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1048:39:35",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 6153,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1048:39:35"
+                }
+              ]
+            },
+            "id": 6155,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "enqueueAndClearOutdated",
+            "nameLocation": "915:23:35",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6142,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6136,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "956:5:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6155,
+                  "src": "939:22:35",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                    "typeString": "struct PoolAPY.ApyQueue"
+                  },
+                  "typeName": {
+                    "id": 6135,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6134,
+                      "name": "ApyQueue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6039,
+                      "src": "939:8:35"
+                    },
+                    "referencedDeclaration": 6039,
+                    "src": "939:8:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyQueue"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6139,
+                  "mutability": "mutable",
+                  "name": "item",
+                  "nameLocation": "978:4:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6155,
+                  "src": "963:19:35",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                    "typeString": "struct PoolAPY.ApyNode"
+                  },
+                  "typeName": {
+                    "id": 6138,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6137,
+                      "name": "ApyNode",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6029,
+                      "src": "963:7:35"
+                    },
+                    "referencedDeclaration": 6029,
+                    "src": "963:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyNode"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6141,
+                  "mutability": "mutable",
+                  "name": "outdatedBlock",
+                  "nameLocation": "992:13:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6155,
+                  "src": "984:21:35",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6140,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "984:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "938:68:35"
+            },
+            "returnParameters": {
+              "id": 6143,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1016:0:35"
+            },
+            "scope": 6156,
+            "src": "906:186:35",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 6157,
+        "src": "62:1033:35"
+      }
+    ],
+    "src": "37:1058:35"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/PoolAPY.sol",
+    "exportedSymbols": {
+      "PoolAPY": [
+        6156
+      ]
+    },
+    "id": 6157,
+    "license": "Unlicense",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6020,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "37:23:35"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 6156,
+        "linearizedBaseContracts": [
+          6156
+        ],
+        "name": "PoolAPY",
+        "nameLocation": "70:7:35",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "PoolAPY.ApyNode",
+            "id": 6029,
+            "members": [
+              {
+                "constant": false,
+                "id": 6022,
+                "mutability": "mutable",
+                "name": "startBlock",
+                "nameLocation": "111:10:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6029,
+                "src": "103:18:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6021,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "103:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6024,
+                "mutability": "mutable",
+                "name": "endBlock",
+                "nameLocation": "135:8:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6029,
+                "src": "127:16:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6023,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "127:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6026,
+                "mutability": "mutable",
+                "name": "reward",
+                "nameLocation": "157:6:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6029,
+                "src": "149:14:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6025,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "149:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6028,
+                "mutability": "mutable",
+                "name": "available",
+                "nameLocation": "177:9:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6029,
+                "src": "169:17:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6027,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "169:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "ApyNode",
+            "nameLocation": "89:7:35",
+            "nodeType": "StructDefinition",
+            "scope": 6156,
+            "src": "82:109:35",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "PoolAPY.ApyQueue",
+            "id": 6039,
+            "members": [
+              {
+                "constant": false,
+                "id": 6031,
+                "mutability": "mutable",
+                "name": "start",
+                "nameLocation": "225:5:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6039,
+                "src": "217:13:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6030,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "217:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6033,
+                "mutability": "mutable",
+                "name": "end",
+                "nameLocation": "244:3:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6039,
+                "src": "236:11:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 6032,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "236:7:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 6038,
+                "mutability": "mutable",
+                "name": "items",
+                "nameLocation": "281:5:35",
+                "nodeType": "VariableDeclaration",
+                "scope": 6039,
+                "src": "253:33:35",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                  "typeString": "mapping(uint256 => struct PoolAPY.ApyNode)"
+                },
+                "typeName": {
+                  "id": 6037,
+                  "keyType": {
+                    "id": 6034,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "261:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "253:27:35",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                    "typeString": "mapping(uint256 => struct PoolAPY.ApyNode)"
+                  },
+                  "valueType": {
+                    "id": 6036,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6035,
+                      "name": "ApyNode",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6029,
+                      "src": "272:7:35"
+                    },
+                    "referencedDeclaration": 6029,
+                    "src": "272:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyNode"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "ApyQueue",
+            "nameLocation": "202:8:35",
+            "nodeType": "StructDefinition",
+            "scope": 6156,
+            "src": "195:96:35",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 6058,
+              "nodeType": "Block",
+              "src": "366:42:35",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 6056,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 6048,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 6042,
+                          "src": "372:5:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                            "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                          }
+                        },
+                        "id": 6053,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "items",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 6038,
+                        "src": "372:11:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                          "typeString": "mapping(uint256 => struct PoolAPY.ApyNode storage ref)"
+                        }
+                      },
+                      "id": 6054,
+                      "indexExpression": {
+                        "id": 6052,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "++",
+                        "prefix": false,
+                        "src": "384:11:35",
+                        "subExpression": {
+                          "expression": {
+                            "id": 6050,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6042,
+                            "src": "384:5:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                              "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                            }
+                          },
+                          "id": 6051,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberName": "end",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 6033,
+                          "src": "384:9:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "372:24:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                        "typeString": "struct PoolAPY.ApyNode storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 6055,
+                      "name": "item",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6045,
+                      "src": "399:4:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                        "typeString": "struct PoolAPY.ApyNode memory"
+                      }
+                    },
+                    "src": "372:31:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                      "typeString": "struct PoolAPY.ApyNode storage ref"
+                    }
+                  },
+                  "id": 6057,
+                  "nodeType": "ExpressionStatement",
+                  "src": "372:31:35"
+                }
+              ]
+            },
+            "id": 6059,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "enqueue",
+            "nameLocation": "304:7:35",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6046,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6042,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "329:5:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6059,
+                  "src": "312:22:35",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                    "typeString": "struct PoolAPY.ApyQueue"
+                  },
+                  "typeName": {
+                    "id": 6041,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6040,
+                      "name": "ApyQueue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6039,
+                      "src": "312:8:35"
+                    },
+                    "referencedDeclaration": 6039,
+                    "src": "312:8:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyQueue"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6045,
+                  "mutability": "mutable",
+                  "name": "item",
+                  "nameLocation": "351:4:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6059,
+                  "src": "336:19:35",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                    "typeString": "struct PoolAPY.ApyNode"
+                  },
+                  "typeName": {
+                    "id": 6044,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6043,
+                      "name": "ApyNode",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6029,
+                      "src": "336:7:35"
+                    },
+                    "referencedDeclaration": 6029,
+                    "src": "336:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyNode"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "311:45:35"
+            },
+            "returnParameters": {
+              "id": 6047,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "366:0:35"
+            },
+            "scope": 6156,
+            "src": "295:113:35",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 6087,
+              "nodeType": "Block",
+              "src": "487:113:35",
+              "statements": [
+                {
+                  "assignments": [
+                    6070
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 6070,
+                      "mutability": "mutable",
+                      "name": "item",
+                      "nameLocation": "508:4:35",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 6087,
+                      "src": "493:19:35",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                        "typeString": "struct PoolAPY.ApyNode"
+                      },
+                      "typeName": {
+                        "id": 6069,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 6068,
+                          "name": "ApyNode",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 6029,
+                          "src": "493:7:35"
+                        },
+                        "referencedDeclaration": 6029,
+                        "src": "493:7:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyNode"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 6076,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 6071,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6062,
+                        "src": "515:5:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        }
+                      },
+                      "id": 6072,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "items",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 6038,
+                      "src": "515:11:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                        "typeString": "mapping(uint256 => struct PoolAPY.ApyNode storage ref)"
+                      }
+                    },
+                    "id": 6075,
+                    "indexExpression": {
+                      "expression": {
+                        "id": 6073,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6062,
+                        "src": "527:5:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        }
+                      },
+                      "id": 6074,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "start",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 6031,
+                      "src": "527:11:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "515:24:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                      "typeString": "struct PoolAPY.ApyNode storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "493:46:35"
+                },
+                {
+                  "expression": {
+                    "id": 6083,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "delete",
+                    "prefix": true,
+                    "src": "545:33:35",
+                    "subExpression": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 6077,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 6062,
+                          "src": "552:5:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                            "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                          }
+                        },
+                        "id": 6078,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "items",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 6038,
+                        "src": "552:11:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                          "typeString": "mapping(uint256 => struct PoolAPY.ApyNode storage ref)"
+                        }
+                      },
+                      "id": 6082,
+                      "indexExpression": {
+                        "id": 6081,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "++",
+                        "prefix": false,
+                        "src": "564:13:35",
+                        "subExpression": {
+                          "expression": {
+                            "id": 6079,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6062,
+                            "src": "564:5:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                              "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                            }
+                          },
+                          "id": 6080,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberName": "start",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 6031,
+                          "src": "564:11:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "552:26:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                        "typeString": "struct PoolAPY.ApyNode storage ref"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 6084,
+                  "nodeType": "ExpressionStatement",
+                  "src": "545:33:35"
+                },
+                {
+                  "expression": {
+                    "id": 6085,
+                    "name": "item",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 6070,
+                    "src": "591:4:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                      "typeString": "struct PoolAPY.ApyNode memory"
+                    }
+                  },
+                  "functionReturnParameters": 6067,
+                  "id": 6086,
+                  "nodeType": "Return",
+                  "src": "584:11:35"
+                }
+              ]
+            },
+            "id": 6088,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "dequeue",
+            "nameLocation": "421:7:35",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6063,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6062,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "446:5:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6088,
+                  "src": "429:22:35",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                    "typeString": "struct PoolAPY.ApyQueue"
+                  },
+                  "typeName": {
+                    "id": 6061,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6060,
+                      "name": "ApyQueue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6039,
+                      "src": "429:8:35"
+                    },
+                    "referencedDeclaration": 6039,
+                    "src": "429:8:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyQueue"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "428:24:35"
+            },
+            "returnParameters": {
+              "id": 6067,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6066,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6088,
+                  "src": "471:14:35",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                    "typeString": "struct PoolAPY.ApyNode"
+                  },
+                  "typeName": {
+                    "id": 6065,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6064,
+                      "name": "ApyNode",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6029,
+                      "src": "471:7:35"
+                    },
+                    "referencedDeclaration": 6029,
+                    "src": "471:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyNode"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "470:16:35"
+            },
+            "scope": 6156,
+            "src": "412:188:35",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 6132,
+              "nodeType": "Block",
+              "src": "687:215:35",
+              "statements": [
+                {
+                  "assignments": [
+                    6097
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 6097,
+                      "mutability": "mutable",
+                      "name": "start",
+                      "nameLocation": "701:5:35",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 6132,
+                      "src": "693:13:35",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 6096,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "693:7:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 6100,
+                  "initialValue": {
+                    "expression": {
+                      "id": 6098,
+                      "name": "queue",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6091,
+                      "src": "709:5:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                        "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                      }
+                    },
+                    "id": 6099,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "start",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 6031,
+                    "src": "709:11:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "693:27:35"
+                },
+                {
+                  "assignments": [
+                    6102
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 6102,
+                      "mutability": "mutable",
+                      "name": "end",
+                      "nameLocation": "734:3:35",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 6132,
+                      "src": "726:11:35",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 6101,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "726:7:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 6105,
+                  "initialValue": {
+                    "expression": {
+                      "id": 6103,
+                      "name": "queue",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6091,
+                      "src": "740:5:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                        "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                      }
+                    },
+                    "id": 6104,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "end",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 6033,
+                    "src": "740:9:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "726:23:35"
+                },
+                {
+                  "body": {
+                    "id": 6130,
+                    "nodeType": "Block",
+                    "src": "793:105:35",
+                    "statements": [
+                      {
+                        "condition": {
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 6122,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "expression": {
+                              "baseExpression": {
+                                "expression": {
+                                  "id": 6116,
+                                  "name": "queue",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 6091,
+                                  "src": "805:5:35",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                                    "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                                  }
+                                },
+                                "id": 6117,
+                                "isConstant": false,
+                                "isLValue": true,
+                                "isPure": false,
+                                "lValueRequested": false,
+                                "memberName": "items",
+                                "nodeType": "MemberAccess",
+                                "referencedDeclaration": 6038,
+                                "src": "805:11:35",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ApyNode_$6029_storage_$",
+                                  "typeString": "mapping(uint256 => struct PoolAPY.ApyNode storage ref)"
+                                }
+                              },
+                              "id": 6119,
+                              "indexExpression": {
+                                "id": 6118,
+                                "name": "i",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 6107,
+                                "src": "817:1:35",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              },
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "nodeType": "IndexAccess",
+                              "src": "805:14:35",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_ApyNode_$6029_storage",
+                                "typeString": "struct PoolAPY.ApyNode storage ref"
+                              }
+                            },
+                            "id": 6120,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "endBlock",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 6024,
+                            "src": "805:23:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": ">",
+                          "rightExpression": {
+                            "id": 6121,
+                            "name": "outdatedBlock",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6093,
+                            "src": "831:13:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "src": "805:39:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "id": 6125,
+                        "nodeType": "IfStatement",
+                        "src": "801:69:35",
+                        "trueBody": {
+                          "id": 6124,
+                          "nodeType": "Block",
+                          "src": "846:24:35",
+                          "statements": [
+                            {
+                              "id": 6123,
+                              "nodeType": "Break",
+                              "src": "856:5:35"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "expression": {
+                          "arguments": [
+                            {
+                              "id": 6127,
+                              "name": "queue",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 6091,
+                              "src": "885:5:35",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                                "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                                "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                              }
+                            ],
+                            "id": 6126,
+                            "name": "dequeue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6088,
+                            "src": "877:7:35",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_ApyQueue_$6039_storage_ptr_$returns$_t_struct$_ApyNode_$6029_memory_ptr_$",
+                              "typeString": "function (struct PoolAPY.ApyQueue storage pointer) returns (struct PoolAPY.ApyNode memory)"
+                            }
+                          },
+                          "id": 6128,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "877:14:35",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                            "typeString": "struct PoolAPY.ApyNode memory"
+                          }
+                        },
+                        "id": 6129,
+                        "nodeType": "ExpressionStatement",
+                        "src": "877:14:35"
+                      }
+                    ]
+                  },
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 6112,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "id": 6110,
+                      "name": "i",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6107,
+                      "src": "779:1:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "<",
+                    "rightExpression": {
+                      "id": 6111,
+                      "name": "end",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6102,
+                      "src": "783:3:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "779:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 6131,
+                  "initializationExpression": {
+                    "assignments": [
+                      6107
+                    ],
+                    "declarations": [
+                      {
+                        "constant": false,
+                        "id": 6107,
+                        "mutability": "mutable",
+                        "name": "i",
+                        "nameLocation": "768:1:35",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 6131,
+                        "src": "760:9:35",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 6106,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "760:7:35",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "id": 6109,
+                    "initialValue": {
+                      "id": 6108,
+                      "name": "start",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6097,
+                      "src": "772:5:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "VariableDeclarationStatement",
+                    "src": "760:17:35"
+                  },
+                  "loopExpression": {
+                    "expression": {
+                      "id": 6114,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": false,
+                      "src": "788:3:35",
+                      "subExpression": {
+                        "id": 6113,
+                        "name": "i",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6107,
+                        "src": "788:1:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 6115,
+                    "nodeType": "ExpressionStatement",
+                    "src": "788:3:35"
+                  },
+                  "nodeType": "ForStatement",
+                  "src": "755:143:35"
+                }
+              ]
+            },
+            "id": 6133,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "clearOutdatedNode",
+            "nameLocation": "613:17:35",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6094,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6091,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "648:5:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6133,
+                  "src": "631:22:35",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                    "typeString": "struct PoolAPY.ApyQueue"
+                  },
+                  "typeName": {
+                    "id": 6090,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6089,
+                      "name": "ApyQueue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6039,
+                      "src": "631:8:35"
+                    },
+                    "referencedDeclaration": 6039,
+                    "src": "631:8:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyQueue"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6093,
+                  "mutability": "mutable",
+                  "name": "outdatedBlock",
+                  "nameLocation": "663:13:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6133,
+                  "src": "655:21:35",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6092,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "655:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "630:47:35"
+            },
+            "returnParameters": {
+              "id": 6095,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "687:0:35"
+            },
+            "scope": 6156,
+            "src": "604:298:35",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 6154,
+              "nodeType": "Block",
+              "src": "1016:76:35",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 6145,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6136,
+                        "src": "1030:5:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        }
+                      },
+                      {
+                        "id": 6146,
+                        "name": "item",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6139,
+                        "src": "1037:4:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                          "typeString": "struct PoolAPY.ApyNode memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        },
+                        {
+                          "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                          "typeString": "struct PoolAPY.ApyNode memory"
+                        }
+                      ],
+                      "id": 6144,
+                      "name": "enqueue",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6059,
+                      "src": "1022:7:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_ApyQueue_$6039_storage_ptr_$_t_struct$_ApyNode_$6029_memory_ptr_$returns$__$",
+                        "typeString": "function (struct PoolAPY.ApyQueue storage pointer,struct PoolAPY.ApyNode memory)"
+                      }
+                    },
+                    "id": 6147,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1022:20:35",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 6148,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1022:20:35"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 6150,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6136,
+                        "src": "1066:5:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        }
+                      },
+                      {
+                        "id": 6151,
+                        "name": "outdatedBlock",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6141,
+                        "src": "1073:13:35",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                          "typeString": "struct PoolAPY.ApyQueue storage pointer"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 6149,
+                      "name": "clearOutdatedNode",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6133,
+                      "src": "1048:17:35",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_ApyQueue_$6039_storage_ptr_$_t_uint256_$returns$__$",
+                        "typeString": "function (struct PoolAPY.ApyQueue storage pointer,uint256)"
+                      }
+                    },
+                    "id": 6152,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1048:39:35",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 6153,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1048:39:35"
+                }
+              ]
+            },
+            "id": 6155,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "enqueueAndClearOutdated",
+            "nameLocation": "915:23:35",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6142,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6136,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "956:5:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6155,
+                  "src": "939:22:35",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                    "typeString": "struct PoolAPY.ApyQueue"
+                  },
+                  "typeName": {
+                    "id": 6135,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6134,
+                      "name": "ApyQueue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6039,
+                      "src": "939:8:35"
+                    },
+                    "referencedDeclaration": 6039,
+                    "src": "939:8:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyQueue_$6039_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyQueue"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6139,
+                  "mutability": "mutable",
+                  "name": "item",
+                  "nameLocation": "978:4:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6155,
+                  "src": "963:19:35",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ApyNode_$6029_memory_ptr",
+                    "typeString": "struct PoolAPY.ApyNode"
+                  },
+                  "typeName": {
+                    "id": 6138,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 6137,
+                      "name": "ApyNode",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 6029,
+                      "src": "963:7:35"
+                    },
+                    "referencedDeclaration": 6029,
+                    "src": "963:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_ApyNode_$6029_storage_ptr",
+                      "typeString": "struct PoolAPY.ApyNode"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6141,
+                  "mutability": "mutable",
+                  "name": "outdatedBlock",
+                  "nameLocation": "992:13:35",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6155,
+                  "src": "984:21:35",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6140,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "984:7:35",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "938:68:35"
+            },
+            "returnParameters": {
+              "id": 6143,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1016:0:35"
+            },
+            "scope": 6156,
+            "src": "906:186:35",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 6157,
+        "src": "62:1033:35"
+      }
+    ],
+    "src": "37:1058:35"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.2+commit.661d1103.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2022-06-16T16:59:41.431Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

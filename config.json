@@ -1,0 +1,17 @@
+{
+  "main": "./contracts/GameItems.sol",
+  "deploy": "./build/contracts/GameItems.json",
+  "framework": "truffle",
+  "npmClient": "npm",
+  "compilers": {
+    "solc": "0.8.2",
+    "truffle": "",
+    "evmVersion": "istanbul"
+  },
+  "linter": "solhint",
+  "editor": {
+    "fontFamily": "Hack",
+    "fontSize": "13px",
+    "ligatures": false
+  }
+}

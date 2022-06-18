@@ -1,0 +1,17 @@
+{
+  "name": "espace",
+  "version": "1.0.0",
+  "description": "This is a sample project of [OpenZeppelin contracts](https://openzeppelin.com/contracts/).",
+  "main": "truffle-config.js",
+  "scripts": {
+    "build": "truffle compile",
+    "deploy": "truffle deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.2.0",
+    "truffle": "^5.4.6"
+  }
+}
