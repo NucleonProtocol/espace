@@ -1,12 +1,11 @@
-# Open Zeppelin Contracts
+# X-E space Contracts
 
-This is a sample project of [OpenZeppelin contracts](https://openzeppelin.com/contracts/).
+This is a conflux espace project create by X-Dao [OpenZeppelin contracts](https://openzeppelin.com/contracts/).
 
 ## Smart Contracts
 
-- **contracts/GLDToken.sol**: a smart contract implements [ERC-20](https://docs.openzeppelin.com/contracts/4.x/erc20).
-- **contracts/GameItem.sol**: a smart contract implements [ERC-721](https://docs.openzeppelin.com/contracts/4.x/erc721).
-- **contracts/GameItems.sol**: a smart contract implements [ERC-1155](https://docs.openzeppelin.com/contracts/4.x/erc1155).
+- **contracts/espace**: contracts  used in espace [](https://docs.openzeppelin.com/contracts/4.x/erc20).
+
 
 ## Reference
 
