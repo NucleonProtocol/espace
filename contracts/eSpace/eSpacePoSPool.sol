@@ -7,20 +7,21 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "../VotePowerQueue.sol";
-//import "../PoolAPY.sol";
+import "./iface_espace.sol";
 import "./UnstakeQueue.sol";
+import "./XETdistribute.sol";
 
 
-interface XCFXExchange{
-    function addTokens(address _to, uint256 _value) external;
-    function burnTokens(address account, uint256 amount) external;
-    function balanceOf(address account) external view returns(uint256);
-    function totalSupply() external view returns(uint256);
-}
-interface XVIPI{
-    function tokensOf(address account) external view returns (uint256[] memory _tokens);
-    function Max_level(address account) external view returns (uint256 level);
-}
+// interface XCFXExchange{
+//     function addTokens(address _to, uint256 _value) external;
+//     function burnTokens(address account, uint256 amount) external;
+//     function balanceOf(address account) external view returns(uint256);
+//     function totalSupply() external view returns(uint256);
+// }
+// interface XVIPI{
+//     function tokensOf(address account) external view returns (uint256[] memory _tokens);
+//     function Maxlevelof(address account) external view returns (uint256 level);
+// }
 ///
 ///  @title eSpace PoSPool
 ///
@@ -41,7 +42,7 @@ contract ESpacePoSPool is Ownable,Initializable {
   bool public birdgeAddrSetted;
   address private _bridgeAddress;
   // ratio shared by user: 1-10000
-  uint256 public poolUserShareRatio = 10000;
+  uint256 public poolUserShareRatio = 9000;
   // lock period: 7 days + half hour
   uint256 public _poolLockPeriod = ONE_DAY_BLOCK_COUNT * 14;
   string public poolName; // = "eSpacePool";
@@ -64,7 +65,7 @@ contract ESpacePoSPool is Ownable,Initializable {
   UnstakeQueue.Queue public unstakeQueue;  //private--debug
 
   // Currently withdrawable CFX
-  uint256 public withdrawableCfx;
+  //uint256 public withdrawableCfx;
   // Votes need to cross from eSpace to Core
   uint256 public crossingVotes;
 
@@ -80,6 +81,8 @@ contract ESpacePoSPool is Ownable,Initializable {
   address XET_address;
   address XVIP_address;
   address Storage_room_addr;
+  address XET_Distribute_addr;
+
 
   // ======================== Struct definitions =========================
   struct PoolSummary {
@@ -138,9 +141,9 @@ contract ESpacePoSPool is Ownable,Initializable {
 
   function _userShareRatio(address _user) public view returns (uint256) {
     if (XVIP_address==owner_addr) return poolUserShareRatio;
-    if (XVIPI(XVIP_address).Max_level(_user)==1) return RATIO_BASE-((RATIO_BASE-poolUserShareRatio)*50/100);
-    if (XVIPI(XVIP_address).Max_level(_user)==2) return RATIO_BASE-((RATIO_BASE-poolUserShareRatio)*25/100);
-    if (XVIPI(XVIP_address).Max_level(_user)==3) return RATIO_BASE;
+    if (XVIPI(XVIP_address).Maxlevelof(_user)==1) return RATIO_BASE-((RATIO_BASE-poolUserShareRatio)*50/100);
+    if (XVIPI(XVIP_address).Maxlevelof(_user)==2) return RATIO_BASE-((RATIO_BASE-poolUserShareRatio)*25/100);
+    if (XVIPI(XVIP_address).Maxlevelof(_user)==3) return RATIO_BASE;
     return poolUserShareRatio;
   }
 
@@ -207,8 +210,8 @@ contract ESpacePoSPool is Ownable,Initializable {
   function initialize() public initializer {
     CFX_COUNT_OF_ONE_VOTE = 1000;
     CFX_VALUE_OF_ONE_VOTE = 1000 ether;
-    _poolLockPeriod = ONE_DAY_BLOCK_COUNT * 7 + 3600;
-    poolUserShareRatio = 10000;
+    _poolLockPeriod = ONE_DAY_BLOCK_COUNT * 14;
+    poolUserShareRatio = 9000;
     owner_addr = msg.sender;
     XVIP_address = msg.sender;
   }
@@ -231,22 +234,17 @@ contract ESpacePoSPool is Ownable,Initializable {
     //require(_address==msg.sender,'1');
     return(admin_addr);
     }
-  function set_XVIP_addr(address _address) external onlyOwner {
-        XVIP_address=_address;
+  function set_Settings(address _XVIP_addr,address _XET_addr,address _XCFX_addr,address _S_addr,address _distr) external onlyOwner {
+        XVIP_address = _XVIP_addr;
+        XET_address = _XET_addr;
+        XCFX_address = _XCFX_addr;
+        Storage_room_addr = _S_addr;
+        XET_Distribute_addr = _distr;
     }  
-  function set_XET_addr(address _address) external onlyOwner {
-        XET_address=_address;
-    } 
-  function set_XCFX_addr(address _address) external onlyOwner {
-        XCFX_address=_address;
-    } 
-  function set_Storage_room(address _address) external onlyOwner {
-        Storage_room_addr=_address;
-    } 
 
-  function get_Settings() external view returns(address _XCFX,address _XET,address _St,address _XVIP){
+  function get_Settings() external view returns(address,address,address,address,address){
     //require(_address==msg.sender,'1');
-    return (XCFX_address,XET_address,Storage_room_addr,XVIP_address);
+    return (XCFX_address,XET_address,Storage_room_addr,XVIP_address,XET_Distribute_addr);
     }
   function isContract(address account) internal view returns (bool) {
         // This method relies on extcodesize/address.code.length, which returns 0
@@ -258,16 +256,10 @@ contract ESpacePoSPool is Ownable,Initializable {
   //
   // @notice CFX_to_XCFX
   //
-  function CFX_to_XCFX_estim(uint256 _amount) public view returns(uint256,uint256){
-    uint256 temp_XET_num = ERC20(XET_address).balanceOf(address(this));
-    uint256 XET_num_out = _amount.div(10**((200000 ether - temp_XET_num).div(10000 ether)));
-    if (temp_XET_num < XET_num_out) {
-        XET_num_out=temp_XET_num;
-      }
-    return (_amount.mul(_userInputRatio(msg.sender)).div(RATIO_BASE),XET_num_out);//XCFX,XET
+  function CFX_to_XCFX_estim(uint256 _amount, address _addr) public view returns(uint256,uint256){
+    return (_amount.mul(_userInputRatio(_addr)).div(RATIO_BASE),
+             XETdistribute(XET_Distribute_addr).estimate_in(_amount));//XCFX,XET
     }
-
-
 
   function CFX_to_XCFX() public payable {
     require(msg.value>0 , 'must > 0');
@@ -285,14 +277,18 @@ contract ESpacePoSPool is Ownable,Initializable {
 
       total_minted_inpool += votePower*CFX_VALUE_OF_ONE_VOTE;
     }
-    uint256 temp_XET_num = ERC20(XET_address).balanceOf(address(this));
-    uint256 XET_num_out = msg.value.div(10**((200000 ether - temp_XET_num).div(10000 ether)));
-    if (temp_XET_num > XET_num_out) {
-      ERC20(XET_address).transfer(msg.sender,XET_num_out);
-    }
-    else if(temp_XET_num > 0){
-      ERC20(XET_address).transfer(msg.sender,temp_XET_num);
-    }
+    // uint256 temp_XET_num = ERC20(XET_address).balanceOf(address(this));
+    // // if(temp_XET_num>200000 ether){
+    // //   ERC20(XET_address).transfer(Storage_room_addr,temp_XET_num - 200000 ether);
+    // // }
+    // uint256 XET_num_out = msg.value.div(10**((200000 ether - temp_XET_num).div(10000 ether)));
+    // if (temp_XET_num > XET_num_out) {
+    //   ERC20(XET_address).transfer(msg.sender,XET_num_out);
+    // }
+    // else if(temp_XET_num > 0){
+    //   ERC20(XET_address).transfer(msg.sender,temp_XET_num);
+    // }
+    ERC20(XET_address).transfer(msg.sender,XETdistribute(XET_Distribute_addr).estimate_in(msg.value));
     emit IncreasePoSStake(msg.sender, msg.value);
     //update user
     _updateAccRewardPerCfx();
@@ -320,7 +316,9 @@ contract ESpacePoSPool is Ownable,Initializable {
     //userSummaries[msg.sender].available -= _amount;//XCFXExchange(XCFX_address).balanceOf(msg.sender);
     userSummaries[msg.sender].unlocking += _amount;
     userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(_amount, _blockNumber() + _poolLockPeriod));
-    userSummaries[msg.sender].unlocked += userOutqueues[msg.sender].collectEndedVotes();
+    uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
+    userSummaries[msg.sender].unlocked += temp_amount;
+    userSummaries[msg.sender].unlocking -= temp_amount;
 
     emit DecreasePoSStake(msg.sender, _amount);
 
@@ -427,6 +425,7 @@ contract ESpacePoSPool is Ownable,Initializable {
     // update user interest
     //_updateUserInterest(msg.sender);
     //
+
     // userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(votePower, _blockNumber() + _poolLockPeriod));
     // userSummaries[msg.sender].unlocked += userOutqueues[msg.sender].collectEndedVotes();
     // userSummaries[msg.sender].available -= votePower;
@@ -443,13 +442,16 @@ contract ESpacePoSPool is Ownable,Initializable {
   /// @param _amount The amount of CFX to withdraw
   ///
   function withdrawStake(uint256 _amount) public onlyRegisted {
-    userSummaries[msg.sender].unlocked += userOutqueues[msg.sender].collectEndedVotes();
+    //userSummaries[msg.sender].unlocked += userOutqueues[msg.sender].collectEndedVotes();
+    uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
+    userSummaries[msg.sender].unlocked += temp_amount;
+    userSummaries[msg.sender].unlocking -= temp_amount;
+
     require(userSummaries[msg.sender].unlocked >= _amount, "Unlocked is not enough");
     uint256 _withdrawAmount = _amount;
-    require(withdrawableCfx >= _withdrawAmount, "Withdrawable CFX is not enough");
+    require( userSummaries[msg.sender].unlocked >= _withdrawAmount, "Withdrawable CFX is not enough");
     // update amount of withdrawable CFX
-    withdrawableCfx -= _withdrawAmount;
-    //    
+    //withdrawableCfx -= _withdrawAmount;
     userSummaries[msg.sender].unlocked -= _amount;
     //userSummaries[msg.sender].votes -= votePower;
     
@@ -486,12 +488,12 @@ contract ESpacePoSPool is Ownable,Initializable {
       uint256 _latestInterest = _latestAccRewardPerCfx.sub(uShot.accRewardPerCfx).mul(uShot.available).div(0.01 ether);
       _interest = _interest.add(_calUserShare(_latestInterest, _address));
     }
-    uint256 temp_XET_num = ERC20(XET_address).balanceOf(address(this));
-    uint256 XET_num_out = _interest.div(100);
-    if (temp_XET_num < XET_num_out) {
-        XET_num_out=temp_XET_num;
-      }
-    return (_interest,XET_num_out);
+    // uint256 temp_XET_num = ERC20(XET_address).balanceOf(address(this));
+    // uint256 XET_num_out = _interest.div(100);
+    // if (temp_XET_num < XET_num_out) {
+    //     XET_num_out=temp_XET_num;
+    //   }
+    return (_interest,XETdistribute(XET_Distribute_addr).estimate_out( _interest));
   }
 
   ///
@@ -516,14 +518,15 @@ contract ESpacePoSPool is Ownable,Initializable {
     address payable receiver = payable(msg.sender);
     receiver.transfer(amount);
     emit ClaimInterest(msg.sender, amount);
-    uint256 temp_XET_num = ERC20(XET_address).balanceOf(address(this));
-    uint256 XET_num_out = amount.div(100);
-    if (temp_XET_num > XET_num_out) {
-      ERC20(XET_address).transfer(msg.sender,XET_num_out);
-    }
-    else if(temp_XET_num > 0){
-      ERC20(XET_address).transfer(msg.sender,temp_XET_num);
-    }
+    // uint256 temp_XET_num = ERC20(XET_address).balanceOf(address(this));
+    // uint256 XET_num_out = amount.div(100);
+    // if (temp_XET_num > XET_num_out) {
+    //   ERC20(XET_address).transfer(msg.sender,XET_num_out);
+    // }
+    // else if(temp_XET_num > 0){
+    //   ERC20(XET_address).transfer(msg.sender,temp_XET_num);
+    // }
+    ERC20(XET_address).transfer(msg.sender,XETdistribute(XET_Distribute_addr).estimate_out( amount));
 
     // update blockNumber and balance
     _updatePoolShot();
@@ -547,8 +550,10 @@ contract ESpacePoSPool is Ownable,Initializable {
   ///
   function userSummary(address _user) public view returns (UserSummary memory) {
     UserSummary memory summary = userSummaries[_user];
+    uint256 temp_amount =userOutqueues[_user].sumEndedVotes();
     //summary.locked += userInqueues[_user].sumEndedVotes();
-    summary.unlocked += userOutqueues[_user].sumEndedVotes();
+    summary.unlocked += temp_amount;
+    summary.unlocking -= temp_amount;
     return summary;
   }
 
@@ -630,6 +635,9 @@ contract ESpacePoSPool is Ownable,Initializable {
     _bridgeAddress = bridgeAddress;
     birdgeAddrSetted = true;
   }
+  function getBridge() public  returns(address){
+    return _bridgeAddress;
+  }
 
   function setPoolName(string memory name) public onlyOwner {
     poolName = name;
@@ -676,7 +684,7 @@ contract ESpacePoSPool is Ownable,Initializable {
 
   function handleUnlockedIncrease(uint256 votePower) public payable onlyBridge {
     require(msg.value == votePower * CFX_VALUE_OF_ONE_VOTE, "msg.value should be votePower * 1000 ether");
-    withdrawableCfx += msg.value;
+    //withdrawableCfx += msg.value;
     _updatePoolShot();
   }
 

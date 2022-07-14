@@ -7,23 +7,23 @@
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
-  "sourceMap": "62:509:45:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "62:509:45:-:0;;;;;;;;",
+  "sourceMap": "62:509:47:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "62:509:47:-:0;;;;;;;;",
   "source": "//SPDX-License-Identifier: Unlicense\npragma solidity ^0.8.0;\n\nlibrary UnstakeQueue {\n\n  struct Node {\n    uint256 votes;\n  }\n\n  struct Queue {\n    uint256 start;\n    uint256 end;\n    mapping(uint256 => Node) items;\n  }\n\n  function enqueue(Queue storage queue, Node memory item) internal {\n    queue.items[queue.end++] = item;\n  }\n\n  function dequeue(Queue storage queue) internal returns (Node memory) {\n    require(queue.start < queue.end, \"Queue is empty\");\n    Node memory item = queue.items[queue.start];\n    delete queue.items[queue.start++];\n    return item;\n  }\n\n}",
   "sourcePath": "C:\\Users\\artii\\Black IDE\\espace\\contracts\\eSpace\\UnstakeQueue.sol",
   "ast": {
     "absolutePath": "project:/contracts/eSpace/UnstakeQueue.sol",
     "exportedSymbols": {
       "UnstakeQueue": [
-        10524
+        11388
       ]
     },
-    "id": 10525,
+    "id": 11389,
     "license": "Unlicense",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10452,
+        "id": 11316,
         "literals": [
           "solidity",
           "^",
@@ -31,7 +31,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "37:23:45"
+        "src": "37:23:47"
       },
       {
         "abstract": false,
@@ -39,27 +39,27 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 10524,
+        "id": 11388,
         "linearizedBaseContracts": [
-          10524
+          11388
         ],
         "name": "UnstakeQueue",
-        "nameLocation": "70:12:45",
+        "nameLocation": "70:12:47",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "UnstakeQueue.Node",
-            "id": 10455,
+            "id": 11319,
             "members": [
               {
                 "constant": false,
-                "id": 10454,
+                "id": 11318,
                 "mutability": "mutable",
                 "name": "votes",
-                "nameLocation": "114:5:45",
+                "nameLocation": "114:5:47",
                 "nodeType": "VariableDeclaration",
-                "scope": 10455,
-                "src": "106:13:45",
+                "scope": 11319,
+                "src": "106:13:47",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -67,10 +67,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10453,
+                  "id": 11317,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "106:7:45",
+                  "src": "106:7:47",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -80,25 +80,25 @@
               }
             ],
             "name": "Node",
-            "nameLocation": "95:4:45",
+            "nameLocation": "95:4:47",
             "nodeType": "StructDefinition",
-            "scope": 10524,
-            "src": "88:36:45",
+            "scope": 11388,
+            "src": "88:36:47",
             "visibility": "public"
           },
           {
             "canonicalName": "UnstakeQueue.Queue",
-            "id": 10465,
+            "id": 11329,
             "members": [
               {
                 "constant": false,
-                "id": 10457,
+                "id": 11321,
                 "mutability": "mutable",
                 "name": "start",
-                "nameLocation": "155:5:45",
+                "nameLocation": "155:5:47",
                 "nodeType": "VariableDeclaration",
-                "scope": 10465,
-                "src": "147:13:45",
+                "scope": 11329,
+                "src": "147:13:47",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -106,10 +106,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10456,
+                  "id": 11320,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "147:7:45",
+                  "src": "147:7:47",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -119,13 +119,13 @@
               },
               {
                 "constant": false,
-                "id": 10459,
+                "id": 11323,
                 "mutability": "mutable",
                 "name": "end",
-                "nameLocation": "174:3:45",
+                "nameLocation": "174:3:47",
                 "nodeType": "VariableDeclaration",
-                "scope": 10465,
-                "src": "166:11:45",
+                "scope": 11329,
+                "src": "166:11:47",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -133,10 +133,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10458,
+                  "id": 11322,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "166:7:45",
+                  "src": "166:7:47",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -146,51 +146,51 @@
               },
               {
                 "constant": false,
-                "id": 10464,
+                "id": 11328,
                 "mutability": "mutable",
                 "name": "items",
-                "nameLocation": "208:5:45",
+                "nameLocation": "208:5:47",
                 "nodeType": "VariableDeclaration",
-                "scope": 10465,
-                "src": "183:30:45",
+                "scope": 11329,
+                "src": "183:30:47",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                   "typeString": "mapping(uint256 => struct UnstakeQueue.Node)"
                 },
                 "typeName": {
-                  "id": 10463,
+                  "id": 11327,
                   "keyType": {
-                    "id": 10460,
+                    "id": 11324,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "191:7:45",
+                    "src": "191:7:47",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
                   "nodeType": "Mapping",
-                  "src": "183:24:45",
+                  "src": "183:24:47",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                     "typeString": "mapping(uint256 => struct UnstakeQueue.Node)"
                   },
                   "valueType": {
-                    "id": 10462,
+                    "id": 11326,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10461,
+                      "id": 11325,
                       "name": "Node",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10455,
-                      "src": "202:4:45"
+                      "referencedDeclaration": 11319,
+                      "src": "202:4:47"
                     },
-                    "referencedDeclaration": 10455,
-                    "src": "202:4:45",
+                    "referencedDeclaration": 11319,
+                    "src": "202:4:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
                     }
                   }
@@ -199,21 +199,21 @@
               }
             ],
             "name": "Queue",
-            "nameLocation": "135:5:45",
+            "nameLocation": "135:5:47",
             "nodeType": "StructDefinition",
-            "scope": 10524,
-            "src": "128:90:45",
+            "scope": 11388,
+            "src": "128:90:47",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 10484,
+              "id": 11348,
               "nodeType": "Block",
-              "src": "287:42:45",
+              "src": "287:42:47",
               "statements": [
                 {
                   "expression": {
-                    "id": 10482,
+                    "id": 11346,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -221,34 +221,34 @@
                     "leftHandSide": {
                       "baseExpression": {
                         "expression": {
-                          "id": 10474,
+                          "id": 11338,
                           "name": "queue",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 10468,
-                          "src": "293:5:45",
+                          "referencedDeclaration": 11332,
+                          "src": "293:5:47",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                            "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                             "typeString": "struct UnstakeQueue.Queue storage pointer"
                           }
                         },
-                        "id": 10479,
+                        "id": 11343,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "items",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 10464,
-                        "src": "293:11:45",
+                        "referencedDeclaration": 11328,
+                        "src": "293:11:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                           "typeString": "mapping(uint256 => struct UnstakeQueue.Node storage ref)"
                         }
                       },
-                      "id": 10480,
+                      "id": 11344,
                       "indexExpression": {
-                        "id": 10478,
+                        "id": 11342,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -256,29 +256,29 @@
                         "nodeType": "UnaryOperation",
                         "operator": "++",
                         "prefix": false,
-                        "src": "305:11:45",
+                        "src": "305:11:47",
                         "subExpression": {
                           "expression": {
-                            "id": 10476,
+                            "id": 11340,
                             "name": "queue",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10468,
-                            "src": "305:5:45",
+                            "referencedDeclaration": 11332,
+                            "src": "305:5:47",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                              "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                               "typeString": "struct UnstakeQueue.Queue storage pointer"
                             }
                           },
-                          "id": 10477,
+                          "id": 11341,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
                           "memberName": "end",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 10459,
-                          "src": "305:9:45",
+                          "referencedDeclaration": 11323,
+                          "src": "305:9:47",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -294,78 +294,78 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
-                      "src": "293:24:45",
+                      "src": "293:24:47",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Node_$10455_storage",
+                        "typeIdentifier": "t_struct$_Node_$11319_storage",
                         "typeString": "struct UnstakeQueue.Node storage ref"
                       }
                     },
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10481,
+                      "id": 11345,
                       "name": "item",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10471,
-                      "src": "320:4:45",
+                      "referencedDeclaration": 11335,
+                      "src": "320:4:47",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                        "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                         "typeString": "struct UnstakeQueue.Node memory"
                       }
                     },
-                    "src": "293:31:45",
+                    "src": "293:31:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage",
                       "typeString": "struct UnstakeQueue.Node storage ref"
                     }
                   },
-                  "id": 10483,
+                  "id": 11347,
                   "nodeType": "ExpressionStatement",
-                  "src": "293:31:45"
+                  "src": "293:31:47"
                 }
               ]
             },
-            "id": 10485,
+            "id": 11349,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "enqueue",
-            "nameLocation": "231:7:45",
+            "nameLocation": "231:7:47",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10472,
+              "id": 11336,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10468,
+                  "id": 11332,
                   "mutability": "mutable",
                   "name": "queue",
-                  "nameLocation": "253:5:45",
+                  "nameLocation": "253:5:47",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10485,
-                  "src": "239:19:45",
+                  "scope": 11349,
+                  "src": "239:19:47",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                    "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                     "typeString": "struct UnstakeQueue.Queue"
                   },
                   "typeName": {
-                    "id": 10467,
+                    "id": 11331,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10466,
+                      "id": 11330,
                       "name": "Queue",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10465,
-                      "src": "239:5:45"
+                      "referencedDeclaration": 11329,
+                      "src": "239:5:47"
                     },
-                    "referencedDeclaration": 10465,
-                    "src": "239:5:45",
+                    "referencedDeclaration": 11329,
+                    "src": "239:5:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                      "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                       "typeString": "struct UnstakeQueue.Queue"
                     }
                   },
@@ -373,58 +373,58 @@
                 },
                 {
                   "constant": false,
-                  "id": 10471,
+                  "id": 11335,
                   "mutability": "mutable",
                   "name": "item",
-                  "nameLocation": "272:4:45",
+                  "nameLocation": "272:4:47",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10485,
-                  "src": "260:16:45",
+                  "scope": 11349,
+                  "src": "260:16:47",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                    "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                     "typeString": "struct UnstakeQueue.Node"
                   },
                   "typeName": {
-                    "id": 10470,
+                    "id": 11334,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10469,
+                      "id": 11333,
                       "name": "Node",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10455,
-                      "src": "260:4:45"
+                      "referencedDeclaration": 11319,
+                      "src": "260:4:47"
                     },
-                    "referencedDeclaration": 10455,
-                    "src": "260:4:45",
+                    "referencedDeclaration": 11319,
+                    "src": "260:4:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "238:39:45"
+              "src": "238:39:47"
             },
             "returnParameters": {
-              "id": 10473,
+              "id": 11337,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "287:0:45"
+              "src": "287:0:47"
             },
-            "scope": 10524,
-            "src": "222:107:45",
+            "scope": 11388,
+            "src": "222:107:47",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 10522,
+              "id": 11386,
               "nodeType": "Block",
-              "src": "402:166:45",
+              "src": "402:166:47",
               "statements": [
                 {
                   "expression": {
@@ -434,33 +434,33 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
-                        "id": 10499,
+                        "id": 11363,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 10495,
+                            "id": 11359,
                             "name": "queue",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10488,
-                            "src": "416:5:45",
+                            "referencedDeclaration": 11352,
+                            "src": "416:5:47",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                              "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                               "typeString": "struct UnstakeQueue.Queue storage pointer"
                             }
                           },
-                          "id": 10496,
+                          "id": 11360,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "start",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 10457,
-                          "src": "416:11:45",
+                          "referencedDeclaration": 11321,
+                          "src": "416:11:47",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -470,32 +470,32 @@
                         "operator": "<",
                         "rightExpression": {
                           "expression": {
-                            "id": 10497,
+                            "id": 11361,
                             "name": "queue",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10488,
-                            "src": "430:5:45",
+                            "referencedDeclaration": 11352,
+                            "src": "430:5:47",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                              "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                               "typeString": "struct UnstakeQueue.Queue storage pointer"
                             }
                           },
-                          "id": 10498,
+                          "id": 11362,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "end",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 10459,
-                          "src": "430:9:45",
+                          "referencedDeclaration": 11323,
+                          "src": "430:9:47",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           }
                         },
-                        "src": "416:23:45",
+                        "src": "416:23:47",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -503,14 +503,14 @@
                       },
                       {
                         "hexValue": "517565756520697320656d707479",
-                        "id": 10500,
+                        "id": 11364,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "441:16:45",
+                        "src": "441:16:47",
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_0264a3a3dbb173762c3a715cd834ae209dd020cc68389dad4a0b3835fea7fda2",
                           "typeString": "literal_string \"Queue is empty\""
@@ -529,7 +529,7 @@
                           "typeString": "literal_string \"Queue is empty\""
                         }
                       ],
-                      "id": 10494,
+                      "id": 11358,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -537,13 +537,13 @@
                         4294967278
                       ],
                       "referencedDeclaration": 4294967278,
-                      "src": "408:7:45",
+                      "src": "408:7:47",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 10501,
+                    "id": 11365,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -551,109 +551,109 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "408:50:45",
+                    "src": "408:50:47",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 10502,
+                  "id": 11366,
                   "nodeType": "ExpressionStatement",
-                  "src": "408:50:45"
+                  "src": "408:50:47"
                 },
                 {
                   "assignments": [
-                    10505
+                    11369
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 10505,
+                      "id": 11369,
                       "mutability": "mutable",
                       "name": "item",
-                      "nameLocation": "476:4:45",
+                      "nameLocation": "476:4:47",
                       "nodeType": "VariableDeclaration",
-                      "scope": 10522,
-                      "src": "464:16:45",
+                      "scope": 11386,
+                      "src": "464:16:47",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                        "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                         "typeString": "struct UnstakeQueue.Node"
                       },
                       "typeName": {
-                        "id": 10504,
+                        "id": 11368,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 10503,
+                          "id": 11367,
                           "name": "Node",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 10455,
-                          "src": "464:4:45"
+                          "referencedDeclaration": 11319,
+                          "src": "464:4:47"
                         },
-                        "referencedDeclaration": 10455,
-                        "src": "464:4:45",
+                        "referencedDeclaration": 11319,
+                        "src": "464:4:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
+                          "typeIdentifier": "t_struct$_Node_$11319_storage_ptr",
                           "typeString": "struct UnstakeQueue.Node"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
-                  "id": 10511,
+                  "id": 11375,
                   "initialValue": {
                     "baseExpression": {
                       "expression": {
-                        "id": 10506,
+                        "id": 11370,
                         "name": "queue",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 10488,
-                        "src": "483:5:45",
+                        "referencedDeclaration": 11352,
+                        "src": "483:5:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                          "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                           "typeString": "struct UnstakeQueue.Queue storage pointer"
                         }
                       },
-                      "id": 10507,
+                      "id": 11371,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "items",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 10464,
-                      "src": "483:11:45",
+                      "referencedDeclaration": 11328,
+                      "src": "483:11:47",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                         "typeString": "mapping(uint256 => struct UnstakeQueue.Node storage ref)"
                       }
                     },
-                    "id": 10510,
+                    "id": 11374,
                     "indexExpression": {
                       "expression": {
-                        "id": 10508,
+                        "id": 11372,
                         "name": "queue",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 10488,
-                        "src": "495:5:45",
+                        "referencedDeclaration": 11352,
+                        "src": "495:5:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                          "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                           "typeString": "struct UnstakeQueue.Queue storage pointer"
                         }
                       },
-                      "id": 10509,
+                      "id": 11373,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "start",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 10457,
-                      "src": "495:11:45",
+                      "referencedDeclaration": 11321,
+                      "src": "495:11:47",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -664,18 +664,18 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
-                    "src": "483:24:45",
+                    "src": "483:24:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage",
                       "typeString": "struct UnstakeQueue.Node storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "464:43:45"
+                  "src": "464:43:47"
                 },
                 {
                   "expression": {
-                    "id": 10518,
+                    "id": 11382,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -683,38 +683,38 @@
                     "nodeType": "UnaryOperation",
                     "operator": "delete",
                     "prefix": true,
-                    "src": "513:33:45",
+                    "src": "513:33:47",
                     "subExpression": {
                       "baseExpression": {
                         "expression": {
-                          "id": 10512,
+                          "id": 11376,
                           "name": "queue",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 10488,
-                          "src": "520:5:45",
+                          "referencedDeclaration": 11352,
+                          "src": "520:5:47",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                            "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                             "typeString": "struct UnstakeQueue.Queue storage pointer"
                           }
                         },
-                        "id": 10513,
+                        "id": 11377,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "items",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 10464,
-                        "src": "520:11:45",
+                        "referencedDeclaration": 11328,
+                        "src": "520:11:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                           "typeString": "mapping(uint256 => struct UnstakeQueue.Node storage ref)"
                         }
                       },
-                      "id": 10517,
+                      "id": 11381,
                       "indexExpression": {
-                        "id": 10516,
+                        "id": 11380,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -722,29 +722,29 @@
                         "nodeType": "UnaryOperation",
                         "operator": "++",
                         "prefix": false,
-                        "src": "532:13:45",
+                        "src": "532:13:47",
                         "subExpression": {
                           "expression": {
-                            "id": 10514,
+                            "id": 11378,
                             "name": "queue",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10488,
-                            "src": "532:5:45",
+                            "referencedDeclaration": 11352,
+                            "src": "532:5:47",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                              "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                               "typeString": "struct UnstakeQueue.Queue storage pointer"
                             }
                           },
-                          "id": 10515,
+                          "id": 11379,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
                           "memberName": "start",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 10457,
-                          "src": "532:11:45",
+                          "referencedDeclaration": 11321,
+                          "src": "532:11:47",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -760,9 +760,9 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
-                      "src": "520:26:45",
+                      "src": "520:26:47",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Node_$10455_storage",
+                        "typeIdentifier": "t_struct$_Node_$11319_storage",
                         "typeString": "struct UnstakeQueue.Node storage ref"
                       }
                     },
@@ -771,145 +771,145 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 10519,
+                  "id": 11383,
                   "nodeType": "ExpressionStatement",
-                  "src": "513:33:45"
+                  "src": "513:33:47"
                 },
                 {
                   "expression": {
-                    "id": 10520,
+                    "id": 11384,
                     "name": "item",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 10505,
-                    "src": "559:4:45",
+                    "referencedDeclaration": 11369,
+                    "src": "559:4:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                      "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                       "typeString": "struct UnstakeQueue.Node memory"
                     }
                   },
-                  "functionReturnParameters": 10493,
-                  "id": 10521,
+                  "functionReturnParameters": 11357,
+                  "id": 11385,
                   "nodeType": "Return",
-                  "src": "552:11:45"
+                  "src": "552:11:47"
                 }
               ]
             },
-            "id": 10523,
+            "id": 11387,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "dequeue",
-            "nameLocation": "342:7:45",
+            "nameLocation": "342:7:47",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10489,
+              "id": 11353,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10488,
+                  "id": 11352,
                   "mutability": "mutable",
                   "name": "queue",
-                  "nameLocation": "364:5:45",
+                  "nameLocation": "364:5:47",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10523,
-                  "src": "350:19:45",
+                  "scope": 11387,
+                  "src": "350:19:47",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                    "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                     "typeString": "struct UnstakeQueue.Queue"
                   },
                   "typeName": {
-                    "id": 10487,
+                    "id": 11351,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10486,
+                      "id": 11350,
                       "name": "Queue",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10465,
-                      "src": "350:5:45"
+                      "referencedDeclaration": 11329,
+                      "src": "350:5:47"
                     },
-                    "referencedDeclaration": 10465,
-                    "src": "350:5:45",
+                    "referencedDeclaration": 11329,
+                    "src": "350:5:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                      "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                       "typeString": "struct UnstakeQueue.Queue"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "349:21:45"
+              "src": "349:21:47"
             },
             "returnParameters": {
-              "id": 10493,
+              "id": 11357,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10492,
+                  "id": 11356,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10523,
-                  "src": "389:11:45",
+                  "scope": 11387,
+                  "src": "389:11:47",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                    "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                     "typeString": "struct UnstakeQueue.Node"
                   },
                   "typeName": {
-                    "id": 10491,
+                    "id": 11355,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10490,
+                      "id": 11354,
                       "name": "Node",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10455,
-                      "src": "389:4:45"
+                      "referencedDeclaration": 11319,
+                      "src": "389:4:47"
                     },
-                    "referencedDeclaration": 10455,
-                    "src": "389:4:45",
+                    "referencedDeclaration": 11319,
+                    "src": "389:4:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "388:13:45"
+              "src": "388:13:47"
             },
-            "scope": 10524,
-            "src": "333:235:45",
+            "scope": 11388,
+            "src": "333:235:47",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 10525,
-        "src": "62:509:45"
+        "scope": 11389,
+        "src": "62:509:47"
       }
     ],
-    "src": "37:534:45"
+    "src": "37:534:47"
   },
   "legacyAST": {
     "absolutePath": "project:/contracts/eSpace/UnstakeQueue.sol",
     "exportedSymbols": {
       "UnstakeQueue": [
-        10524
+        11388
       ]
     },
-    "id": 10525,
+    "id": 11389,
     "license": "Unlicense",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10452,
+        "id": 11316,
         "literals": [
           "solidity",
           "^",
@@ -917,7 +917,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "37:23:45"
+        "src": "37:23:47"
       },
       {
         "abstract": false,
@@ -925,27 +925,27 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 10524,
+        "id": 11388,
         "linearizedBaseContracts": [
-          10524
+          11388
         ],
         "name": "UnstakeQueue",
-        "nameLocation": "70:12:45",
+        "nameLocation": "70:12:47",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "UnstakeQueue.Node",
-            "id": 10455,
+            "id": 11319,
             "members": [
               {
                 "constant": false,
-                "id": 10454,
+                "id": 11318,
                 "mutability": "mutable",
                 "name": "votes",
-                "nameLocation": "114:5:45",
+                "nameLocation": "114:5:47",
                 "nodeType": "VariableDeclaration",
-                "scope": 10455,
-                "src": "106:13:45",
+                "scope": 11319,
+                "src": "106:13:47",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -953,10 +953,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10453,
+                  "id": 11317,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "106:7:45",
+                  "src": "106:7:47",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -966,25 +966,25 @@
               }
             ],
             "name": "Node",
-            "nameLocation": "95:4:45",
+            "nameLocation": "95:4:47",
             "nodeType": "StructDefinition",
-            "scope": 10524,
-            "src": "88:36:45",
+            "scope": 11388,
+            "src": "88:36:47",
             "visibility": "public"
           },
           {
             "canonicalName": "UnstakeQueue.Queue",
-            "id": 10465,
+            "id": 11329,
             "members": [
               {
                 "constant": false,
-                "id": 10457,
+                "id": 11321,
                 "mutability": "mutable",
                 "name": "start",
-                "nameLocation": "155:5:45",
+                "nameLocation": "155:5:47",
                 "nodeType": "VariableDeclaration",
-                "scope": 10465,
-                "src": "147:13:45",
+                "scope": 11329,
+                "src": "147:13:47",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -992,10 +992,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10456,
+                  "id": 11320,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "147:7:45",
+                  "src": "147:7:47",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1005,13 +1005,13 @@
               },
               {
                 "constant": false,
-                "id": 10459,
+                "id": 11323,
                 "mutability": "mutable",
                 "name": "end",
-                "nameLocation": "174:3:45",
+                "nameLocation": "174:3:47",
                 "nodeType": "VariableDeclaration",
-                "scope": 10465,
-                "src": "166:11:45",
+                "scope": 11329,
+                "src": "166:11:47",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1019,10 +1019,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10458,
+                  "id": 11322,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "166:7:45",
+                  "src": "166:7:47",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1032,51 +1032,51 @@
               },
               {
                 "constant": false,
-                "id": 10464,
+                "id": 11328,
                 "mutability": "mutable",
                 "name": "items",
-                "nameLocation": "208:5:45",
+                "nameLocation": "208:5:47",
                 "nodeType": "VariableDeclaration",
-                "scope": 10465,
-                "src": "183:30:45",
+                "scope": 11329,
+                "src": "183:30:47",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                   "typeString": "mapping(uint256 => struct UnstakeQueue.Node)"
                 },
                 "typeName": {
-                  "id": 10463,
+                  "id": 11327,
                   "keyType": {
-                    "id": 10460,
+                    "id": 11324,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "191:7:45",
+                    "src": "191:7:47",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
                   "nodeType": "Mapping",
-                  "src": "183:24:45",
+                  "src": "183:24:47",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                     "typeString": "mapping(uint256 => struct UnstakeQueue.Node)"
                   },
                   "valueType": {
-                    "id": 10462,
+                    "id": 11326,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10461,
+                      "id": 11325,
                       "name": "Node",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10455,
-                      "src": "202:4:45"
+                      "referencedDeclaration": 11319,
+                      "src": "202:4:47"
                     },
-                    "referencedDeclaration": 10455,
-                    "src": "202:4:45",
+                    "referencedDeclaration": 11319,
+                    "src": "202:4:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
                     }
                   }
@@ -1085,21 +1085,21 @@
               }
             ],
             "name": "Queue",
-            "nameLocation": "135:5:45",
+            "nameLocation": "135:5:47",
             "nodeType": "StructDefinition",
-            "scope": 10524,
-            "src": "128:90:45",
+            "scope": 11388,
+            "src": "128:90:47",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 10484,
+              "id": 11348,
               "nodeType": "Block",
-              "src": "287:42:45",
+              "src": "287:42:47",
               "statements": [
                 {
                   "expression": {
-                    "id": 10482,
+                    "id": 11346,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1107,34 +1107,34 @@
                     "leftHandSide": {
                       "baseExpression": {
                         "expression": {
-                          "id": 10474,
+                          "id": 11338,
                           "name": "queue",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 10468,
-                          "src": "293:5:45",
+                          "referencedDeclaration": 11332,
+                          "src": "293:5:47",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                            "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                             "typeString": "struct UnstakeQueue.Queue storage pointer"
                           }
                         },
-                        "id": 10479,
+                        "id": 11343,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "items",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 10464,
-                        "src": "293:11:45",
+                        "referencedDeclaration": 11328,
+                        "src": "293:11:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                           "typeString": "mapping(uint256 => struct UnstakeQueue.Node storage ref)"
                         }
                       },
-                      "id": 10480,
+                      "id": 11344,
                       "indexExpression": {
-                        "id": 10478,
+                        "id": 11342,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1142,29 +1142,29 @@
                         "nodeType": "UnaryOperation",
                         "operator": "++",
                         "prefix": false,
-                        "src": "305:11:45",
+                        "src": "305:11:47",
                         "subExpression": {
                           "expression": {
-                            "id": 10476,
+                            "id": 11340,
                             "name": "queue",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10468,
-                            "src": "305:5:45",
+                            "referencedDeclaration": 11332,
+                            "src": "305:5:47",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                              "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                               "typeString": "struct UnstakeQueue.Queue storage pointer"
                             }
                           },
-                          "id": 10477,
+                          "id": 11341,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
                           "memberName": "end",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 10459,
-                          "src": "305:9:45",
+                          "referencedDeclaration": 11323,
+                          "src": "305:9:47",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1180,78 +1180,78 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
-                      "src": "293:24:45",
+                      "src": "293:24:47",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Node_$10455_storage",
+                        "typeIdentifier": "t_struct$_Node_$11319_storage",
                         "typeString": "struct UnstakeQueue.Node storage ref"
                       }
                     },
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10481,
+                      "id": 11345,
                       "name": "item",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10471,
-                      "src": "320:4:45",
+                      "referencedDeclaration": 11335,
+                      "src": "320:4:47",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                        "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                         "typeString": "struct UnstakeQueue.Node memory"
                       }
                     },
-                    "src": "293:31:45",
+                    "src": "293:31:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage",
                       "typeString": "struct UnstakeQueue.Node storage ref"
                     }
                   },
-                  "id": 10483,
+                  "id": 11347,
                   "nodeType": "ExpressionStatement",
-                  "src": "293:31:45"
+                  "src": "293:31:47"
                 }
               ]
             },
-            "id": 10485,
+            "id": 11349,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "enqueue",
-            "nameLocation": "231:7:45",
+            "nameLocation": "231:7:47",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10472,
+              "id": 11336,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10468,
+                  "id": 11332,
                   "mutability": "mutable",
                   "name": "queue",
-                  "nameLocation": "253:5:45",
+                  "nameLocation": "253:5:47",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10485,
-                  "src": "239:19:45",
+                  "scope": 11349,
+                  "src": "239:19:47",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                    "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                     "typeString": "struct UnstakeQueue.Queue"
                   },
                   "typeName": {
-                    "id": 10467,
+                    "id": 11331,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10466,
+                      "id": 11330,
                       "name": "Queue",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10465,
-                      "src": "239:5:45"
+                      "referencedDeclaration": 11329,
+                      "src": "239:5:47"
                     },
-                    "referencedDeclaration": 10465,
-                    "src": "239:5:45",
+                    "referencedDeclaration": 11329,
+                    "src": "239:5:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                      "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                       "typeString": "struct UnstakeQueue.Queue"
                     }
                   },
@@ -1259,58 +1259,58 @@
                 },
                 {
                   "constant": false,
-                  "id": 10471,
+                  "id": 11335,
                   "mutability": "mutable",
                   "name": "item",
-                  "nameLocation": "272:4:45",
+                  "nameLocation": "272:4:47",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10485,
-                  "src": "260:16:45",
+                  "scope": 11349,
+                  "src": "260:16:47",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                    "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                     "typeString": "struct UnstakeQueue.Node"
                   },
                   "typeName": {
-                    "id": 10470,
+                    "id": 11334,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10469,
+                      "id": 11333,
                       "name": "Node",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10455,
-                      "src": "260:4:45"
+                      "referencedDeclaration": 11319,
+                      "src": "260:4:47"
                     },
-                    "referencedDeclaration": 10455,
-                    "src": "260:4:45",
+                    "referencedDeclaration": 11319,
+                    "src": "260:4:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "238:39:45"
+              "src": "238:39:47"
             },
             "returnParameters": {
-              "id": 10473,
+              "id": 11337,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "287:0:45"
+              "src": "287:0:47"
             },
-            "scope": 10524,
-            "src": "222:107:45",
+            "scope": 11388,
+            "src": "222:107:47",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 10522,
+              "id": 11386,
               "nodeType": "Block",
-              "src": "402:166:45",
+              "src": "402:166:47",
               "statements": [
                 {
                   "expression": {
@@ -1320,33 +1320,33 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
-                        "id": 10499,
+                        "id": 11363,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 10495,
+                            "id": 11359,
                             "name": "queue",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10488,
-                            "src": "416:5:45",
+                            "referencedDeclaration": 11352,
+                            "src": "416:5:47",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                              "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                               "typeString": "struct UnstakeQueue.Queue storage pointer"
                             }
                           },
-                          "id": 10496,
+                          "id": 11360,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "start",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 10457,
-                          "src": "416:11:45",
+                          "referencedDeclaration": 11321,
+                          "src": "416:11:47",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1356,32 +1356,32 @@
                         "operator": "<",
                         "rightExpression": {
                           "expression": {
-                            "id": 10497,
+                            "id": 11361,
                             "name": "queue",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10488,
-                            "src": "430:5:45",
+                            "referencedDeclaration": 11352,
+                            "src": "430:5:47",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                              "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                               "typeString": "struct UnstakeQueue.Queue storage pointer"
                             }
                           },
-                          "id": 10498,
+                          "id": 11362,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "end",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 10459,
-                          "src": "430:9:45",
+                          "referencedDeclaration": 11323,
+                          "src": "430:9:47",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           }
                         },
-                        "src": "416:23:45",
+                        "src": "416:23:47",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -1389,14 +1389,14 @@
                       },
                       {
                         "hexValue": "517565756520697320656d707479",
-                        "id": 10500,
+                        "id": 11364,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "441:16:45",
+                        "src": "441:16:47",
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_0264a3a3dbb173762c3a715cd834ae209dd020cc68389dad4a0b3835fea7fda2",
                           "typeString": "literal_string \"Queue is empty\""
@@ -1415,7 +1415,7 @@
                           "typeString": "literal_string \"Queue is empty\""
                         }
                       ],
-                      "id": 10494,
+                      "id": 11358,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -1423,13 +1423,13 @@
                         4294967278
                       ],
                       "referencedDeclaration": 4294967278,
-                      "src": "408:7:45",
+                      "src": "408:7:47",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 10501,
+                    "id": 11365,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1437,109 +1437,109 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "408:50:45",
+                    "src": "408:50:47",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 10502,
+                  "id": 11366,
                   "nodeType": "ExpressionStatement",
-                  "src": "408:50:45"
+                  "src": "408:50:47"
                 },
                 {
                   "assignments": [
-                    10505
+                    11369
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 10505,
+                      "id": 11369,
                       "mutability": "mutable",
                       "name": "item",
-                      "nameLocation": "476:4:45",
+                      "nameLocation": "476:4:47",
                       "nodeType": "VariableDeclaration",
-                      "scope": 10522,
-                      "src": "464:16:45",
+                      "scope": 11386,
+                      "src": "464:16:47",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                        "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                         "typeString": "struct UnstakeQueue.Node"
                       },
                       "typeName": {
-                        "id": 10504,
+                        "id": 11368,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 10503,
+                          "id": 11367,
                           "name": "Node",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 10455,
-                          "src": "464:4:45"
+                          "referencedDeclaration": 11319,
+                          "src": "464:4:47"
                         },
-                        "referencedDeclaration": 10455,
-                        "src": "464:4:45",
+                        "referencedDeclaration": 11319,
+                        "src": "464:4:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
+                          "typeIdentifier": "t_struct$_Node_$11319_storage_ptr",
                           "typeString": "struct UnstakeQueue.Node"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
-                  "id": 10511,
+                  "id": 11375,
                   "initialValue": {
                     "baseExpression": {
                       "expression": {
-                        "id": 10506,
+                        "id": 11370,
                         "name": "queue",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 10488,
-                        "src": "483:5:45",
+                        "referencedDeclaration": 11352,
+                        "src": "483:5:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                          "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                           "typeString": "struct UnstakeQueue.Queue storage pointer"
                         }
                       },
-                      "id": 10507,
+                      "id": 11371,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "items",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 10464,
-                      "src": "483:11:45",
+                      "referencedDeclaration": 11328,
+                      "src": "483:11:47",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                         "typeString": "mapping(uint256 => struct UnstakeQueue.Node storage ref)"
                       }
                     },
-                    "id": 10510,
+                    "id": 11374,
                     "indexExpression": {
                       "expression": {
-                        "id": 10508,
+                        "id": 11372,
                         "name": "queue",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 10488,
-                        "src": "495:5:45",
+                        "referencedDeclaration": 11352,
+                        "src": "495:5:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                          "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                           "typeString": "struct UnstakeQueue.Queue storage pointer"
                         }
                       },
-                      "id": 10509,
+                      "id": 11373,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "start",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 10457,
-                      "src": "495:11:45",
+                      "referencedDeclaration": 11321,
+                      "src": "495:11:47",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -1550,18 +1550,18 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
-                    "src": "483:24:45",
+                    "src": "483:24:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage",
                       "typeString": "struct UnstakeQueue.Node storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "464:43:45"
+                  "src": "464:43:47"
                 },
                 {
                   "expression": {
-                    "id": 10518,
+                    "id": 11382,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1569,38 +1569,38 @@
                     "nodeType": "UnaryOperation",
                     "operator": "delete",
                     "prefix": true,
-                    "src": "513:33:45",
+                    "src": "513:33:47",
                     "subExpression": {
                       "baseExpression": {
                         "expression": {
-                          "id": 10512,
+                          "id": 11376,
                           "name": "queue",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 10488,
-                          "src": "520:5:45",
+                          "referencedDeclaration": 11352,
+                          "src": "520:5:47",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                            "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                             "typeString": "struct UnstakeQueue.Queue storage pointer"
                           }
                         },
-                        "id": 10513,
+                        "id": 11377,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "items",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 10464,
-                        "src": "520:11:45",
+                        "referencedDeclaration": 11328,
+                        "src": "520:11:47",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$11319_storage_$",
                           "typeString": "mapping(uint256 => struct UnstakeQueue.Node storage ref)"
                         }
                       },
-                      "id": 10517,
+                      "id": 11381,
                       "indexExpression": {
-                        "id": 10516,
+                        "id": 11380,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1608,29 +1608,29 @@
                         "nodeType": "UnaryOperation",
                         "operator": "++",
                         "prefix": false,
-                        "src": "532:13:45",
+                        "src": "532:13:47",
                         "subExpression": {
                           "expression": {
-                            "id": 10514,
+                            "id": 11378,
                             "name": "queue",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10488,
-                            "src": "532:5:45",
+                            "referencedDeclaration": 11352,
+                            "src": "532:5:47",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                              "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                               "typeString": "struct UnstakeQueue.Queue storage pointer"
                             }
                           },
-                          "id": 10515,
+                          "id": 11379,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
                           "memberName": "start",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 10457,
-                          "src": "532:11:45",
+                          "referencedDeclaration": 11321,
+                          "src": "532:11:47",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1646,9 +1646,9 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
-                      "src": "520:26:45",
+                      "src": "520:26:47",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Node_$10455_storage",
+                        "typeIdentifier": "t_struct$_Node_$11319_storage",
                         "typeString": "struct UnstakeQueue.Node storage ref"
                       }
                     },
@@ -1657,131 +1657,131 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 10519,
+                  "id": 11383,
                   "nodeType": "ExpressionStatement",
-                  "src": "513:33:45"
+                  "src": "513:33:47"
                 },
                 {
                   "expression": {
-                    "id": 10520,
+                    "id": 11384,
                     "name": "item",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 10505,
-                    "src": "559:4:45",
+                    "referencedDeclaration": 11369,
+                    "src": "559:4:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                      "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                       "typeString": "struct UnstakeQueue.Node memory"
                     }
                   },
-                  "functionReturnParameters": 10493,
-                  "id": 10521,
+                  "functionReturnParameters": 11357,
+                  "id": 11385,
                   "nodeType": "Return",
-                  "src": "552:11:45"
+                  "src": "552:11:47"
                 }
               ]
             },
-            "id": 10523,
+            "id": 11387,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "dequeue",
-            "nameLocation": "342:7:45",
+            "nameLocation": "342:7:47",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10489,
+              "id": 11353,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10488,
+                  "id": 11352,
                   "mutability": "mutable",
                   "name": "queue",
-                  "nameLocation": "364:5:45",
+                  "nameLocation": "364:5:47",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10523,
-                  "src": "350:19:45",
+                  "scope": 11387,
+                  "src": "350:19:47",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                    "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                     "typeString": "struct UnstakeQueue.Queue"
                   },
                   "typeName": {
-                    "id": 10487,
+                    "id": 11351,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10486,
+                      "id": 11350,
                       "name": "Queue",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10465,
-                      "src": "350:5:45"
+                      "referencedDeclaration": 11329,
+                      "src": "350:5:47"
                     },
-                    "referencedDeclaration": 10465,
-                    "src": "350:5:45",
+                    "referencedDeclaration": 11329,
+                    "src": "350:5:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
+                      "typeIdentifier": "t_struct$_Queue_$11329_storage_ptr",
                       "typeString": "struct UnstakeQueue.Queue"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "349:21:45"
+              "src": "349:21:47"
             },
             "returnParameters": {
-              "id": 10493,
+              "id": 11357,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10492,
+                  "id": 11356,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10523,
-                  "src": "389:11:45",
+                  "scope": 11387,
+                  "src": "389:11:47",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Node_$10455_memory_ptr",
+                    "typeIdentifier": "t_struct$_Node_$11319_memory_ptr",
                     "typeString": "struct UnstakeQueue.Node"
                   },
                   "typeName": {
-                    "id": 10491,
+                    "id": 11355,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 10490,
+                      "id": 11354,
                       "name": "Node",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10455,
-                      "src": "389:4:45"
+                      "referencedDeclaration": 11319,
+                      "src": "389:4:47"
                     },
-                    "referencedDeclaration": 10455,
-                    "src": "389:4:45",
+                    "referencedDeclaration": 11319,
+                    "src": "389:4:47",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
+                      "typeIdentifier": "t_struct$_Node_$11319_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "388:13:45"
+              "src": "388:13:47"
             },
-            "scope": 10524,
-            "src": "333:235:45",
+            "scope": 11388,
+            "src": "333:235:47",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 10525,
-        "src": "62:509:45"
+        "scope": 11389,
+        "src": "62:509:47"
       }
     ],
-    "src": "37:534:45"
+    "src": "37:534:47"
   },
   "compiler": {
     "name": "solc",
@@ -1789,7 +1789,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-06-16T16:59:41.679Z",
+  "updatedAt": "2022-07-14T16:08:11.751Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

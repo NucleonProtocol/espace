@@ -39,13 +39,14 @@ contract XVIP is ERC721URIStorage, Ownable, Initializable {
 
     mapping(uint256 => address[]) public ownerOfAddress;
 
-    constructor() ERC721("X-E space VIP Card", "XVIP") {
+    constructor() ERC721("X-E Space VIP Card", "XVIP") {
         _tokenIds1 = 0;
         _tokenIds2 = 1000;
         _tokenIds3 = 10000;
     }
 
     function initialize() public initializer {
+        //transferOwnership(owner());
         //ERC721("X-E space VIP Card", "XVIP");
     }
 
@@ -71,71 +72,122 @@ contract XVIP is ERC721URIStorage, Ownable, Initializable {
     function get_setting() external view returns(address _addr, uint256 _num) {
         return (XET_address, started);
     }
+    function get_current_ids(uint256 _num) external view returns(uint256) {
+        if(_num==1){return _tokenIds1;}
+        if(_num==2){return _tokenIds2;}
+        if(_num==3){return _tokenIds3;}
+        return 0;
+    }
 
-    function mint_xvip_1(string memory tokenURI)
+    function mint_xvip(string memory tokenURI, uint256 _id, uint256 _id_type)
         public
         onlystarted1
         returns (uint256)
     {
-        require(_tokenIds1 < 50, "exseed the mint amount!");
-        _tokenIds1 += 1;
-        IERC20(XET_address).transferFrom(msg.sender, address(this), 200 ether);
-        uint256 newItemId = _tokenIds1;
+        uint256 newItemId;
+        if(_id_type == 1) {
+            require(_tokenIds1 < 100, "exseed the mint amount!");
+            _tokenIds1 += 1;
+            require(_tokenIds1 == _id, " ID wrong!");
+            newItemId = _tokenIds1;
+            IERC20(XET_address).transferFrom(msg.sender, address(this), 200 ether);
+        }
+        else if(_id_type == 2) {
+            require(_tokenIds2 < 2000, "exceed the mint amount!");
+            _tokenIds2 += 1;
+            require(_tokenIds2 == _id, " ID wrong!");
+            newItemId = _tokenIds2;
+            IERC20(XET_address).transferFrom(msg.sender, address(this), 20 ether);
+        }
+        else if(_id_type == 3) {
+            require(_tokenIds3 < 100000, "exceed the mint amount!");
+            _tokenIds3 += 1;
+            require(_tokenIds3 == _id, " ID wrong!");
+            newItemId = _tokenIds3;
+            IERC20(XET_address).transferFrom(msg.sender, address(this), 2 ether);
+        }
+
         _addTokenToAllTokensEnumeration(newItemId);
         _addTokenToOwnerEnumeration(msg.sender, newItemId);
 
         _mint(msg.sender, newItemId);
         _setTokenURI(newItemId, tokenURI);
-        if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > 1) {
+        if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > _id_type) {
             Max_vip_level[msg.sender] = 1;
         }
         emit MintXVip(msg.sender, newItemId, tokenURI);
         return newItemId;
     }
 
-    function mint_xvip_2(string memory tokenURI)
-        public
-        onlystarted2
-        returns (uint256)
-    {
-        require(_tokenIds2 < 1500, "exceed the mint amount!");
-        _tokenIds2 += 1;
-        IERC20(XET_address).transferFrom(msg.sender, address(this), 20 ether);
-        uint256 newItemId = _tokenIds2;
-        _addTokenToAllTokensEnumeration(newItemId);
-        _addTokenToOwnerEnumeration(msg.sender, newItemId);
+    // function mint_xvip_1(string memory tokenURI, uint256 _id)
+    //     public
+    //     onlystarted1
+    //     returns (uint256)
+    // {
+    //     require(_tokenIds1 < 100, "exseed the mint amount!");
+    //     _tokenIds1 += 1;
+    //     require(_tokenIds1 == _id, " ID wrong!");
+    //     IERC20(XET_address).transferFrom(msg.sender, address(this), 200 ether);
+    //     uint256 newItemId = _tokenIds1;
+    //     _addTokenToAllTokensEnumeration(newItemId);
+    //     _addTokenToOwnerEnumeration(msg.sender, newItemId);
 
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
-        if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > 2) {
-            Max_vip_level[msg.sender] = 2;
-        }
-        emit MintXVip(msg.sender, newItemId, tokenURI);
-        return newItemId;
-    }
+    //     _mint(msg.sender, newItemId);
+    //     _setTokenURI(newItemId, tokenURI);
+    //     if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > 1) {
+    //         Max_vip_level[msg.sender] = 1;
+    //     }
+    //     emit MintXVip(msg.sender, newItemId, tokenURI);
+    //     return newItemId;
+    // }
 
-    function mint_xvip_3(string memory tokenURI)
-        public
-        onlystarted3
-        returns (uint256)
-    {
-        require(_tokenIds3 < 100000, "exceed the mint amount!");
-        _tokenIds3 += 1;
-        IERC20(XET_address).transferFrom(msg.sender, address(this), 2 ether);
-        uint256 newItemId = _tokenIds3;
-        _addTokenToAllTokensEnumeration(newItemId);
-        _addTokenToOwnerEnumeration(msg.sender, newItemId);
+    // function mint_xvip_2(string memory tokenURI, uint256 _id)
+    //     public
+    //     onlystarted2
+    //     returns (uint256)
+    // {
+    //     require(_tokenIds2 < 2000, "exceed the mint amount!");
+    //     _tokenIds2 += 1;
+    //     require(_tokenIds2 == _id, " ID wrong!");
         
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
-        if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > 3) {
-            Max_vip_level[msg.sender] = 3;
-        }
-        emit MintXVip(msg.sender, newItemId, tokenURI);
-        return newItemId;
-    }
+    //     IERC20(XET_address).transferFrom(msg.sender, address(this), 20 ether);
+    //     uint256 newItemId = _tokenIds2;
+    //     _addTokenToAllTokensEnumeration(newItemId);
+    //     _addTokenToOwnerEnumeration(msg.sender, newItemId);
 
-    function level_up_mint(uint256[] memory _ids, string memory tokenURI)
+    //     _mint(msg.sender, newItemId);
+    //     _setTokenURI(newItemId, tokenURI);
+    //     if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > 2) {
+    //         Max_vip_level[msg.sender] = 2;
+    //     }
+    //     emit MintXVip(msg.sender, newItemId, tokenURI);
+    //     return newItemId;
+    // }
+
+    // function mint_xvip_3(string memory tokenURI, uint256 _id)
+    //     public
+    //     onlystarted3
+    //     returns (uint256)
+    // {
+    //     require(_tokenIds3 < 100000, "exceed the mint amount!");
+    //     _tokenIds3 += 1;
+    //     require(_tokenIds3 == _id, " ID wrong!");
+
+    //     IERC20(XET_address).transferFrom(msg.sender, address(this), 2 ether);
+    //     uint256 newItemId = _tokenIds3;
+    //     _addTokenToAllTokensEnumeration(newItemId);
+    //     _addTokenToOwnerEnumeration(msg.sender, newItemId);
+        
+    //     _mint(msg.sender, newItemId);
+    //     _setTokenURI(newItemId, tokenURI);
+    //     if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > 3) {
+    //         Max_vip_level[msg.sender] = 3;
+    //     }
+    //     emit MintXVip(msg.sender, newItemId, tokenURI);
+    //     return newItemId;
+    // }
+
+    function level_up_mint(uint256[] memory _ids, string memory tokenURI, uint256 _id)
         public
         onlystarted3
         returns (uint256)
@@ -143,28 +195,34 @@ contract XVIP is ERC721URIStorage, Ownable, Initializable {
         require(_ids.length == 12, "err amount");
         uint256 newItemId;
         if (_ids[0] > 1000 && _ids[0] < 10000) {
+            _tokenIds1 += 1;
+            require(_tokenIds1 == _id, " ID wrong!");
             require(_tokenIds1 < 999, "exceed the upgrade amount!");
             for (uint256 i = 1; i < 12; i++) {
                 require(_ids[i] > 1000 && _ids[i] < 10000, "need same rank");
             }
-            for (uint256 i = 1; i < 12; i++) {
+            for (uint256 i = 0; i < 12; i++) {
+                _removeTokenFromOwnerEnumeration(msg.sender, _ids[i]);
+                _removeTokenFromAllTokensEnumeration(_ids[i]);
                 _burn(_ids[i]);
             }
-            _tokenIds1 += 1;
             newItemId = _tokenIds1;
             _mint(msg.sender, newItemId);
             if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > 1) {
                 Max_vip_level[msg.sender] = 1;
             }
         } else if (_ids[0] > 10000) {
+            _tokenIds2 += 1;
+            require(_tokenIds2 == _id, " ID wrong!");
             require(_tokenIds2 < 9999, "exceed the upgrade amount!");
             for (uint256 i = 1; i < 12; i++) {
                 require(_ids[i] > 10000, "need same rank");
             }
-            for (uint256 i = 1; i < 12; i++) {
+            for (uint256 i = 0; i < 12; i++) {
+                _removeTokenFromOwnerEnumeration(msg.sender, _ids[i]);
+                _removeTokenFromAllTokensEnumeration(_ids[i]);
                 _burn(_ids[i]);
             }
-            _tokenIds2 += 1;
             newItemId = _tokenIds2;
             _mint(msg.sender, newItemId);
             if (Max_vip_level[msg.sender] < 1 || Max_vip_level[msg.sender] > 2) {
@@ -186,7 +244,7 @@ contract XVIP is ERC721URIStorage, Ownable, Initializable {
         return base_URI;
     }
 
-    function set_baseURI(string memory _uri) public virtual onlyOwner {
+    function set_baseURI(string memory _uri) public  onlyOwner {
         base_URI = _uri;
     }
 

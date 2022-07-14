@@ -472,7 +472,7 @@
         6018
       ],
       "VotePowerQueue": [
-        6504
+        6533
       ]
     },
     "id": 6019,
@@ -497,7 +497,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 6019,
-        "sourceUnit": 6505,
+        "sourceUnit": 6534,
         "src": "62:30:34",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2010,7 +2010,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct VotePowerQueue.QueueNode[]"
                   },
                   "typeName": {
@@ -2021,13 +2021,13 @@
                         "id": 5977,
                         "name": "VotePowerQueue.QueueNode",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 6163,
+                        "referencedDeclaration": 6192,
                         "src": "1948:24:34"
                       },
-                      "referencedDeclaration": 6163,
+                      "referencedDeclaration": 6192,
                       "src": "1948:24:34",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_QueueNode_$6163_storage_ptr",
+                        "typeIdentifier": "t_struct$_QueueNode_$6192_storage_ptr",
                         "typeString": "struct VotePowerQueue.QueueNode"
                       }
                     },
@@ -2035,7 +2035,7 @@
                     "nodeType": "ArrayTypeName",
                     "src": "1948:26:34",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_storage_$dyn_storage_ptr",
                       "typeString": "struct VotePowerQueue.QueueNode[]"
                     }
                   },
@@ -2110,7 +2110,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct VotePowerQueue.QueueNode[]"
                   },
                   "typeName": {
@@ -2121,13 +2121,13 @@
                         "id": 5986,
                         "name": "VotePowerQueue.QueueNode",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 6163,
+                        "referencedDeclaration": 6192,
                         "src": "2048:24:34"
                       },
-                      "referencedDeclaration": 6163,
+                      "referencedDeclaration": 6192,
                       "src": "2048:24:34",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_QueueNode_$6163_storage_ptr",
+                        "typeIdentifier": "t_struct$_QueueNode_$6192_storage_ptr",
                         "typeString": "struct VotePowerQueue.QueueNode"
                       }
                     },
@@ -2135,7 +2135,7 @@
                     "nodeType": "ArrayTypeName",
                     "src": "2048:26:34",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_storage_$dyn_storage_ptr",
                       "typeString": "struct VotePowerQueue.QueueNode[]"
                     }
                   },
@@ -2264,7 +2264,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct VotePowerQueue.QueueNode[]"
                   },
                   "typeName": {
@@ -2275,13 +2275,13 @@
                         "id": 5999,
                         "name": "VotePowerQueue.QueueNode",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 6163,
+                        "referencedDeclaration": 6192,
                         "src": "2176:24:34"
                       },
-                      "referencedDeclaration": 6163,
+                      "referencedDeclaration": 6192,
                       "src": "2176:24:34",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_QueueNode_$6163_storage_ptr",
+                        "typeIdentifier": "t_struct$_QueueNode_$6192_storage_ptr",
                         "typeString": "struct VotePowerQueue.QueueNode"
                       }
                     },
@@ -2289,7 +2289,7 @@
                     "nodeType": "ArrayTypeName",
                     "src": "2176:26:34",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_storage_$dyn_storage_ptr",
                       "typeString": "struct VotePowerQueue.QueueNode[]"
                     }
                   },
@@ -2418,7 +2418,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct VotePowerQueue.QueueNode[]"
                   },
                   "typeName": {
@@ -2429,13 +2429,13 @@
                         "id": 6012,
                         "name": "VotePowerQueue.QueueNode",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 6163,
+                        "referencedDeclaration": 6192,
                         "src": "2305:24:34"
                       },
-                      "referencedDeclaration": 6163,
+                      "referencedDeclaration": 6192,
                       "src": "2305:24:34",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_QueueNode_$6163_storage_ptr",
+                        "typeIdentifier": "t_struct$_QueueNode_$6192_storage_ptr",
                         "typeString": "struct VotePowerQueue.QueueNode"
                       }
                     },
@@ -2443,7 +2443,7 @@
                     "nodeType": "ArrayTypeName",
                     "src": "2305:26:34",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_storage_$dyn_storage_ptr",
                       "typeString": "struct VotePowerQueue.QueueNode[]"
                     }
                   },
@@ -2472,7 +2472,7 @@
         6018
       ],
       "VotePowerQueue": [
-        6504
+        6533
       ]
     },
     "id": 6019,
@@ -2497,7 +2497,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 6019,
-        "sourceUnit": 6505,
+        "sourceUnit": 6534,
         "src": "62:30:34",
         "symbolAliases": [],
         "unitAlias": ""
@@ -4010,7 +4010,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct VotePowerQueue.QueueNode[]"
                   },
                   "typeName": {
@@ -4021,13 +4021,13 @@
                         "id": 5977,
                         "name": "VotePowerQueue.QueueNode",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 6163,
+                        "referencedDeclaration": 6192,
                         "src": "1948:24:34"
                       },
-                      "referencedDeclaration": 6163,
+                      "referencedDeclaration": 6192,
                       "src": "1948:24:34",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_QueueNode_$6163_storage_ptr",
+                        "typeIdentifier": "t_struct$_QueueNode_$6192_storage_ptr",
                         "typeString": "struct VotePowerQueue.QueueNode"
                       }
                     },
@@ -4035,7 +4035,7 @@
                     "nodeType": "ArrayTypeName",
                     "src": "1948:26:34",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_storage_$dyn_storage_ptr",
                       "typeString": "struct VotePowerQueue.QueueNode[]"
                     }
                   },
@@ -4110,7 +4110,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct VotePowerQueue.QueueNode[]"
                   },
                   "typeName": {
@@ -4121,13 +4121,13 @@
                         "id": 5986,
                         "name": "VotePowerQueue.QueueNode",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 6163,
+                        "referencedDeclaration": 6192,
                         "src": "2048:24:34"
                       },
-                      "referencedDeclaration": 6163,
+                      "referencedDeclaration": 6192,
                       "src": "2048:24:34",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_QueueNode_$6163_storage_ptr",
+                        "typeIdentifier": "t_struct$_QueueNode_$6192_storage_ptr",
                         "typeString": "struct VotePowerQueue.QueueNode"
                       }
                     },
@@ -4135,7 +4135,7 @@
                     "nodeType": "ArrayTypeName",
                     "src": "2048:26:34",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_storage_$dyn_storage_ptr",
                       "typeString": "struct VotePowerQueue.QueueNode[]"
                     }
                   },
@@ -4264,7 +4264,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct VotePowerQueue.QueueNode[]"
                   },
                   "typeName": {
@@ -4275,13 +4275,13 @@
                         "id": 5999,
                         "name": "VotePowerQueue.QueueNode",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 6163,
+                        "referencedDeclaration": 6192,
                         "src": "2176:24:34"
                       },
-                      "referencedDeclaration": 6163,
+                      "referencedDeclaration": 6192,
                       "src": "2176:24:34",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_QueueNode_$6163_storage_ptr",
+                        "typeIdentifier": "t_struct$_QueueNode_$6192_storage_ptr",
                         "typeString": "struct VotePowerQueue.QueueNode"
                       }
                     },
@@ -4289,7 +4289,7 @@
                     "nodeType": "ArrayTypeName",
                     "src": "2176:26:34",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_storage_$dyn_storage_ptr",
                       "typeString": "struct VotePowerQueue.QueueNode[]"
                     }
                   },
@@ -4418,7 +4418,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct VotePowerQueue.QueueNode[]"
                   },
                   "typeName": {
@@ -4429,13 +4429,13 @@
                         "id": 6012,
                         "name": "VotePowerQueue.QueueNode",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 6163,
+                        "referencedDeclaration": 6192,
                         "src": "2305:24:34"
                       },
-                      "referencedDeclaration": 6163,
+                      "referencedDeclaration": 6192,
                       "src": "2305:24:34",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_QueueNode_$6163_storage_ptr",
+                        "typeIdentifier": "t_struct$_QueueNode_$6192_storage_ptr",
                         "typeString": "struct VotePowerQueue.QueueNode"
                       }
                     },
@@ -4443,7 +4443,7 @@
                     "nodeType": "ArrayTypeName",
                     "src": "2305:26:34",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6163_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_QueueNode_$6192_storage_$dyn_storage_ptr",
                       "typeString": "struct VotePowerQueue.QueueNode[]"
                     }
                   },
@@ -4471,7 +4471,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-06-16T16:59:41.424Z",
+  "updatedAt": "2022-07-14T16:08:11.576Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
