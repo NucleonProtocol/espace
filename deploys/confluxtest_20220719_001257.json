@@ -1,0 +1,128 @@
+{
+  "network": "confluxtest",
+  "codeHash": "0x2d85058db8d43faaac77bdc1b6a3696e950a3799ee882222e6a42ee04eb8ed32",
+  "array": [],
+  "obj": {},
+  "receipt": {
+    "to": null,
+    "from": "0x883204664e48bAd00b4df1B140fBfF48e3a74a1C",
+    "contractAddress": "0x813a3233e61CcA5bE12726F7465FF00Aa3691FC4",
+    "transactionIndex": 0,
+    "gasUsed": "1119814",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000001000000000000000000000000000000000000000000000000000004000000000000000000000000001000000000000000000000000000000000000020000400000000000000800000000000000000000000000000000402000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xc773d24f94ffc62e3363591058f8f05b4d46a995bd7aa813fbf91dadf932aafa",
+    "transactionHash": "0x3339d2f9c142acd0c51404e6f5b83eaa30e38007984b4ff4b16433becdc394b7",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 84183195,
+        "transactionHash": "0x3339d2f9c142acd0c51404e6f5b83eaa30e38007984b4ff4b16433becdc394b7",
+        "address": "0x813a3233e61CcA5bE12726F7465FF00Aa3691FC4",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000883204664e48bad00b4df1b140fbff48e3a74a1c"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0xc773d24f94ffc62e3363591058f8f05b4d46a995bd7aa813fbf91dadf932aafa"
+      }
+    ],
+    "blockNumber": 84183195,
+    "cumulativeGasUsed": "1119814",
+    "effectiveGasPrice": {
+      "type": "BigNumber",
+      "hex": "0x3b9aca00"
+    },
+    "status": 1,
+    "type": 0,
+    "byzantium": true
+  },
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_num",
+          "type": "uint256"
+        }
+      ],
+      "name": "set",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "map_test",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

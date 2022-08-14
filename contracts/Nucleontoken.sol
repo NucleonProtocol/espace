@@ -4,11 +4,11 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract XEToken is ERC20 {
+contract nucleon_token is ERC20 {
   address owner;
   mapping(address=>bool) mainMinter;
 
-  constructor(uint256 initialSupply) ERC20("X-E Token", "XET") {
+  constructor(uint256 initialSupply) ERC20("Nucleon Token", "NT") {
     owner = msg.sender;
     _mint(msg.sender, initialSupply);
   }

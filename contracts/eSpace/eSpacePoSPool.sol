@@ -10,7 +10,7 @@ import "../VotePowerQueue.sol";
 import "./iface_espace.sol";
 import "./UnstakeQueue.sol";
 import "./XETdistribute.sol";
-
+import "./contractpoolerc20.sol";
 
 // interface XCFXExchange{
 //     function addTokens(address _to, uint256 _value) external;
@@ -82,6 +82,8 @@ contract ESpacePoSPool is Ownable,Initializable {
   address XVIP_address;
   address Storage_room_addr;
   address XET_Distribute_addr;
+  address zero_addr=address(0x0000000000000000000000000000000000000000);
+  mapping(address => address) contract_erc20_addr;
 
 
   // ======================== Struct definitions =========================
@@ -335,9 +337,12 @@ contract ESpacePoSPool is Ownable,Initializable {
   }  
 
   function update_after_trans_by_outer_func(address _from,address _to) external virtual onlyRegisted {
-    // if(isContract(_to) && userSummaries[_to].votes==0 && userSummaries[_to].ACFX_num==0){
-    //   All_Contracts_addr_in_APool.push(_to);
-    // }
+    if(isContract(_to) && (contract_erc20_addr[_to] != zero_addr)){
+      contractpool_erc20(contract_erc20_addr[_to]).start_cal(_to);
+    }
+    if(isContract(_from) && (contract_erc20_addr[_from] != zero_addr)){
+      contractpool_erc20(contract_erc20_addr[_from]).start_cal(_from);
+    }
     _updateAccRewardPerCfx();
     //_updateAPY();
     // update user interest

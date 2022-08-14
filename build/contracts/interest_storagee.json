@@ -12,23 +12,23 @@
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
-  "sourceMap": "65:67:51:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "65:67:51:-:0;;;",
+  "sourceMap": "65:67:49:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "65:67:49:-:0;;;",
   "source": "//SPDX-License-Identifier: Unlicense\r\npragma solidity ^0.8.0;\r\n\r\ncontract interest_storagee {\r\n\r\nfallback() external payable {}\r\n\r\n}",
   "sourcePath": "C:\\Users\\artii\\Black IDE\\espace\\contracts\\eSpace\\interest_storage.sol",
   "ast": {
     "absolutePath": "project:/contracts/eSpace/interest_storage.sol",
     "exportedSymbols": {
       "interest_storagee": [
-        13862
+        12959
       ]
     },
-    "id": 13863,
+    "id": 12960,
     "license": "Unlicense",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 13857,
+        "id": 12954,
         "literals": [
           "solidity",
           "^",
@@ -36,7 +36,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "38:23:51"
+        "src": "38:23:49"
       },
       {
         "abstract": false,
@@ -44,22 +44,22 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 13862,
+        "id": 12959,
         "linearizedBaseContracts": [
-          13862
+          12959
         ],
         "name": "interest_storagee",
-        "nameLocation": "74:17:51",
+        "nameLocation": "74:17:49",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 13860,
+              "id": 12957,
               "nodeType": "Block",
-              "src": "125:2:51",
+              "src": "125:2:49",
               "statements": []
             },
-            "id": 13861,
+            "id": 12958,
             "implemented": true,
             "kind": "fallback",
             "modifiers": [],
@@ -67,43 +67,43 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13858,
+              "id": 12955,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "105:2:51"
+              "src": "105:2:49"
             },
             "returnParameters": {
-              "id": 13859,
+              "id": 12956,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "125:0:51"
+              "src": "125:0:49"
             },
-            "scope": 13862,
-            "src": "97:30:51",
+            "scope": 12959,
+            "src": "97:30:49",
             "stateMutability": "payable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 13863,
-        "src": "65:67:51"
+        "scope": 12960,
+        "src": "65:67:49"
       }
     ],
-    "src": "38:94:51"
+    "src": "38:94:49"
   },
   "legacyAST": {
     "absolutePath": "project:/contracts/eSpace/interest_storage.sol",
     "exportedSymbols": {
       "interest_storagee": [
-        13862
+        12959
       ]
     },
-    "id": 13863,
+    "id": 12960,
     "license": "Unlicense",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 13857,
+        "id": 12954,
         "literals": [
           "solidity",
           "^",
@@ -111,7 +111,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "38:23:51"
+        "src": "38:23:49"
       },
       {
         "abstract": false,
@@ -119,22 +119,22 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 13862,
+        "id": 12959,
         "linearizedBaseContracts": [
-          13862
+          12959
         ],
         "name": "interest_storagee",
-        "nameLocation": "74:17:51",
+        "nameLocation": "74:17:49",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 13860,
+              "id": 12957,
               "nodeType": "Block",
-              "src": "125:2:51",
+              "src": "125:2:49",
               "statements": []
             },
-            "id": 13861,
+            "id": 12958,
             "implemented": true,
             "kind": "fallback",
             "modifiers": [],
@@ -142,29 +142,29 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 13858,
+              "id": 12955,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "105:2:51"
+              "src": "105:2:49"
             },
             "returnParameters": {
-              "id": 13859,
+              "id": 12956,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "125:0:51"
+              "src": "125:0:49"
             },
-            "scope": 13862,
-            "src": "97:30:51",
+            "scope": 12959,
+            "src": "97:30:49",
             "stateMutability": "payable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 13863,
-        "src": "65:67:51"
+        "scope": 12960,
+        "src": "65:67:49"
       }
     ],
-    "src": "38:94:51"
+    "src": "38:94:49"
   },
   "compiler": {
     "name": "solc",
@@ -172,7 +172,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-07-14T16:08:11.834Z",
+  "updatedAt": "2022-08-14T03:45:26.192Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -1,0 +1,1803 @@
+{
+  "contractName": "UnstakeQueueCFX",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.2+commit.661d1103\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/eSpace/UnstakeQueueCFX.sol\":\"UnstakeQueueCFX\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/eSpace/UnstakeQueueCFX.sol\":{\"keccak256\":\"0xde68cfda9518847cad27f0effa0371aa66a2a51c736c524724699583754a1e84\",\"license\":\"Unlicense\",\"urls\":[\"bzz-raw://c5540d27eac3b103b3a105af9a185cf5446ff558f70847b32141dc35898ab7c3\",\"dweb:/ipfs/QmawT5ZK4UECKAuhANFztVNhoKUFwuqdNnLXmJ7b72YdNj\"]}},\"version\":1}",
+  "bytecode": "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212209baea628318fb6a251f6a38515d7282ac155606143e21490ae8dae6153cc31b564736f6c63430008020033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212209baea628318fb6a251f6a38515d7282ac155606143e21490ae8dae6153cc31b564736f6c63430008020033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "62:511:43:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "62:511:43:-:0;;;;;;;;",
+  "source": "//SPDX-License-Identifier: Unlicense\npragma solidity ^0.8.0;\n\nlibrary UnstakeQueueCFX {\n\n  struct Node {\n    uint256 CFXs;\n  }\n\n  struct Queue {\n    uint256 start;\n    uint256 end;\n    mapping(uint256 => Node) items;\n  }\n\n  function enqueue(Queue storage queue, Node memory item) internal {\n    queue.items[queue.end++] = item;\n  }\n\n  function dequeue(Queue storage queue) internal returns (Node memory) {\n    require(queue.start < queue.end, \"Queue is empty\");\n    Node memory item = queue.items[queue.start];\n    delete queue.items[queue.start++];\n    return item;\n  }\n\n}",
+  "sourcePath": "C:\\Users\\artii\\Black IDE\\espace\\contracts\\eSpace\\UnstakeQueueCFX.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/eSpace/UnstakeQueueCFX.sol",
+    "exportedSymbols": {
+      "UnstakeQueueCFX": [
+        10336
+      ]
+    },
+    "id": 10337,
+    "license": "Unlicense",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10264,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "37:23:43"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 10336,
+        "linearizedBaseContracts": [
+          10336
+        ],
+        "name": "UnstakeQueueCFX",
+        "nameLocation": "70:15:43",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "UnstakeQueueCFX.Node",
+            "id": 10267,
+            "members": [
+              {
+                "constant": false,
+                "id": 10266,
+                "mutability": "mutable",
+                "name": "CFXs",
+                "nameLocation": "117:4:43",
+                "nodeType": "VariableDeclaration",
+                "scope": 10267,
+                "src": "109:12:43",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 10265,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "109:7:43",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Node",
+            "nameLocation": "98:4:43",
+            "nodeType": "StructDefinition",
+            "scope": 10336,
+            "src": "91:35:43",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "UnstakeQueueCFX.Queue",
+            "id": 10277,
+            "members": [
+              {
+                "constant": false,
+                "id": 10269,
+                "mutability": "mutable",
+                "name": "start",
+                "nameLocation": "157:5:43",
+                "nodeType": "VariableDeclaration",
+                "scope": 10277,
+                "src": "149:13:43",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 10268,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "149:7:43",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 10271,
+                "mutability": "mutable",
+                "name": "end",
+                "nameLocation": "176:3:43",
+                "nodeType": "VariableDeclaration",
+                "scope": 10277,
+                "src": "168:11:43",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 10270,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "168:7:43",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 10276,
+                "mutability": "mutable",
+                "name": "items",
+                "nameLocation": "210:5:43",
+                "nodeType": "VariableDeclaration",
+                "scope": 10277,
+                "src": "185:30:43",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                  "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node)"
+                },
+                "typeName": {
+                  "id": 10275,
+                  "keyType": {
+                    "id": 10272,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "193:7:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "185:24:43",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                    "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node)"
+                  },
+                  "valueType": {
+                    "id": 10274,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10273,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10267,
+                      "src": "204:4:43"
+                    },
+                    "referencedDeclaration": 10267,
+                    "src": "204:4:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Queue",
+            "nameLocation": "137:5:43",
+            "nodeType": "StructDefinition",
+            "scope": 10336,
+            "src": "130:90:43",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 10296,
+              "nodeType": "Block",
+              "src": "289:42:43",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 10294,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 10286,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 10280,
+                          "src": "295:5:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                            "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                          }
+                        },
+                        "id": 10291,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "items",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 10276,
+                        "src": "295:11:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                          "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                        }
+                      },
+                      "id": 10292,
+                      "indexExpression": {
+                        "id": 10290,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "++",
+                        "prefix": false,
+                        "src": "307:11:43",
+                        "subExpression": {
+                          "expression": {
+                            "id": 10288,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 10280,
+                            "src": "307:5:43",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 10289,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberName": "end",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 10271,
+                          "src": "307:9:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "295:24:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$10267_storage",
+                        "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10293,
+                      "name": "item",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10283,
+                      "src": "322:4:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                        "typeString": "struct UnstakeQueueCFX.Node memory"
+                      }
+                    },
+                    "src": "295:31:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage",
+                      "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                    }
+                  },
+                  "id": 10295,
+                  "nodeType": "ExpressionStatement",
+                  "src": "295:31:43"
+                }
+              ]
+            },
+            "id": 10297,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "enqueue",
+            "nameLocation": "233:7:43",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10284,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10280,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "255:5:43",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10297,
+                  "src": "241:19:43",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Queue"
+                  },
+                  "typeName": {
+                    "id": 10279,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10278,
+                      "name": "Queue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10277,
+                      "src": "241:5:43"
+                    },
+                    "referencedDeclaration": 10277,
+                    "src": "241:5:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Queue"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10283,
+                  "mutability": "mutable",
+                  "name": "item",
+                  "nameLocation": "274:4:43",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10297,
+                  "src": "262:16:43",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Node"
+                  },
+                  "typeName": {
+                    "id": 10282,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10281,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10267,
+                      "src": "262:4:43"
+                    },
+                    "referencedDeclaration": 10267,
+                    "src": "262:4:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "240:39:43"
+            },
+            "returnParameters": {
+              "id": 10285,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "289:0:43"
+            },
+            "scope": 10336,
+            "src": "224:107:43",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 10334,
+              "nodeType": "Block",
+              "src": "404:166:43",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 10311,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 10307,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 10300,
+                            "src": "418:5:43",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 10308,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "start",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 10269,
+                          "src": "418:11:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "<",
+                        "rightExpression": {
+                          "expression": {
+                            "id": 10309,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 10300,
+                            "src": "432:5:43",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 10310,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "end",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 10271,
+                          "src": "432:9:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "418:23:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "517565756520697320656d707479",
+                        "id": 10312,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "443:16:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_0264a3a3dbb173762c3a715cd834ae209dd020cc68389dad4a0b3835fea7fda2",
+                          "typeString": "literal_string \"Queue is empty\""
+                        },
+                        "value": "Queue is empty"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_0264a3a3dbb173762c3a715cd834ae209dd020cc68389dad4a0b3835fea7fda2",
+                          "typeString": "literal_string \"Queue is empty\""
+                        }
+                      ],
+                      "id": 10306,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "410:7:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 10313,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "410:50:43",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 10314,
+                  "nodeType": "ExpressionStatement",
+                  "src": "410:50:43"
+                },
+                {
+                  "assignments": [
+                    10317
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 10317,
+                      "mutability": "mutable",
+                      "name": "item",
+                      "nameLocation": "478:4:43",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 10334,
+                      "src": "466:16:43",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                        "typeString": "struct UnstakeQueueCFX.Node"
+                      },
+                      "typeName": {
+                        "id": 10316,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 10315,
+                          "name": "Node",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 10267,
+                          "src": "466:4:43"
+                        },
+                        "referencedDeclaration": 10267,
+                        "src": "466:4:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Node_$10267_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Node"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 10323,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 10318,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10300,
+                        "src": "485:5:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                        }
+                      },
+                      "id": 10319,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "items",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 10276,
+                      "src": "485:11:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                        "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                      }
+                    },
+                    "id": 10322,
+                    "indexExpression": {
+                      "expression": {
+                        "id": 10320,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10300,
+                        "src": "497:5:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                        }
+                      },
+                      "id": 10321,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "start",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 10269,
+                      "src": "497:11:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "485:24:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage",
+                      "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "466:43:43"
+                },
+                {
+                  "expression": {
+                    "id": 10330,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "delete",
+                    "prefix": true,
+                    "src": "515:33:43",
+                    "subExpression": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 10324,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 10300,
+                          "src": "522:5:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                            "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                          }
+                        },
+                        "id": 10325,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "items",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 10276,
+                        "src": "522:11:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                          "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                        }
+                      },
+                      "id": 10329,
+                      "indexExpression": {
+                        "id": 10328,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "++",
+                        "prefix": false,
+                        "src": "534:13:43",
+                        "subExpression": {
+                          "expression": {
+                            "id": 10326,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 10300,
+                            "src": "534:5:43",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 10327,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberName": "start",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 10269,
+                          "src": "534:11:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "522:26:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$10267_storage",
+                        "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 10331,
+                  "nodeType": "ExpressionStatement",
+                  "src": "515:33:43"
+                },
+                {
+                  "expression": {
+                    "id": 10332,
+                    "name": "item",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 10317,
+                    "src": "561:4:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node memory"
+                    }
+                  },
+                  "functionReturnParameters": 10305,
+                  "id": 10333,
+                  "nodeType": "Return",
+                  "src": "554:11:43"
+                }
+              ]
+            },
+            "id": 10335,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "dequeue",
+            "nameLocation": "344:7:43",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10301,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10300,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "366:5:43",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10335,
+                  "src": "352:19:43",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Queue"
+                  },
+                  "typeName": {
+                    "id": 10299,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10298,
+                      "name": "Queue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10277,
+                      "src": "352:5:43"
+                    },
+                    "referencedDeclaration": 10277,
+                    "src": "352:5:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Queue"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "351:21:43"
+            },
+            "returnParameters": {
+              "id": 10305,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10304,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10335,
+                  "src": "391:11:43",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Node"
+                  },
+                  "typeName": {
+                    "id": 10303,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10302,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10267,
+                      "src": "391:4:43"
+                    },
+                    "referencedDeclaration": 10267,
+                    "src": "391:4:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "390:13:43"
+            },
+            "scope": 10336,
+            "src": "335:235:43",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 10337,
+        "src": "62:511:43"
+      }
+    ],
+    "src": "37:536:43"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/eSpace/UnstakeQueueCFX.sol",
+    "exportedSymbols": {
+      "UnstakeQueueCFX": [
+        10336
+      ]
+    },
+    "id": 10337,
+    "license": "Unlicense",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10264,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "37:23:43"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 10336,
+        "linearizedBaseContracts": [
+          10336
+        ],
+        "name": "UnstakeQueueCFX",
+        "nameLocation": "70:15:43",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "UnstakeQueueCFX.Node",
+            "id": 10267,
+            "members": [
+              {
+                "constant": false,
+                "id": 10266,
+                "mutability": "mutable",
+                "name": "CFXs",
+                "nameLocation": "117:4:43",
+                "nodeType": "VariableDeclaration",
+                "scope": 10267,
+                "src": "109:12:43",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 10265,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "109:7:43",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Node",
+            "nameLocation": "98:4:43",
+            "nodeType": "StructDefinition",
+            "scope": 10336,
+            "src": "91:35:43",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "UnstakeQueueCFX.Queue",
+            "id": 10277,
+            "members": [
+              {
+                "constant": false,
+                "id": 10269,
+                "mutability": "mutable",
+                "name": "start",
+                "nameLocation": "157:5:43",
+                "nodeType": "VariableDeclaration",
+                "scope": 10277,
+                "src": "149:13:43",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 10268,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "149:7:43",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 10271,
+                "mutability": "mutable",
+                "name": "end",
+                "nameLocation": "176:3:43",
+                "nodeType": "VariableDeclaration",
+                "scope": 10277,
+                "src": "168:11:43",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 10270,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "168:7:43",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 10276,
+                "mutability": "mutable",
+                "name": "items",
+                "nameLocation": "210:5:43",
+                "nodeType": "VariableDeclaration",
+                "scope": 10277,
+                "src": "185:30:43",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                  "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node)"
+                },
+                "typeName": {
+                  "id": 10275,
+                  "keyType": {
+                    "id": 10272,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "193:7:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "185:24:43",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                    "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node)"
+                  },
+                  "valueType": {
+                    "id": 10274,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10273,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10267,
+                      "src": "204:4:43"
+                    },
+                    "referencedDeclaration": 10267,
+                    "src": "204:4:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Queue",
+            "nameLocation": "137:5:43",
+            "nodeType": "StructDefinition",
+            "scope": 10336,
+            "src": "130:90:43",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 10296,
+              "nodeType": "Block",
+              "src": "289:42:43",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 10294,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 10286,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 10280,
+                          "src": "295:5:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                            "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                          }
+                        },
+                        "id": 10291,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "items",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 10276,
+                        "src": "295:11:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                          "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                        }
+                      },
+                      "id": 10292,
+                      "indexExpression": {
+                        "id": 10290,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "++",
+                        "prefix": false,
+                        "src": "307:11:43",
+                        "subExpression": {
+                          "expression": {
+                            "id": 10288,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 10280,
+                            "src": "307:5:43",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 10289,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberName": "end",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 10271,
+                          "src": "307:9:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "295:24:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$10267_storage",
+                        "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10293,
+                      "name": "item",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10283,
+                      "src": "322:4:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                        "typeString": "struct UnstakeQueueCFX.Node memory"
+                      }
+                    },
+                    "src": "295:31:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage",
+                      "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                    }
+                  },
+                  "id": 10295,
+                  "nodeType": "ExpressionStatement",
+                  "src": "295:31:43"
+                }
+              ]
+            },
+            "id": 10297,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "enqueue",
+            "nameLocation": "233:7:43",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10284,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10280,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "255:5:43",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10297,
+                  "src": "241:19:43",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Queue"
+                  },
+                  "typeName": {
+                    "id": 10279,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10278,
+                      "name": "Queue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10277,
+                      "src": "241:5:43"
+                    },
+                    "referencedDeclaration": 10277,
+                    "src": "241:5:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Queue"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10283,
+                  "mutability": "mutable",
+                  "name": "item",
+                  "nameLocation": "274:4:43",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10297,
+                  "src": "262:16:43",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Node"
+                  },
+                  "typeName": {
+                    "id": 10282,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10281,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10267,
+                      "src": "262:4:43"
+                    },
+                    "referencedDeclaration": 10267,
+                    "src": "262:4:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "240:39:43"
+            },
+            "returnParameters": {
+              "id": 10285,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "289:0:43"
+            },
+            "scope": 10336,
+            "src": "224:107:43",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 10334,
+              "nodeType": "Block",
+              "src": "404:166:43",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 10311,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 10307,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 10300,
+                            "src": "418:5:43",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 10308,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "start",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 10269,
+                          "src": "418:11:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "<",
+                        "rightExpression": {
+                          "expression": {
+                            "id": 10309,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 10300,
+                            "src": "432:5:43",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 10310,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "end",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 10271,
+                          "src": "432:9:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "418:23:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "517565756520697320656d707479",
+                        "id": 10312,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "443:16:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_0264a3a3dbb173762c3a715cd834ae209dd020cc68389dad4a0b3835fea7fda2",
+                          "typeString": "literal_string \"Queue is empty\""
+                        },
+                        "value": "Queue is empty"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_0264a3a3dbb173762c3a715cd834ae209dd020cc68389dad4a0b3835fea7fda2",
+                          "typeString": "literal_string \"Queue is empty\""
+                        }
+                      ],
+                      "id": 10306,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "410:7:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 10313,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "410:50:43",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 10314,
+                  "nodeType": "ExpressionStatement",
+                  "src": "410:50:43"
+                },
+                {
+                  "assignments": [
+                    10317
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 10317,
+                      "mutability": "mutable",
+                      "name": "item",
+                      "nameLocation": "478:4:43",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 10334,
+                      "src": "466:16:43",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                        "typeString": "struct UnstakeQueueCFX.Node"
+                      },
+                      "typeName": {
+                        "id": 10316,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 10315,
+                          "name": "Node",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 10267,
+                          "src": "466:4:43"
+                        },
+                        "referencedDeclaration": 10267,
+                        "src": "466:4:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Node_$10267_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Node"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 10323,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 10318,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10300,
+                        "src": "485:5:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                        }
+                      },
+                      "id": 10319,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "items",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 10276,
+                      "src": "485:11:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                        "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                      }
+                    },
+                    "id": 10322,
+                    "indexExpression": {
+                      "expression": {
+                        "id": 10320,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10300,
+                        "src": "497:5:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                        }
+                      },
+                      "id": 10321,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "start",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 10269,
+                      "src": "497:11:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "485:24:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage",
+                      "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "466:43:43"
+                },
+                {
+                  "expression": {
+                    "id": 10330,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "delete",
+                    "prefix": true,
+                    "src": "515:33:43",
+                    "subExpression": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 10324,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 10300,
+                          "src": "522:5:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                            "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                          }
+                        },
+                        "id": 10325,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "items",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 10276,
+                        "src": "522:11:43",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10267_storage_$",
+                          "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                        }
+                      },
+                      "id": 10329,
+                      "indexExpression": {
+                        "id": 10328,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "++",
+                        "prefix": false,
+                        "src": "534:13:43",
+                        "subExpression": {
+                          "expression": {
+                            "id": 10326,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 10300,
+                            "src": "534:5:43",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 10327,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberName": "start",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 10269,
+                          "src": "534:11:43",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "522:26:43",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$10267_storage",
+                        "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 10331,
+                  "nodeType": "ExpressionStatement",
+                  "src": "515:33:43"
+                },
+                {
+                  "expression": {
+                    "id": 10332,
+                    "name": "item",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 10317,
+                    "src": "561:4:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node memory"
+                    }
+                  },
+                  "functionReturnParameters": 10305,
+                  "id": 10333,
+                  "nodeType": "Return",
+                  "src": "554:11:43"
+                }
+              ]
+            },
+            "id": 10335,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "dequeue",
+            "nameLocation": "344:7:43",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10301,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10300,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "366:5:43",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10335,
+                  "src": "352:19:43",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Queue"
+                  },
+                  "typeName": {
+                    "id": 10299,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10298,
+                      "name": "Queue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10277,
+                      "src": "352:5:43"
+                    },
+                    "referencedDeclaration": 10277,
+                    "src": "352:5:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Queue_$10277_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Queue"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "351:21:43"
+            },
+            "returnParameters": {
+              "id": 10305,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10304,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10335,
+                  "src": "391:11:43",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Node_$10267_memory_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Node"
+                  },
+                  "typeName": {
+                    "id": 10303,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 10302,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 10267,
+                      "src": "391:4:43"
+                    },
+                    "referencedDeclaration": 10267,
+                    "src": "391:4:43",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$10267_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "390:13:43"
+            },
+            "scope": 10336,
+            "src": "335:235:43",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 10337,
+        "src": "62:511:43"
+      }
+    ],
+    "src": "37:536:43"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.2+commit.661d1103.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2022-08-14T03:45:26.000Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

@@ -38,13 +38,14 @@ interface IPoSPool {
   function increaseStake(uint64 votePower) external payable;
   function decreaseStake(uint64 votePower) external;
   function withdrawStake(uint64 votePower) external;
-  function userInterest(address _address) external view returns (uint256);
+  function temp_Interest() external view returns (uint256);
   function claimInterest(uint256 amount) external;
-  function claimAllInterest() external;
+  function claimAllInterest() external returns (uint256);
   function userSummary(address _user) external view returns (UserSummary memory);
   function posAddress() external view returns (bytes32);
   function userInQueue(address account) external view returns (VotePowerQueue.QueueNode[] memory);
   function userOutQueue(address account) external view returns (VotePowerQueue.QueueNode[] memory);
   function userInQueue(address account, uint64 offset, uint64 limit) external view returns (VotePowerQueue.QueueNode[] memory);
   function userOutQueue(address account, uint64 offset, uint64 limit) external view returns (VotePowerQueue.QueueNode[] memory);
+  function setxCFXValue(uint256 _cfxvalue) external  returns (uint256);
 }
