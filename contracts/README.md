@@ -2,10 +2,10 @@
 
 This is a conflux espace project create by X-Dao .
 3 main contracts:
-1. XCFX.sol
+1. ./XCFX.sol
 2. xEspace/Exchangeroom.sol
     need import "../VotePowerQueue.sol", "./UnstakeQueueCFX.sol";
-3. Nucleontoken.sol
+3. ./Nucleontoken.sol
 
 ## Smart Contracts
 
