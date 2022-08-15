@@ -1,4 +1,4 @@
-# Nucleon space Contracts
+# Nucleon eSpace Contracts
 
 This is a conflux espace project create by X-Dao .
 The project is licensed under the BSL version 1.1. See LICENSE.txt for details. NUCLEON is free to use internally in businesses and academic institutions and for non-commercial purposes. Certain types of commercial use such as building closed-source apps and devices based on NUCLEON require a commercial license.
