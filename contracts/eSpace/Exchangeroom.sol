@@ -278,7 +278,7 @@ contract Exchangeroom is Ownable,Initializable {
   //let bridge know the  CFX need to get back, and set the para::unlockingCFX to 0 
   function handleUnstake() public onlyBridge returns (uint256) {
     uint256 temp_unstake = _exchangeSummary.unlockingCFX;
-    require( temp_unstake > 0, "CFX have not decrease");
+    require( temp_unstake > 0, "unstaked CFX have not decrease");
      _exchangeSummary.unlockingCFX = 0;
      return temp_unstake;
   }
