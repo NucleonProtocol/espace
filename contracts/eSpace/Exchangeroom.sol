@@ -311,6 +311,10 @@ contract Exchangeroom is Ownable,Initializable {
     return  _exchangeSummary.alloflockedvotes;
   }
 
+  function espacebalanceof(address _addr) public returns(uint256) {
+        return _addr.balance;
+  }
+
   function isContract(address account) internal view returns (bool) {
         // This method relies on extcodesize/address.code.length, which returns 0
         // for contracts in construction, since the code is only stored at the end
