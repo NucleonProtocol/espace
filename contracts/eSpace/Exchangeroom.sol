@@ -311,7 +311,7 @@ contract Exchangeroom is Ownable,Initializable {
     return  _exchangeSummary.alloflockedvotes;
   }
 
-  function espacebalanceof(address _addr) public returns(uint256) {
+  function espacebalanceof(address _addr) public view returns(uint256) {
         return _addr.balance;
   }
 
