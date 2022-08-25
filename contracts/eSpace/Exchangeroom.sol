@@ -191,6 +191,7 @@ contract Exchangeroom is Ownable,Initializable {
     userSummaries[msg.sender].unlocking -= temp_amount;
 
     emit DecreasePoSStake(msg.sender, _amount);
+    return _amount;
   }
   //
   // @title getback_CFX
