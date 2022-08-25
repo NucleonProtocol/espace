@@ -282,6 +282,9 @@ contract Exchangeroom is Ownable,Initializable {
      _exchangeSummary.unlockingCFX = 0;
      return temp_unstake;
   }
+  function handleUnstakeTask() public onlyBridge {
+    unstakeQueue.dequeue();
+  }
 
   function unstakeLen() public view returns (uint256) {
     return unstakeQueue.end - unstakeQueue.start;
