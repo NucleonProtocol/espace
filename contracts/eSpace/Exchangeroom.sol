@@ -212,7 +212,7 @@ contract Exchangeroom is Ownable,Initializable {
     userSummaries[msg.sender].unlocking -= temp_amount;
 
     require(userSummaries[msg.sender].unlocked >= _amount, "your Unlocked CFX is not enough");
-    
+    userSummaries[msg.sender].unlocked -= _amount;
     address payable receiver = payable(msg.sender);
     receiver.transfer(_amount);
     emit WithdrawStake(msg.sender, _amount);
