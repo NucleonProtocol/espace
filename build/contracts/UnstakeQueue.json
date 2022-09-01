@@ -7,23 +7,42 @@
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
   "sourceMap": "62:509:45:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "62:509:45:-:0;;;;;;;;",
   "source": "//SPDX-License-Identifier: Unlicense\npragma solidity ^0.8.0;\n\nlibrary UnstakeQueue {\n\n  struct Node {\n    uint256 votes;\n  }\n\n  struct Queue {\n    uint256 start;\n    uint256 end;\n    mapping(uint256 => Node) items;\n  }\n\n  function enqueue(Queue storage queue, Node memory item) internal {\n    queue.items[queue.end++] = item;\n  }\n\n  function dequeue(Queue storage queue) internal returns (Node memory) {\n    require(queue.start < queue.end, \"Queue is empty\");\n    Node memory item = queue.items[queue.start];\n    delete queue.items[queue.start++];\n    return item;\n  }\n\n}",
   "sourcePath": "C:\\Users\\artii\\Black IDE\\espace\\contracts\\eSpace\\UnstakeQueue.sol",
+=======
+  "sourceMap": "62:511:20:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "62:511:20:-:0;;;;;;;;",
+  "source": "//SPDX-License-Identifier: Unlicense\npragma solidity ^0.8.0;\n\nlibrary UnstakeQueueCFX {\n\n  struct Node {\n    uint256 CFXs;\n  }\n\n  struct Queue {\n    uint256 start;\n    uint256 end;\n    mapping(uint256 => Node) items;\n  }\n\n  function enqueue(Queue storage queue, Node memory item) internal {\n    queue.items[queue.end++] = item;\n  }\n\n  function dequeue(Queue storage queue) internal returns (Node memory) {\n    require(queue.start < queue.end, \"Queue is empty\");\n    Node memory item = queue.items[queue.start];\n    delete queue.items[queue.start++];\n    return item;\n  }\n\n}",
+  "sourcePath": "C:\\Users\\artii\\Black IDE\\espace\\contracts\\eSpace\\UnstakeQueueCFX.sol",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
   "ast": {
     "absolutePath": "project:/contracts/eSpace/UnstakeQueue.sol",
     "exportedSymbols": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
       "UnstakeQueue": [
         10524
       ]
     },
     "id": 10525,
+=======
+      "UnstakeQueueCFX": [
+        4224
+      ]
+    },
+    "id": 4225,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
     "license": "Unlicense",
     "nodeType": "SourceUnit",
     "nodes": [
       {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
         "id": 10452,
+=======
+        "id": 4152,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
         "literals": [
           "solidity",
           "^",
@@ -31,7 +50,11 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
         "src": "37:23:45"
+=======
+        "src": "37:23:20"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
       },
       {
         "abstract": false,
@@ -39,6 +62,7 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
         "id": 10524,
         "linearizedBaseContracts": [
           10524
@@ -60,6 +84,29 @@
                 "nodeType": "VariableDeclaration",
                 "scope": 10455,
                 "src": "106:13:45",
+=======
+        "id": 4224,
+        "linearizedBaseContracts": [
+          4224
+        ],
+        "name": "UnstakeQueueCFX",
+        "nameLocation": "70:15:20",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "UnstakeQueueCFX.Node",
+            "id": 4155,
+            "members": [
+              {
+                "constant": false,
+                "id": 4154,
+                "mutability": "mutable",
+                "name": "CFXs",
+                "nameLocation": "117:4:20",
+                "nodeType": "VariableDeclaration",
+                "scope": 4155,
+                "src": "109:12:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -67,10 +114,17 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10453,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "106:7:45",
+=======
+                  "id": 4153,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "109:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -80,6 +134,7 @@
               }
             ],
             "name": "Node",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
             "nameLocation": "95:4:45",
             "nodeType": "StructDefinition",
             "scope": 10524,
@@ -99,6 +154,27 @@
                 "nodeType": "VariableDeclaration",
                 "scope": 10465,
                 "src": "147:13:45",
+=======
+            "nameLocation": "98:4:20",
+            "nodeType": "StructDefinition",
+            "scope": 4224,
+            "src": "91:35:20",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "UnstakeQueueCFX.Queue",
+            "id": 4165,
+            "members": [
+              {
+                "constant": false,
+                "id": 4157,
+                "mutability": "mutable",
+                "name": "start",
+                "nameLocation": "157:5:20",
+                "nodeType": "VariableDeclaration",
+                "scope": 4165,
+                "src": "149:13:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -106,10 +182,17 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10456,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "147:7:45",
+=======
+                  "id": 4156,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "149:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -119,6 +202,7 @@
               },
               {
                 "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                 "id": 10459,
                 "mutability": "mutable",
                 "name": "end",
@@ -126,6 +210,15 @@
                 "nodeType": "VariableDeclaration",
                 "scope": 10465,
                 "src": "166:11:45",
+=======
+                "id": 4159,
+                "mutability": "mutable",
+                "name": "end",
+                "nameLocation": "176:3:20",
+                "nodeType": "VariableDeclaration",
+                "scope": 4165,
+                "src": "168:11:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -133,10 +226,17 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10458,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "166:7:45",
+=======
+                  "id": 4158,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "168:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -146,6 +246,7 @@
               },
               {
                 "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                 "id": 10464,
                 "mutability": "mutable",
                 "name": "items",
@@ -166,12 +267,35 @@
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "191:7:45",
+=======
+                "id": 4164,
+                "mutability": "mutable",
+                "name": "items",
+                "nameLocation": "210:5:20",
+                "nodeType": "VariableDeclaration",
+                "scope": 4165,
+                "src": "185:30:20",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                  "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node)"
+                },
+                "typeName": {
+                  "id": 4163,
+                  "keyType": {
+                    "id": 4160,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "193:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
                   "nodeType": "Mapping",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "src": "183:24:45",
                   "typeDescriptions": {
                     "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
@@ -192,6 +316,28 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
+=======
+                  "src": "185:24:20",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                    "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node)"
+                  },
+                  "valueType": {
+                    "id": 4162,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4161,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4155,
+                      "src": "204:4:20"
+                    },
+                    "referencedDeclaration": 4155,
+                    "src": "204:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   }
                 },
@@ -199,14 +345,22 @@
               }
             ],
             "name": "Queue",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
             "nameLocation": "135:5:45",
             "nodeType": "StructDefinition",
             "scope": 10524,
             "src": "128:90:45",
+=======
+            "nameLocation": "137:5:20",
+            "nodeType": "StructDefinition",
+            "scope": 4224,
+            "src": "130:90:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "visibility": "public"
           },
           {
             "body": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "id": 10484,
               "nodeType": "Block",
               "src": "287:42:45",
@@ -214,6 +368,15 @@
                 {
                   "expression": {
                     "id": 10482,
+=======
+              "id": 4184,
+              "nodeType": "Block",
+              "src": "289:42:20",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 4182,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -221,6 +384,7 @@
                     "leftHandSide": {
                       "baseExpression": {
                         "expression": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "id": 10474,
                           "name": "queue",
                           "nodeType": "Identifier",
@@ -233,12 +397,27 @@
                           }
                         },
                         "id": 10479,
+=======
+                          "id": 4174,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4168,
+                          "src": "295:5:20",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                            "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                          }
+                        },
+                        "id": 4179,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "items",
                         "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "referencedDeclaration": 10464,
                         "src": "293:11:45",
                         "typeDescriptions": {
@@ -249,6 +428,18 @@
                       "id": 10480,
                       "indexExpression": {
                         "id": 10478,
+=======
+                        "referencedDeclaration": 4164,
+                        "src": "295:11:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                          "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                        }
+                      },
+                      "id": 4180,
+                      "indexExpression": {
+                        "id": 4178,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -256,6 +447,7 @@
                         "nodeType": "UnaryOperation",
                         "operator": "++",
                         "prefix": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "src": "305:11:45",
                         "subExpression": {
                           "expression": {
@@ -271,14 +463,36 @@
                             }
                           },
                           "id": 10477,
+=======
+                        "src": "307:11:20",
+                        "subExpression": {
+                          "expression": {
+                            "id": 4176,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4168,
+                            "src": "307:5:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 4177,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
                           "memberName": "end",
                           "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "referencedDeclaration": 10459,
                           "src": "305:9:45",
+=======
+                          "referencedDeclaration": 4159,
+                          "src": "307:9:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -294,15 +508,23 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "src": "293:24:45",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Node_$10455_storage",
                         "typeString": "struct UnstakeQueue.Node storage ref"
+=======
+                      "src": "295:24:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$4155_storage",
+                        "typeString": "struct UnstakeQueueCFX.Node storage ref"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       }
                     },
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "id": 10481,
                       "name": "item",
                       "nodeType": "Identifier",
@@ -327,18 +549,52 @@
               ]
             },
             "id": 10485,
+=======
+                      "id": 4181,
+                      "name": "item",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4171,
+                      "src": "322:4:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                        "typeString": "struct UnstakeQueueCFX.Node memory"
+                      }
+                    },
+                    "src": "295:31:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage",
+                      "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                    }
+                  },
+                  "id": 4183,
+                  "nodeType": "ExpressionStatement",
+                  "src": "295:31:20"
+                }
+              ]
+            },
+            "id": 4185,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "enqueue",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
             "nameLocation": "231:7:45",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 10472,
+=======
+            "nameLocation": "233:7:20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4172,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10468,
                   "mutability": "mutable",
                   "name": "queue",
@@ -367,12 +623,43 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
                       "typeString": "struct UnstakeQueue.Queue"
+=======
+                  "id": 4168,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "255:5:20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4185,
+                  "src": "241:19:20",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Queue"
+                  },
+                  "typeName": {
+                    "id": 4167,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4166,
+                      "name": "Queue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4165,
+                      "src": "241:5:20"
+                    },
+                    "referencedDeclaration": 4165,
+                    "src": "241:5:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Queue"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   },
                   "visibility": "internal"
                 },
                 {
                   "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10471,
                   "mutability": "mutable",
                   "name": "item",
@@ -401,11 +688,42 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
+=======
+                  "id": 4171,
+                  "mutability": "mutable",
+                  "name": "item",
+                  "nameLocation": "274:4:20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4185,
+                  "src": "262:16:20",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Node"
+                  },
+                  "typeName": {
+                    "id": 4170,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4169,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4155,
+                      "src": "262:4:20"
+                    },
+                    "referencedDeclaration": 4155,
+                    "src": "262:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   },
                   "visibility": "internal"
                 }
               ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "src": "238:39:45"
             },
             "returnParameters": {
@@ -416,15 +734,33 @@
             },
             "scope": 10524,
             "src": "222:107:45",
+=======
+              "src": "240:39:20"
+            },
+            "returnParameters": {
+              "id": 4173,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "289:0:20"
+            },
+            "scope": 4224,
+            "src": "224:107:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           },
           {
             "body": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "id": 10522,
               "nodeType": "Block",
               "src": "402:166:45",
+=======
+              "id": 4222,
+              "nodeType": "Block",
+              "src": "404:166:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
               "statements": [
                 {
                   "expression": {
@@ -434,13 +770,18 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "id": 10499,
+=======
+                        "id": 4199,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                             "id": 10495,
                             "name": "queue",
                             "nodeType": "Identifier",
@@ -453,14 +794,33 @@
                             }
                           },
                           "id": 10496,
+=======
+                            "id": 4195,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4188,
+                            "src": "418:5:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 4196,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "start",
                           "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "referencedDeclaration": 10457,
                           "src": "416:11:45",
+=======
+                          "referencedDeclaration": 4157,
+                          "src": "418:11:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -470,6 +830,7 @@
                         "operator": "<",
                         "rightExpression": {
                           "expression": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                             "id": 10497,
                             "name": "queue",
                             "nodeType": "Identifier",
@@ -482,20 +843,43 @@
                             }
                           },
                           "id": 10498,
+=======
+                            "id": 4197,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4188,
+                            "src": "432:5:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 4198,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "end",
                           "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "referencedDeclaration": 10459,
                           "src": "430:9:45",
+=======
+                          "referencedDeclaration": 4159,
+                          "src": "432:9:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           }
                         },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "src": "416:23:45",
+=======
+                        "src": "418:23:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -503,14 +887,22 @@
                       },
                       {
                         "hexValue": "517565756520697320656d707479",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "id": 10500,
+=======
+                        "id": 4200,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "src": "441:16:45",
+=======
+                        "src": "443:16:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_0264a3a3dbb173762c3a715cd834ae209dd020cc68389dad4a0b3835fea7fda2",
                           "typeString": "literal_string \"Queue is empty\""
@@ -529,7 +921,11 @@
                           "typeString": "literal_string \"Queue is empty\""
                         }
                       ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "id": 10494,
+=======
+                      "id": 4194,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -537,13 +933,21 @@
                         4294967278
                       ],
                       "referencedDeclaration": 4294967278,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "src": "408:7:45",
+=======
+                      "src": "410:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                     "id": 10501,
+=======
+                    "id": 4201,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -551,13 +955,18 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                     "src": "408:50:45",
+=======
+                    "src": "410:50:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10502,
                   "nodeType": "ExpressionStatement",
                   "src": "408:50:45"
@@ -565,10 +974,20 @@
                 {
                   "assignments": [
                     10505
+=======
+                  "id": 4202,
+                  "nodeType": "ExpressionStatement",
+                  "src": "410:50:20"
+                },
+                {
+                  "assignments": [
+                    4205
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   ],
                   "declarations": [
                     {
                       "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "id": 10505,
                       "mutability": "mutable",
                       "name": "item",
@@ -597,11 +1016,42 @@
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
                           "typeString": "struct UnstakeQueue.Node"
+=======
+                      "id": 4205,
+                      "mutability": "mutable",
+                      "name": "item",
+                      "nameLocation": "478:4:20",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 4222,
+                      "src": "466:16:20",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                        "typeString": "struct UnstakeQueueCFX.Node"
+                      },
+                      "typeName": {
+                        "id": 4204,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 4203,
+                          "name": "Node",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 4155,
+                          "src": "466:4:20"
+                        },
+                        "referencedDeclaration": 4155,
+                        "src": "466:4:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Node_$4155_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Node"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10511,
                   "initialValue": {
                     "baseExpression": {
@@ -618,12 +1068,31 @@
                         }
                       },
                       "id": 10507,
+=======
+                  "id": 4211,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 4206,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4188,
+                        "src": "485:5:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                        }
+                      },
+                      "id": 4207,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "items",
                       "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "referencedDeclaration": 10464,
                       "src": "483:11:45",
                       "typeDescriptions": {
@@ -646,14 +1115,43 @@
                         }
                       },
                       "id": 10509,
+=======
+                      "referencedDeclaration": 4164,
+                      "src": "485:11:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                        "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                      }
+                    },
+                    "id": 4210,
+                    "indexExpression": {
+                      "expression": {
+                        "id": 4208,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4188,
+                        "src": "497:5:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                        }
+                      },
+                      "id": 4209,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "start",
                       "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "referencedDeclaration": 10457,
                       "src": "495:11:45",
+=======
+                      "referencedDeclaration": 4157,
+                      "src": "497:11:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -664,6 +1162,7 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                     "src": "483:24:45",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$10455_storage",
@@ -676,6 +1175,20 @@
                 {
                   "expression": {
                     "id": 10518,
+=======
+                    "src": "485:24:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage",
+                      "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "466:43:20"
+                },
+                {
+                  "expression": {
+                    "id": 4218,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -683,6 +1196,7 @@
                     "nodeType": "UnaryOperation",
                     "operator": "delete",
                     "prefix": true,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                     "src": "513:33:45",
                     "subExpression": {
                       "baseExpression": {
@@ -699,12 +1213,31 @@
                           }
                         },
                         "id": 10513,
+=======
+                    "src": "515:33:20",
+                    "subExpression": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 4212,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4188,
+                          "src": "522:5:20",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                            "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                          }
+                        },
+                        "id": 4213,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "items",
                         "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "referencedDeclaration": 10464,
                         "src": "520:11:45",
                         "typeDescriptions": {
@@ -715,6 +1248,18 @@
                       "id": 10517,
                       "indexExpression": {
                         "id": 10516,
+=======
+                        "referencedDeclaration": 4164,
+                        "src": "522:11:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                          "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                        }
+                      },
+                      "id": 4217,
+                      "indexExpression": {
+                        "id": 4216,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -722,6 +1267,7 @@
                         "nodeType": "UnaryOperation",
                         "operator": "++",
                         "prefix": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "src": "532:13:45",
                         "subExpression": {
                           "expression": {
@@ -737,14 +1283,36 @@
                             }
                           },
                           "id": 10515,
+=======
+                        "src": "534:13:20",
+                        "subExpression": {
+                          "expression": {
+                            "id": 4214,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4188,
+                            "src": "534:5:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 4215,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
                           "memberName": "start",
                           "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "referencedDeclaration": 10457,
                           "src": "532:11:45",
+=======
+                          "referencedDeclaration": 4157,
+                          "src": "534:11:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -760,10 +1328,17 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "src": "520:26:45",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Node_$10455_storage",
                         "typeString": "struct UnstakeQueue.Node storage ref"
+=======
+                      "src": "522:26:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$4155_storage",
+                        "typeString": "struct UnstakeQueueCFX.Node storage ref"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       }
                     },
                     "typeDescriptions": {
@@ -771,6 +1346,7 @@
                       "typeString": "tuple()"
                     }
                   },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10519,
                   "nodeType": "ExpressionStatement",
                   "src": "513:33:45"
@@ -796,18 +1372,53 @@
               ]
             },
             "id": 10523,
+=======
+                  "id": 4219,
+                  "nodeType": "ExpressionStatement",
+                  "src": "515:33:20"
+                },
+                {
+                  "expression": {
+                    "id": 4220,
+                    "name": "item",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 4205,
+                    "src": "561:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node memory"
+                    }
+                  },
+                  "functionReturnParameters": 4193,
+                  "id": 4221,
+                  "nodeType": "Return",
+                  "src": "554:11:20"
+                }
+              ]
+            },
+            "id": 4223,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "dequeue",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
             "nameLocation": "342:7:45",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 10489,
+=======
+            "nameLocation": "344:7:20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4189,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10488,
                   "mutability": "mutable",
                   "name": "queue",
@@ -836,24 +1447,66 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
                       "typeString": "struct UnstakeQueue.Queue"
+=======
+                  "id": 4188,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "366:5:20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4223,
+                  "src": "352:19:20",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Queue"
+                  },
+                  "typeName": {
+                    "id": 4187,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4186,
+                      "name": "Queue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4165,
+                      "src": "352:5:20"
+                    },
+                    "referencedDeclaration": 4165,
+                    "src": "352:5:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Queue"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   },
                   "visibility": "internal"
                 }
               ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "src": "349:21:45"
             },
             "returnParameters": {
               "id": 10493,
+=======
+              "src": "351:21:20"
+            },
+            "returnParameters": {
+              "id": 4193,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10492,
+=======
+                  "id": 4192,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "scope": 10523,
                   "src": "389:11:45",
                   "stateVariable": false,
@@ -877,39 +1530,91 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
+=======
+                  "scope": 4223,
+                  "src": "391:11:20",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Node"
+                  },
+                  "typeName": {
+                    "id": 4191,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4190,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4155,
+                      "src": "391:4:20"
+                    },
+                    "referencedDeclaration": 4155,
+                    "src": "391:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   },
                   "visibility": "internal"
                 }
               ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "src": "388:13:45"
             },
             "scope": 10524,
             "src": "333:235:45",
+=======
+              "src": "390:13:20"
+            },
+            "scope": 4224,
+            "src": "335:235:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
         "scope": 10525,
         "src": "62:509:45"
       }
     ],
     "src": "37:534:45"
+=======
+        "scope": 4225,
+        "src": "62:511:20"
+      }
+    ],
+    "src": "37:536:20"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
   },
   "legacyAST": {
     "absolutePath": "project:/contracts/eSpace/UnstakeQueue.sol",
     "exportedSymbols": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
       "UnstakeQueue": [
         10524
       ]
     },
     "id": 10525,
+=======
+      "UnstakeQueueCFX": [
+        4224
+      ]
+    },
+    "id": 4225,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
     "license": "Unlicense",
     "nodeType": "SourceUnit",
     "nodes": [
       {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
         "id": 10452,
+=======
+        "id": 4152,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
         "literals": [
           "solidity",
           "^",
@@ -917,7 +1622,11 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
         "src": "37:23:45"
+=======
+        "src": "37:23:20"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
       },
       {
         "abstract": false,
@@ -925,6 +1634,7 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
         "id": 10524,
         "linearizedBaseContracts": [
           10524
@@ -946,6 +1656,29 @@
                 "nodeType": "VariableDeclaration",
                 "scope": 10455,
                 "src": "106:13:45",
+=======
+        "id": 4224,
+        "linearizedBaseContracts": [
+          4224
+        ],
+        "name": "UnstakeQueueCFX",
+        "nameLocation": "70:15:20",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "UnstakeQueueCFX.Node",
+            "id": 4155,
+            "members": [
+              {
+                "constant": false,
+                "id": 4154,
+                "mutability": "mutable",
+                "name": "CFXs",
+                "nameLocation": "117:4:20",
+                "nodeType": "VariableDeclaration",
+                "scope": 4155,
+                "src": "109:12:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -953,10 +1686,17 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10453,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "106:7:45",
+=======
+                  "id": 4153,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "109:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -966,6 +1706,7 @@
               }
             ],
             "name": "Node",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
             "nameLocation": "95:4:45",
             "nodeType": "StructDefinition",
             "scope": 10524,
@@ -985,6 +1726,27 @@
                 "nodeType": "VariableDeclaration",
                 "scope": 10465,
                 "src": "147:13:45",
+=======
+            "nameLocation": "98:4:20",
+            "nodeType": "StructDefinition",
+            "scope": 4224,
+            "src": "91:35:20",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "UnstakeQueueCFX.Queue",
+            "id": 4165,
+            "members": [
+              {
+                "constant": false,
+                "id": 4157,
+                "mutability": "mutable",
+                "name": "start",
+                "nameLocation": "157:5:20",
+                "nodeType": "VariableDeclaration",
+                "scope": 4165,
+                "src": "149:13:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -992,10 +1754,17 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10456,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "147:7:45",
+=======
+                  "id": 4156,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "149:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1005,6 +1774,7 @@
               },
               {
                 "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                 "id": 10459,
                 "mutability": "mutable",
                 "name": "end",
@@ -1012,6 +1782,15 @@
                 "nodeType": "VariableDeclaration",
                 "scope": 10465,
                 "src": "166:11:45",
+=======
+                "id": 4159,
+                "mutability": "mutable",
+                "name": "end",
+                "nameLocation": "176:3:20",
+                "nodeType": "VariableDeclaration",
+                "scope": 4165,
+                "src": "168:11:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1019,10 +1798,17 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10458,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "166:7:45",
+=======
+                  "id": 4158,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "168:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1032,6 +1818,7 @@
               },
               {
                 "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                 "id": 10464,
                 "mutability": "mutable",
                 "name": "items",
@@ -1052,12 +1839,35 @@
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "191:7:45",
+=======
+                "id": 4164,
+                "mutability": "mutable",
+                "name": "items",
+                "nameLocation": "210:5:20",
+                "nodeType": "VariableDeclaration",
+                "scope": 4165,
+                "src": "185:30:20",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                  "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node)"
+                },
+                "typeName": {
+                  "id": 4163,
+                  "keyType": {
+                    "id": 4160,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "193:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
                   "nodeType": "Mapping",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "src": "183:24:45",
                   "typeDescriptions": {
                     "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$10455_storage_$",
@@ -1078,6 +1888,28 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
+=======
+                  "src": "185:24:20",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                    "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node)"
+                  },
+                  "valueType": {
+                    "id": 4162,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4161,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4155,
+                      "src": "204:4:20"
+                    },
+                    "referencedDeclaration": 4155,
+                    "src": "204:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   }
                 },
@@ -1085,14 +1917,22 @@
               }
             ],
             "name": "Queue",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
             "nameLocation": "135:5:45",
             "nodeType": "StructDefinition",
             "scope": 10524,
             "src": "128:90:45",
+=======
+            "nameLocation": "137:5:20",
+            "nodeType": "StructDefinition",
+            "scope": 4224,
+            "src": "130:90:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "visibility": "public"
           },
           {
             "body": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "id": 10484,
               "nodeType": "Block",
               "src": "287:42:45",
@@ -1100,6 +1940,15 @@
                 {
                   "expression": {
                     "id": 10482,
+=======
+              "id": 4184,
+              "nodeType": "Block",
+              "src": "289:42:20",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 4182,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1107,6 +1956,7 @@
                     "leftHandSide": {
                       "baseExpression": {
                         "expression": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "id": 10474,
                           "name": "queue",
                           "nodeType": "Identifier",
@@ -1119,12 +1969,27 @@
                           }
                         },
                         "id": 10479,
+=======
+                          "id": 4174,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4168,
+                          "src": "295:5:20",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                            "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                          }
+                        },
+                        "id": 4179,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "items",
                         "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "referencedDeclaration": 10464,
                         "src": "293:11:45",
                         "typeDescriptions": {
@@ -1135,6 +2000,18 @@
                       "id": 10480,
                       "indexExpression": {
                         "id": 10478,
+=======
+                        "referencedDeclaration": 4164,
+                        "src": "295:11:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                          "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                        }
+                      },
+                      "id": 4180,
+                      "indexExpression": {
+                        "id": 4178,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1142,6 +2019,7 @@
                         "nodeType": "UnaryOperation",
                         "operator": "++",
                         "prefix": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "src": "305:11:45",
                         "subExpression": {
                           "expression": {
@@ -1157,14 +2035,36 @@
                             }
                           },
                           "id": 10477,
+=======
+                        "src": "307:11:20",
+                        "subExpression": {
+                          "expression": {
+                            "id": 4176,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4168,
+                            "src": "307:5:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 4177,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
                           "memberName": "end",
                           "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "referencedDeclaration": 10459,
                           "src": "305:9:45",
+=======
+                          "referencedDeclaration": 4159,
+                          "src": "307:9:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1180,15 +2080,23 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "src": "293:24:45",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Node_$10455_storage",
                         "typeString": "struct UnstakeQueue.Node storage ref"
+=======
+                      "src": "295:24:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$4155_storage",
+                        "typeString": "struct UnstakeQueueCFX.Node storage ref"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       }
                     },
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "id": 10481,
                       "name": "item",
                       "nodeType": "Identifier",
@@ -1213,18 +2121,52 @@
               ]
             },
             "id": 10485,
+=======
+                      "id": 4181,
+                      "name": "item",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4171,
+                      "src": "322:4:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                        "typeString": "struct UnstakeQueueCFX.Node memory"
+                      }
+                    },
+                    "src": "295:31:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage",
+                      "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                    }
+                  },
+                  "id": 4183,
+                  "nodeType": "ExpressionStatement",
+                  "src": "295:31:20"
+                }
+              ]
+            },
+            "id": 4185,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "enqueue",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
             "nameLocation": "231:7:45",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 10472,
+=======
+            "nameLocation": "233:7:20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4172,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10468,
                   "mutability": "mutable",
                   "name": "queue",
@@ -1253,12 +2195,43 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
                       "typeString": "struct UnstakeQueue.Queue"
+=======
+                  "id": 4168,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "255:5:20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4185,
+                  "src": "241:19:20",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Queue"
+                  },
+                  "typeName": {
+                    "id": 4167,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4166,
+                      "name": "Queue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4165,
+                      "src": "241:5:20"
+                    },
+                    "referencedDeclaration": 4165,
+                    "src": "241:5:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Queue"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   },
                   "visibility": "internal"
                 },
                 {
                   "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10471,
                   "mutability": "mutable",
                   "name": "item",
@@ -1287,11 +2260,42 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
+=======
+                  "id": 4171,
+                  "mutability": "mutable",
+                  "name": "item",
+                  "nameLocation": "274:4:20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4185,
+                  "src": "262:16:20",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Node"
+                  },
+                  "typeName": {
+                    "id": 4170,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4169,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4155,
+                      "src": "262:4:20"
+                    },
+                    "referencedDeclaration": 4155,
+                    "src": "262:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   },
                   "visibility": "internal"
                 }
               ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "src": "238:39:45"
             },
             "returnParameters": {
@@ -1302,15 +2306,33 @@
             },
             "scope": 10524,
             "src": "222:107:45",
+=======
+              "src": "240:39:20"
+            },
+            "returnParameters": {
+              "id": 4173,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "289:0:20"
+            },
+            "scope": 4224,
+            "src": "224:107:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           },
           {
             "body": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "id": 10522,
               "nodeType": "Block",
               "src": "402:166:45",
+=======
+              "id": 4222,
+              "nodeType": "Block",
+              "src": "404:166:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
               "statements": [
                 {
                   "expression": {
@@ -1320,13 +2342,18 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "id": 10499,
+=======
+                        "id": 4199,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                             "id": 10495,
                             "name": "queue",
                             "nodeType": "Identifier",
@@ -1339,14 +2366,33 @@
                             }
                           },
                           "id": 10496,
+=======
+                            "id": 4195,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4188,
+                            "src": "418:5:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 4196,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "start",
                           "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "referencedDeclaration": 10457,
                           "src": "416:11:45",
+=======
+                          "referencedDeclaration": 4157,
+                          "src": "418:11:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1356,6 +2402,7 @@
                         "operator": "<",
                         "rightExpression": {
                           "expression": {
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                             "id": 10497,
                             "name": "queue",
                             "nodeType": "Identifier",
@@ -1368,20 +2415,43 @@
                             }
                           },
                           "id": 10498,
+=======
+                            "id": 4197,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4188,
+                            "src": "432:5:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 4198,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "end",
                           "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "referencedDeclaration": 10459,
                           "src": "430:9:45",
+=======
+                          "referencedDeclaration": 4159,
+                          "src": "432:9:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           }
                         },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "src": "416:23:45",
+=======
+                        "src": "418:23:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -1389,14 +2459,22 @@
                       },
                       {
                         "hexValue": "517565756520697320656d707479",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "id": 10500,
+=======
+                        "id": 4200,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "src": "441:16:45",
+=======
+                        "src": "443:16:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_0264a3a3dbb173762c3a715cd834ae209dd020cc68389dad4a0b3835fea7fda2",
                           "typeString": "literal_string \"Queue is empty\""
@@ -1415,7 +2493,11 @@
                           "typeString": "literal_string \"Queue is empty\""
                         }
                       ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "id": 10494,
+=======
+                      "id": 4194,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -1423,13 +2505,21 @@
                         4294967278
                       ],
                       "referencedDeclaration": 4294967278,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "src": "408:7:45",
+=======
+                      "src": "410:7:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                     "id": 10501,
+=======
+                    "id": 4201,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1437,13 +2527,18 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                     "src": "408:50:45",
+=======
+                    "src": "410:50:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10502,
                   "nodeType": "ExpressionStatement",
                   "src": "408:50:45"
@@ -1451,10 +2546,20 @@
                 {
                   "assignments": [
                     10505
+=======
+                  "id": 4202,
+                  "nodeType": "ExpressionStatement",
+                  "src": "410:50:20"
+                },
+                {
+                  "assignments": [
+                    4205
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   ],
                   "declarations": [
                     {
                       "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "id": 10505,
                       "mutability": "mutable",
                       "name": "item",
@@ -1483,11 +2588,42 @@
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
                           "typeString": "struct UnstakeQueue.Node"
+=======
+                      "id": 4205,
+                      "mutability": "mutable",
+                      "name": "item",
+                      "nameLocation": "478:4:20",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 4222,
+                      "src": "466:16:20",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                        "typeString": "struct UnstakeQueueCFX.Node"
+                      },
+                      "typeName": {
+                        "id": 4204,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 4203,
+                          "name": "Node",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 4155,
+                          "src": "466:4:20"
+                        },
+                        "referencedDeclaration": 4155,
+                        "src": "466:4:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Node_$4155_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Node"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10511,
                   "initialValue": {
                     "baseExpression": {
@@ -1504,12 +2640,31 @@
                         }
                       },
                       "id": 10507,
+=======
+                  "id": 4211,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 4206,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4188,
+                        "src": "485:5:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                        }
+                      },
+                      "id": 4207,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "items",
                       "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "referencedDeclaration": 10464,
                       "src": "483:11:45",
                       "typeDescriptions": {
@@ -1532,14 +2687,43 @@
                         }
                       },
                       "id": 10509,
+=======
+                      "referencedDeclaration": 4164,
+                      "src": "485:11:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                        "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                      }
+                    },
+                    "id": 4210,
+                    "indexExpression": {
+                      "expression": {
+                        "id": 4208,
+                        "name": "queue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4188,
+                        "src": "497:5:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                          "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                        }
+                      },
+                      "id": 4209,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "start",
                       "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "referencedDeclaration": 10457,
                       "src": "495:11:45",
+=======
+                      "referencedDeclaration": 4157,
+                      "src": "497:11:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -1550,6 +2734,7 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                     "src": "483:24:45",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$10455_storage",
@@ -1562,6 +2747,20 @@
                 {
                   "expression": {
                     "id": 10518,
+=======
+                    "src": "485:24:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage",
+                      "typeString": "struct UnstakeQueueCFX.Node storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "466:43:20"
+                },
+                {
+                  "expression": {
+                    "id": 4218,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1569,6 +2768,7 @@
                     "nodeType": "UnaryOperation",
                     "operator": "delete",
                     "prefix": true,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                     "src": "513:33:45",
                     "subExpression": {
                       "baseExpression": {
@@ -1585,12 +2785,31 @@
                           }
                         },
                         "id": 10513,
+=======
+                    "src": "515:33:20",
+                    "subExpression": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 4212,
+                          "name": "queue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4188,
+                          "src": "522:5:20",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                            "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                          }
+                        },
+                        "id": 4213,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "items",
                         "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "referencedDeclaration": 10464,
                         "src": "520:11:45",
                         "typeDescriptions": {
@@ -1601,6 +2820,18 @@
                       "id": 10517,
                       "indexExpression": {
                         "id": 10516,
+=======
+                        "referencedDeclaration": 4164,
+                        "src": "522:11:20",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Node_$4155_storage_$",
+                          "typeString": "mapping(uint256 => struct UnstakeQueueCFX.Node storage ref)"
+                        }
+                      },
+                      "id": 4217,
+                      "indexExpression": {
+                        "id": 4216,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1608,6 +2839,7 @@
                         "nodeType": "UnaryOperation",
                         "operator": "++",
                         "prefix": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                         "src": "532:13:45",
                         "subExpression": {
                           "expression": {
@@ -1623,14 +2855,36 @@
                             }
                           },
                           "id": 10515,
+=======
+                        "src": "534:13:20",
+                        "subExpression": {
+                          "expression": {
+                            "id": 4214,
+                            "name": "queue",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4188,
+                            "src": "534:5:20",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                              "typeString": "struct UnstakeQueueCFX.Queue storage pointer"
+                            }
+                          },
+                          "id": 4215,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
                           "memberName": "start",
                           "nodeType": "MemberAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                           "referencedDeclaration": 10457,
                           "src": "532:11:45",
+=======
+                          "referencedDeclaration": 4157,
+                          "src": "534:11:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1646,10 +2900,17 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                       "src": "520:26:45",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Node_$10455_storage",
                         "typeString": "struct UnstakeQueue.Node storage ref"
+=======
+                      "src": "522:26:20",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Node_$4155_storage",
+                        "typeString": "struct UnstakeQueueCFX.Node storage ref"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                       }
                     },
                     "typeDescriptions": {
@@ -1657,6 +2918,7 @@
                       "typeString": "tuple()"
                     }
                   },
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10519,
                   "nodeType": "ExpressionStatement",
                   "src": "513:33:45"
@@ -1682,18 +2944,53 @@
               ]
             },
             "id": 10523,
+=======
+                  "id": 4219,
+                  "nodeType": "ExpressionStatement",
+                  "src": "515:33:20"
+                },
+                {
+                  "expression": {
+                    "id": 4220,
+                    "name": "item",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 4205,
+                    "src": "561:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node memory"
+                    }
+                  },
+                  "functionReturnParameters": 4193,
+                  "id": 4221,
+                  "nodeType": "Return",
+                  "src": "554:11:20"
+                }
+              ]
+            },
+            "id": 4223,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "dequeue",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
             "nameLocation": "342:7:45",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 10489,
+=======
+            "nameLocation": "344:7:20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4189,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10488,
                   "mutability": "mutable",
                   "name": "queue",
@@ -1722,24 +3019,66 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Queue_$10465_storage_ptr",
                       "typeString": "struct UnstakeQueue.Queue"
+=======
+                  "id": 4188,
+                  "mutability": "mutable",
+                  "name": "queue",
+                  "nameLocation": "366:5:20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4223,
+                  "src": "352:19:20",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Queue"
+                  },
+                  "typeName": {
+                    "id": 4187,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4186,
+                      "name": "Queue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4165,
+                      "src": "352:5:20"
+                    },
+                    "referencedDeclaration": 4165,
+                    "src": "352:5:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Queue_$4165_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Queue"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   },
                   "visibility": "internal"
                 }
               ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "src": "349:21:45"
             },
             "returnParameters": {
               "id": 10493,
+=======
+              "src": "351:21:20"
+            },
+            "returnParameters": {
+              "id": 4193,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "id": 10492,
+=======
+                  "id": 4192,
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
                   "scope": 10523,
                   "src": "389:11:45",
                   "stateVariable": false,
@@ -1763,25 +3102,65 @@
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$10455_storage_ptr",
                       "typeString": "struct UnstakeQueue.Node"
+=======
+                  "scope": 4223,
+                  "src": "391:11:20",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Node_$4155_memory_ptr",
+                    "typeString": "struct UnstakeQueueCFX.Node"
+                  },
+                  "typeName": {
+                    "id": 4191,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4190,
+                      "name": "Node",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4155,
+                      "src": "391:4:20"
+                    },
+                    "referencedDeclaration": 4155,
+                    "src": "391:4:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Node_$4155_storage_ptr",
+                      "typeString": "struct UnstakeQueueCFX.Node"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
                     }
                   },
                   "visibility": "internal"
                 }
               ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
               "src": "388:13:45"
             },
             "scope": 10524,
             "src": "333:235:45",
+=======
+              "src": "390:13:20"
+            },
+            "scope": 4224,
+            "src": "335:235:20",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
         "scope": 10525,
         "src": "62:509:45"
       }
     ],
     "src": "37:534:45"
+=======
+        "scope": 4225,
+        "src": "62:511:20"
+      }
+    ],
+    "src": "37:536:20"
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
   },
   "compiler": {
     "name": "solc",
@@ -1789,7 +3168,11 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
+<<<<<<< Updated upstream:build/contracts/UnstakeQueue.json
   "updatedAt": "2022-06-16T16:59:41.679Z",
+=======
+  "updatedAt": "2022-09-01T08:37:48.060Z",
+>>>>>>> Stashed changes:build/contracts/UnstakeQueueCFX.json
   "devdoc": {
     "kind": "dev",
     "methods": {},
