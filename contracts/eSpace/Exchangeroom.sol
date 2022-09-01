@@ -102,10 +102,15 @@ contract Exchangeroom is Ownable,Initializable {
   // ======================== Init methods ==============================
 
   // call this method when depoly the 1967 proxy contract
-  function initialize() public initializer {
+  function initialize(address _XCFXaddress,uint256 xCFXamountInit) public initializer {
     _exchangeSummary.xcfxvalues = 1 ether;
     _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 14;
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
+    XCFX_address = _XCFXaddress;
+    IXCFX(XCFX_address).addTokens(msg.sender, xCFXamountInit);
+
+    _exchangeSummary.totalxcfxs = xCFXamountInit;
+    _exchangeSummary.xCFXincrease = xCFXamountInit;
   }
 
   // ======================== Contract methods =========================
@@ -131,7 +136,7 @@ contract Exchangeroom is Ownable,Initializable {
   // @dev msg.value The amount of CFX to stake
   // emit IncreasePoSStake(msg.sender, msg.value);
   //
-  function CFX_exchange_XCFX() external payable {
+  function CFX_exchange_XCFX() external payable returns(uint256){
     require(msg.value>0 , 'must > 0');
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
 
@@ -143,6 +148,7 @@ contract Exchangeroom is Ownable,Initializable {
     _exchangeSummary.totalxcfxs += xcfx_exchange;
     _exchangeSummary.xCFXincrease += xcfx_exchange;
     emit IncreasePoSStake(msg.sender, msg.value);
+    return xcfx_exchange;
   }
   //
   // @title XCFX_burn_estim
