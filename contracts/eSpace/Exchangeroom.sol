@@ -115,12 +115,12 @@ contract Exchangeroom is Ownable,Initializable {
 
   // ======================== Contract methods =========================
 
-  function set_Settings(address _XCFX_addr,address _S_addr) external onlyOwner {
-        XCFX_address = _XCFX_addr;
+  function setSettings(address _S_addr) external onlyOwner {
+        //XCFX_address = _XCFX_addr;
         Storage_addr = _S_addr;
     }  
 
-  function get_Settings() external view returns(address,address){
+  function getSettings() external view returns(address,address){
     return (XCFX_address,Storage_addr);
     }
   //
@@ -258,17 +258,17 @@ contract Exchangeroom is Ownable,Initializable {
   // 2 bridgeAddress
   // 3 PoolName
   //
-  function setLockPeriod(uint64 _slow,uint64 _fast) public onlyOwner {
+  function _setLockPeriod(uint64 _slow,uint64 _fast) public onlyOwner {
     _poolLockPeriod_slow = _slow;
     _poolLockPeriod_fast = _fast;
   }
 
-  function setBridge(address bridgeAddress) public onlyOwner {
+  function _setBridge(address bridgeAddress) public onlyOwner {
     _bridgeAddress = bridgeAddress;
     birdgeAddrSetted = true;
   }
 
-  function setPoolName(string memory name) public onlyOwner {
+  function _setPoolName(string memory name) public onlyOwner {
     poolName = name;
   }
 
