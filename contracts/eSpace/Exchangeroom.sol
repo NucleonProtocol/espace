@@ -115,7 +115,7 @@ contract Exchangeroom is Ownable,Initializable {
 
   // ======================== Contract methods =========================
 
-  function setSettings(address _S_addr) external onlyOwner {
+  function _setSettings(address _S_addr) external onlyOwner {
         //XCFX_address = _XCFX_addr;
         Storage_addr = _S_addr;
     }  
