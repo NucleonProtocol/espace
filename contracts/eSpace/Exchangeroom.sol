@@ -105,7 +105,7 @@ contract Exchangeroom is Ownable,Initializable {
   function initialize(address _XCFXaddress,uint256 xCFXamountInit) public payable initializer {
     require(xCFXamountInit==msg.value,'xCFXamountInit should be equal to msg.value');
     _exchangeSummary.xcfxvalues = 1 ether;
-    _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 14;
+    _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
     XCFX_address = _XCFXaddress;
     IXCFX(XCFX_address).addTokens(msg.sender, xCFXamountInit);
@@ -170,25 +170,28 @@ contract Exchangeroom is Ownable,Initializable {
     uint256 _mode = 0;
     uint256 cfx_back = XCFX_burn_estim(_amount);
     if(_exchangeSummary.unlockingCFX==0){
+      require(_amount<=_exchangeSummary.totalxcfxs,"Exceed exchange limit");
       _mode=0;
-      require(cfx_back<=_exchangeSummary.totalxcfxs.mul(1000 ether),"Exceed exchange limit");
     }
-    else if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether).div(2*_exchangeSummary.unlockingCFX)){
+    else if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether)){
       _mode=1;
     }
     else {
-      require(cfx_back<=_exchangeSummary.totalxcfxs.mul(1000 ether),"Exceed exchange limit");
+      require(_amount<=_exchangeSummary.totalxcfxs,"Exceed exchange limit");
+      _mode=0;
     }
     _exchangeSummary.totalxcfxs -= _amount;
     _exchangeSummary.unlockingCFX += cfx_back;
     unstakeQueue.enqueue(UnstakeQueueCFX.Node(cfx_back));
     IXCFX(XCFX_address).burnTokens(msg.sender, _amount);
-
+    emit DecreasePoSStake(msg.sender, _amount);
     if(_mode == 1){
       userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, _blockNumber() + _poolLockPeriod_fast));
+      _amount = 2;
       }
     else{
       userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, _blockNumber() + _poolLockPeriod_slow));
+      _amount = 15;
     }
     
     userSummaries[msg.sender].unlocking += cfx_back;
@@ -197,7 +200,7 @@ contract Exchangeroom is Ownable,Initializable {
     userSummaries[msg.sender].unlocked += temp_amount;
     userSummaries[msg.sender].unlocking -= temp_amount;
 
-    emit DecreasePoSStake(msg.sender, _amount);
+    
     return _amount;
   }
   //
@@ -337,7 +340,7 @@ contract Exchangeroom is Ownable,Initializable {
   }
 
   // receive interest
-  function receiveInterest() public payable onlyBridge {}
+  // function receiveInterest() public payable onlyBridge {}  
   // ======================== contract base methods =====================
   fallback() external payable {}
   receive() external payable {}
