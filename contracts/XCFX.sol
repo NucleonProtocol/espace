@@ -8,6 +8,8 @@ contract XCFX is ERC20, Initializable {
     address owner;
     mapping(address=>bool) mainMinter;
     uint256 unlocked=1;
+    string  _name = "X-nucleon-CFX";
+    string  _symbol = "xCFX";
     // ======================== Methods =========================
     modifier onlyMinter() {
         require(mainMinter[msg.sender], "MinterRole: caller does not have the Minter role or above");
