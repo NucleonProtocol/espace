@@ -102,7 +102,8 @@ contract Exchangeroom is Ownable,Initializable {
   // ======================== Init methods ==============================
 
   // call this method when depoly the 1967 proxy contract
-  function initialize(address _XCFXaddress,uint256 xCFXamountInit) public initializer {
+  function initialize(address _XCFXaddress,uint256 xCFXamountInit) public payable initializer {
+    require(xCFXamountInit==msg.sender,'xCFXamountInit should be equal to msg.sender');
     _exchangeSummary.xcfxvalues = 1 ether;
     _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 14;
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
