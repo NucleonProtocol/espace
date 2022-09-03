@@ -45,7 +45,7 @@ contract XCFX is ERC20, Initializable {
     }
     function burnTokens(address _account, uint256 _value) external lock onlyMinter(){
         require(_value > 0,"Con't burn 0");
-        require(_value <= balanceOf(msg.sender),"Must < account balance");
+        require(_value <= balanceOf(_account),"Must < account balance");
         //require( isContract(msg.sender) ,"msg.sender must be a contract");
         _burn(_account, _value);
     }
