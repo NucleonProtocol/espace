@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 ///
-///  @title System Storage
+///  @title System Storage in Conflux eSpace
 ///
 contract systemstorage is Ownable,Initializable {
   // ======================== System Definition =================================
@@ -132,7 +132,6 @@ contract systemstorage is Ownable,Initializable {
         transferCFX( _balanceAddress, StorageBalance-transferAmountSum);
     }
   }
-
 
   // ======================== contract base methods =====================
   fallback() external payable {}
