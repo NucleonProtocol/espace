@@ -20,7 +20,7 @@ contract systemstorage is Ownable,Initializable {
   // ======================== Modifiers =================================
   modifier onlyAdmin() {
     //require(isContract(msg.sender),"bridge is contracts");
-    require(msg.sender == _adminAddress, "Only bridge is allowed");
+    require(msg.sender == _adminAddress, "Only Admin is allowed");
     _;
   }
    // ======================== init =================================
@@ -38,12 +38,12 @@ contract systemstorage is Ownable,Initializable {
     _allowance = _allow;
   }
   // ======================== private =================================
-  function transferERC20(address _ERC20address,address _recipient,uint256 _amount) private onlyAdmin {
+  function transferERC20(address _ERC20address,address _recipient,uint256 _amount) public onlyAdmin {
     require(IERC20(_ERC20address).balanceOf(address(this))>=_amount,"exceed the storage ERC20 balance");
     IERC20(_ERC20address).transfer( _recipient, _amount);
   }
 
-  function transferCFX(address _recipient,uint256 _amount) private onlyAdmin {
+  function transferCFX(address _recipient,uint256 _amount) public onlyAdmin {
     require(address(this).balance>=_amount,"exceed the storage CFX balance");
     address payable receiver = payable(_recipient); // Set receiver
     receiver.transfer(_amount);
@@ -55,7 +55,7 @@ contract systemstorage is Ownable,Initializable {
     require(_allowance==1024,"Requires specific permissions"); 
     require(_Percentage.length==_transferaddr.length,"The number of addresses and proportions need to be the same");
     //address payable receiver; // Set receiver
-    uint256[] memory amountsbyPercentage;
+    uint256[] memory amountsbyPercentage = _Percentage;
     uint256 PercentageSum;
     uint256 transferAmountSum;
     uint256 StorageBalance = IERC20(_ERC20address).balanceOf(address(this));
@@ -78,7 +78,7 @@ contract systemstorage is Ownable,Initializable {
                                    address[] memory _transferaddr) public onlyAdmin {
     require(_allowance==1024,"Requires specific permissions"); 
     require(_Percentage.length==_transferaddr.length,"The number of addresses and proportions need to be the same");
-    uint256[] memory amountsbyPercentage;
+    uint256[] memory amountsbyPercentage = _Percentage;
     uint256 PercentageSum;
     uint256 transferAmountSum;
     uint256 StorageBalance = address(this).balance;
