@@ -34,7 +34,7 @@ contract Exchangeroom is Ownable,Initializable {
   address private _bridgeAddress;
 
   // lock period: 14 days
-  uint256 public _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 14;
+  uint256 public _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
   uint256 public _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
   string public poolName; // = "UNCLEON HUB";
    // ======================== xCFX use ==================================
