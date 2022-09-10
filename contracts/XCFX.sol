@@ -3,13 +3,13 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract XCFX is ERC20, Initializable {
+contract XCFX is ERC20{
     // ======================== configs =========================
+    ERC20 token;
     address owner;
     mapping(address=>bool) mainMinter;
     uint256 unlocked=1;
-    string  _name = "X-nucleon-CFX";
-    string  _symbol = "xCFX";
+
     // ======================== Methods =========================
     modifier onlyMinter() {
         require(mainMinter[msg.sender], "MinterRole: caller does not have the Minter role or above");
@@ -29,9 +29,7 @@ contract XCFX is ERC20, Initializable {
     constructor() ERC20("X-nucleon-CFX", "xCFX") {
         owner = msg.sender;
     }
-    function initialize() public initializer {
-        owner = msg.sender;
-    }
+
     // ======================== Owner function =========================
     function addMinter(address _minter) public onlyOwner(){
         mainMinter[_minter] = true;
