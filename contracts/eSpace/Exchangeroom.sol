@@ -1,4 +1,6 @@
 //SPDX-License-Identifier: BUSL-1.1
+// Licensor:            X-Dao.
+// Licensed Work:       NUCLEON 1.0
 
 pragma solidity ^0.8.0;
 

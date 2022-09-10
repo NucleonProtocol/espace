@@ -1,4 +1,7 @@
 //SPDX-License-Identifier: BUSL-1.1
+// Licensor:            X-Dao.
+// Licensed Work:       NUCLEON 1.0
+
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
