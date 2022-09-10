@@ -37,7 +37,7 @@ contract XCFXupgradeable is ERC20, Initializable {
         token = _token;
         owner = msg.sender;
         unlocked = 1;
-        _name = "X-nucleon-CFX";
+        _name = "X nucleon CFX";
         _symbol = "xCFX";
     }
     /**
