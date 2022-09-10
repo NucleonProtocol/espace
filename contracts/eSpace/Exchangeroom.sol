@@ -109,22 +109,13 @@ contract Exchangeroom is Ownable,Initializable {
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
     XCFX_address = _XCFXaddress;
     IXCFX(XCFX_address).addTokens(msg.sender, xCFXamountInit);
-
+    poolName = "UNCLEON HUB";
     _exchangeSummary.totalxcfxs = xCFXamountInit;
     _exchangeSummary.xCFXincrease = xCFXamountInit;
   }
 
   // ======================== Contract methods =========================
 
-  function _setStorageaddr(address _S_addr) external onlyOwner {
-        Storage_addr = _S_addr;
-    }  
-  function _setXCFXaddr(address _XCFX_addr) external onlyOwner {
-        XCFX_address = _XCFX_addr;
-    } 
-  function getSettings() external view returns(address,address){
-    return (XCFX_address,Storage_addr);
-    }
   //
   // @title CFX_exchange_estim
   // @dev _amount The amount of CFX to stake
@@ -273,6 +264,16 @@ contract Exchangeroom is Ownable,Initializable {
   function _setPoolName(string memory name) public onlyOwner {
     poolName = name;
   }
+
+  function _setStorageaddr(address _S_addr) external onlyOwner {
+        Storage_addr = _S_addr;
+    }  
+  function _setXCFXaddr(address _XCFX_addr) external onlyOwner {
+        XCFX_address = _XCFX_addr;
+    } 
+  function getSettings() external view returns(address,address){
+    return (XCFX_address,Storage_addr);
+    }
 
   // ==================== cross space bridge methods ====================
   // methods that the core bridge use
