@@ -19,7 +19,6 @@ contract systemstorage is Ownable,Initializable {
   uint256 private constant RATIO_BASE = 10000;
   // ======================== Modifiers =================================
   modifier onlyAdmin() {
-    //require(isContract(msg.sender),"bridge is contracts");
     require(msg.sender == _adminAddress, "Only Admin is allowed");
     _;
   }
