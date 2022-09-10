@@ -9,7 +9,7 @@ contract XCFXupgradeable is ERC20, Initializable {
     address owner;
     mapping(address=>bool) mainMinter;
     uint256 unlocked=1;
-    string  _name = "X-nucleon-CFX";
+    string  _name = "X Nucleon CFX";
     string  _symbol = "xCFX";
     // ======================== Methods =========================
     modifier onlyMinter() {
