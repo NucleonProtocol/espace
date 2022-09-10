@@ -170,11 +170,7 @@ contract Exchangeroom is Ownable,Initializable {
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
     uint256 _mode = 0;
     uint256 cfx_back = XCFX_burn_estim(_amount);
-    if(_exchangeSummary.unlockingCFX==0){
-      require(_amount<=_exchangeSummary.totalxcfxs,"Exceed exchange limit");
-      _mode=0;
-    }
-    else if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether)){
+    if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether)){
       _mode=1;
     }
     else {
@@ -200,7 +196,7 @@ contract Exchangeroom is Ownable,Initializable {
     uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
     userSummaries[msg.sender].unlocked += temp_amount;
     userSummaries[msg.sender].unlocking -= temp_amount;
-
+    //_exchangeSummary.unlockingCFX -= temp_amount;
     
     return _amount;
   }
@@ -222,6 +218,7 @@ contract Exchangeroom is Ownable,Initializable {
     uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
     userSummaries[msg.sender].unlocked += temp_amount;
     userSummaries[msg.sender].unlocking -= temp_amount;
+    _exchangeSummary.unlockingCFX -= temp_amount;
 
     require(userSummaries[msg.sender].unlocked >= _amount, "your Unlocked CFX is not enough");
     userSummaries[msg.sender].unlocked -= _amount;
@@ -279,7 +276,20 @@ contract Exchangeroom is Ownable,Initializable {
 
   // ==================== cross space bridge methods ====================
   // methods that the core bridge use
+  function handleCFXexchangeXCFX() external payable onlyBridge returns(uint256){
+    require(msg.value>0 , 'must > 0');
+    _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
 
+    address payable receiver = payable(_bridgeAddress);
+    receiver.transfer(msg.value);
+    uint256 xcfx_exchange = CFX_exchange_estim(msg.value);
+    IXCFX(XCFX_address).addTokens(Storage_addr, xcfx_exchange);
+
+    _exchangeSummary.totalxcfxs += xcfx_exchange;
+    _exchangeSummary.xCFXincrease += xcfx_exchange;
+    emit IncreasePoSStake(Storage_addr, msg.value);
+    return xcfx_exchange;
+  }
   //let bridge know the xCFX increased in this exchangeroom , and set the para::xCFXincrease to 0 
   function handlexCFXadd() public onlyBridge returns(uint256 ){
     uint256 temp_stake = _exchangeSummary.xCFXincrease ;
