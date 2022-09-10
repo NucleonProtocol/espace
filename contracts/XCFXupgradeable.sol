@@ -29,11 +29,8 @@ contract XCFXupgradeable is ERC20, Initializable {
         _;
         unlocked = 1;
     }
-    // ======================== constructor =========================
-    constructor() ERC20("X-nucleon-CFX", "xCFX") {
-        owner = msg.sender;
-    }
-    function initialize(ERC20 _token) public initializer {
+    // ======================== initialize =========================
+    function initialize(ERC20 _token) public initializer 
         token = _token;
         owner = msg.sender;
         unlocked = 1;
