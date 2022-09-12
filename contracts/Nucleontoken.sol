@@ -5,31 +5,34 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract nucleon_token is ERC20 {
-  address owner;
-  mapping(address=>bool) mainMinter;
+  // ======================== configs =========================
+    ERC20 token;
+    string  _name;
+    string  _symbol;
 
-  constructor(uint256 initialSupply) ERC20("Nucleon Token", "NT") {
+  constructor(uint256 initialSupply) ERC20("Nucleon Governance token", "NUN") {
     owner = msg.sender;
     _mint(msg.sender, initialSupply);
   }
-  modifier onlyOwner() {
-        require(msg.sender==owner, "Owner Role: caller does not have the Minter role or above");
-        _;
-    }
-  modifier onlyMinter() {
-        require(mainMinter[msg.sender], "MinterRole: caller does not have the Minter role or above");
-        _;
-    }
-  function addMinter(address _minter) public onlyOwner(){
-        mainMinter[_minter]=true;
-    }
-  function removeMinter(address _minter) public onlyOwner(){
-        mainMinter[_minter]=false;
-    }
+  function initialize(ERC20 _token) public initializer {
+        token = _token;
+        owner = msg.sender;
+        unlocked = 1;
+        _name = "X nucleon CFX";
+        _symbol = "xCFX";
+  }
+  /**
+     * @dev Returns the name of the token.
+     */
+  function name() public view virtual override returns (string memory) {
+    return _name;
+  }
 
-  function addTokens(address _to, uint256 _value) external onlyMinter(){
-        require(_value>0,"Con't add 0");
-        //if (_account_set[_to]==0)  { addAccount(_to); }
-        _mint(_to, _value);      
-    }
+    /**
+     * @dev Returns the symbol of the token, usually a shorter version of the
+     * name.
+     */
+  function symbol() public view virtual override returns (string memory) {
+      return _symbol;
+  }
 }
