@@ -34,7 +34,7 @@ contract Exchangeroom is Ownable,Initializable {
   // wheter this poolContract registed in PoS
   bool public birdgeAddrSetted;
   address private _bridgeAddress;
-
+  address private _CoreExchange;
   // lock period: 14 days
   uint256 public _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
   uint256 public _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
@@ -82,7 +82,7 @@ contract Exchangeroom is Ownable,Initializable {
   }
   modifier onlyBridge() {
     //require(isContract(msg.sender),"bridge is contracts");
-    require(msg.sender == _bridgeAddress, "Only bridge is allowed");
+    require(msg.sender == _bridgeAddress||msg.sender == _CoreExchange, "Only bridge is allowed");
     _;
   }
   // ======================== Helpers ===================================
@@ -111,7 +111,7 @@ contract Exchangeroom is Ownable,Initializable {
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
     XCFX_address = _XCFXaddress;
     IXCFX(XCFX_address).addTokens(msg.sender, xCFXamountInit);
-    poolName = "UNCLEON HUB";
+    poolName = "UNCLEON HUB eSpace";
     _exchangeSummary.totalxcfxs = xCFXamountInit;
     _exchangeSummary.xCFXincrease = xCFXamountInit;
   }
@@ -158,7 +158,7 @@ contract Exchangeroom is Ownable,Initializable {
   // @dev burn  _amount  XCFX to get CFXstake
   // emit DecreasePoSStake(msg.sender, _amount);
   //
-  function XCFX_burn(uint256 _amount) public virtual onlyRegisted returns(uint256){
+  function XCFX_burn(uint256 _amount) public virtual onlyRegisted returns(uint256,uint256){
     require(_amount<=IXCFX(XCFX_address).balanceOf(msg.sender),"Exceed your xCFX balance");
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
     uint256 _mode = 0;
@@ -177,11 +177,11 @@ contract Exchangeroom is Ownable,Initializable {
     emit DecreasePoSStake(msg.sender, _amount);
     if(_mode == 1){
       userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, _blockNumber() + _poolLockPeriod_fast));
-      _amount = 2;
+      _amount = _blockNumber() + _poolLockPeriod_fast;
       }
     else{
       userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, _blockNumber() + _poolLockPeriod_slow));
-      _amount = 15;
+      _amount = _blockNumber() + _poolLockPeriod_slow;
     }
     
     userSummaries[msg.sender].unlocking += cfx_back;
@@ -191,7 +191,7 @@ contract Exchangeroom is Ownable,Initializable {
     userSummaries[msg.sender].unlocking -= temp_amount;
     //_exchangeSummary.unlockingCFX -= temp_amount;
     
-    return _amount;
+    return (cfx_back, _amount);
   }
   //
   // @title getback_CFX
@@ -211,7 +211,7 @@ contract Exchangeroom is Ownable,Initializable {
     uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
     userSummaries[msg.sender].unlocked += temp_amount;
     userSummaries[msg.sender].unlocking -= temp_amount;
-    _exchangeSummary.unlockingCFX -= temp_amount;
+    _exchangeSummary.unlockingCFX -= _amount;
 
     require(userSummaries[msg.sender].unlocked >= _amount, "your Unlocked CFX is not enough");
     userSummaries[msg.sender].unlocked -= _amount;
@@ -266,7 +266,9 @@ contract Exchangeroom is Ownable,Initializable {
   function _setPoolName(string memory name) public onlyOwner {
     poolName = name;
   }
-
+  function _setCoreExchange(address _addr) external onlyOwner {
+        _CoreExchange = _addr;
+    }
   function _setStorageaddr(address _S_addr) external onlyOwner {
         Storage_addr = _S_addr;
     }  
