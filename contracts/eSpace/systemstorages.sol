@@ -8,7 +8,12 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-
+interface IERC20crossIneSpace{
+   function lockToken(address _token, address _cfxAccount,uint256 _amount) external;
+}
+interface IExchangeroom{
+    function XCFX_burn(uint256 _amount) external returns (uint256);
+}
 ///
 ///  @title System Storage in Conflux eSpace
 ///
@@ -18,10 +23,18 @@ contract systemstorage is Ownable,Initializable {
   address _adminAddress;
   address _balanceAddress;
   uint256 _allowance;
+  address bridgeeSpacesideaddr; //espace address
+  address eSpaceExchange;
+  address CoreExchange;// use CoreExchange addr 0x version tansfered by conflux scan
   uint256 private constant RATIO_BASE = 10000;
   // ======================== Modifiers =================================
   modifier onlyAdmin() {
     require(msg.sender == _adminAddress, "Only Admin is allowed");
+    _;
+  }
+  modifier onlyCoreExchange() {
+    //require(isContract(msg.sender),"bridge is contracts");
+    require(msg.sender == CoreExchange, "Only bridge is allowed");
     _;
   }
    // ======================== init =================================
@@ -32,6 +45,15 @@ contract systemstorage is Ownable,Initializable {
   function _setAdmin(address _admin) public onlyOwner{
     _adminAddress = _admin;
   }
+  function _seteSpaceExchange(address _eSpaceExchange) public onlyOwner{
+    eSpaceExchange = _eSpaceExchange;
+  }
+  function _setCoreExchange(address _CoreExchange) public onlyOwner{
+    CoreExchange = _CoreExchange;
+  }
+  function _setbridgeeSpacesideaddr(address _bridgeeSpacesideaddr) public onlyOwner{
+    bridgeeSpacesideaddr = _bridgeeSpacesideaddr;
+  }
   function _setbalanceAddress(address _balance) public onlyOwner{
     _balanceAddress = _balance;
   }
@@ -39,12 +61,12 @@ contract systemstorage is Ownable,Initializable {
     _allowance = _allow;
   }
   // ======================== private =================================
-  function transferERC20(address _ERC20address,address _recipient,uint256 _amount) public onlyAdmin {
+  function transferERC20(address _ERC20address,address _recipient,uint256 _amount) private onlyAdmin {
     require(IERC20(_ERC20address).balanceOf(address(this))>=_amount,"exceed the storage ERC20 balance");
     IERC20(_ERC20address).transfer( _recipient, _amount);
   }
 
-  function transferCFX(address _recipient,uint256 _amount) public onlyAdmin {
+  function transferCFX(address _recipient,uint256 _amount) private onlyAdmin {
     require(address(this).balance>=_amount,"exceed the storage CFX balance");
     address payable receiver = payable(_recipient); // Set receiver
     receiver.transfer(_amount);
@@ -132,6 +154,13 @@ contract systemstorage is Ownable,Initializable {
     if(StorageBalance-transferAmountSum>0){
         transferCFX( _balanceAddress, StorageBalance-transferAmountSum);
     }
+  }
+  // ======================== CoreExchange used functions =============================
+  function handlelocktoCoreExchange(address _token, uint256 _amount) public onlyCoreExchange {
+    IERC20crossIneSpace(bridgeeSpacesideaddr).lockToken(_token, CoreExchange, _amount) ;
+  }
+  function handlexCFXburn(uint256 _amount) public  onlyCoreExchange returns (uint256 ){
+    return IExchangeroom(eSpaceExchange).XCFX_burn( _amount) ;
   }
 
   // ======================== contract base methods =====================
