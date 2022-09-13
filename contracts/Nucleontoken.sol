@@ -1,25 +1,23 @@
 // contracts/GLDToken.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract nucleon_token is ERC20 {
+contract nucleon_token is ERC20, Initializable {
   // ======================== configs =========================
     ERC20 token;
     string  _name;
     string  _symbol;
 
   constructor(uint256 initialSupply) ERC20("Nucleon Governance token", "NUN") {
-    owner = msg.sender;
     _mint(msg.sender, initialSupply);
   }
   function initialize(ERC20 _token) public initializer {
         token = _token;
-        owner = msg.sender;
-        unlocked = 1;
-        _name = "X nucleon CFX";
-        _symbol = "xCFX";
+
+        _name = "Nucleon Governance token";
+        _symbol = "NUN";
   }
   /**
      * @dev Returns the name of the token.
