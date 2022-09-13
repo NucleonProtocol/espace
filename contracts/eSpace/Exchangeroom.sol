@@ -158,7 +158,7 @@ contract Exchangeroom is Ownable,Initializable {
   // @dev burn  _amount  XCFX to get CFXstake
   // emit DecreasePoSStake(msg.sender, _amount);
   //
-  function XCFX_burn(uint256 _amount) public virtual onlyRegisted returns(uint256,uint256){
+  function XCFX_burn(uint256 _amount) public virtual onlyRegisted returns(uint256, uint256){
     require(_amount<=IXCFX(XCFX_address).balanceOf(msg.sender),"Exceed your xCFX balance");
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
     uint256 _mode = 0;
