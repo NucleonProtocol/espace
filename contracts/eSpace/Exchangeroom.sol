@@ -132,7 +132,7 @@ contract Exchangeroom is Ownable,Initializable {
   // emit IncreasePoSStake(msg.sender, msg.value);
   //
   function CFX_exchange_XCFX() external payable returns(uint256){
-    require(msg.value>=1 ether , "Min msg.value is 1 CFX");
+    require(msg.value >= 1 ether, "Min msg.value is 1 CFX");
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
 
     address payable receiver = payable(_bridgeAddress);
@@ -159,8 +159,8 @@ contract Exchangeroom is Ownable,Initializable {
   // emit DecreasePoSStake(msg.sender, _amount);
   //
   function XCFX_burn(uint256 _amount) public virtual onlyRegisted returns(uint256, uint256){
-    require(_amount>=1 ether,"Min amount is 1 xCFX");
-    require(_amount<=IXCFX(XCFX_address).balanceOf(msg.sender),"Exceed your xCFX balance");
+    require(_amount >= 1 ether,"Min amount is 1 xCFX");
+    require(_amount <= IXCFX(XCFX_address).balanceOf(msg.sender),"Exceed your xCFX balance");
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
     uint256 _mode = 0;
     uint256 cfx_back = XCFX_burn_estim(_amount);
