@@ -32,20 +32,19 @@ contract Exchangeroom is Ownable,Initializable {
   
   // ======================== Pool config ===============================
   // wheter this poolContract registed in PoS
+  string private poolName; // = "UNCLEON HUB";
   bool public birdgeAddrSetted;
   address private _bridgeAddress;
   address private _CoreExchange;
   // lock period: 14 days
   uint256 public _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
   uint256 public _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
-  string public poolName; // = "UNCLEON HUB";
+  uint256 public _minexchangelimits;
    // ======================== xCFX use ==================================
   address XCFX_address;
   address Storage_addr;
-
   address zero_addr=address(0x0000000000000000000000000000000000000000);
   // ======================== Struct definitions =========================
-
   /// @title ExchangeSummary
   /// @custom:field totalxcfxs
   /// @custom:field totalinterests
@@ -58,7 +57,6 @@ contract Exchangeroom is Ownable,Initializable {
     uint256 xCFXincrease;
     uint256 unlockingCFX;
   }
-
   /// @title UserSummary
   /// @custom:field unlocking
   /// @custom:field unlocked
@@ -66,7 +64,6 @@ contract Exchangeroom is Ownable,Initializable {
     uint256 unlocking;
     uint256 unlocked;
   }
-
   // ======================== Contract states ===========================
   ExchangeSummary private _exchangeSummary;
   mapping(address => UserSummary) private userSummaries;
@@ -74,7 +71,6 @@ contract Exchangeroom is Ownable,Initializable {
   // Unstake votes queue
   UnstakeQueueCFX.Queue public unstakeQueue;  //private--debug
   mapping(address => VotePowerQueue.InOutQueue) private userOutqueues;
-
   // ======================== Modifiers =================================
   modifier onlyRegisted() {
     require(birdgeAddrSetted, "Pool is not setted");
@@ -89,7 +85,6 @@ contract Exchangeroom is Ownable,Initializable {
   function _selfBalance() internal view virtual returns (uint256) {
     return address(this).balance;
   }
-
   function _blockNumber() internal view virtual returns (uint256) {
     return block.number;
   }
@@ -106,19 +101,18 @@ contract Exchangeroom is Ownable,Initializable {
   // call this method when depoly the 1967 proxy contract
   function initialize(address _XCFXaddress,uint256 xCFXamountInit) public payable initializer {
     require(xCFXamountInit==msg.value,'xCFXamountInit should be equal to msg.value');
+    zero_addr=address(0x0000000000000000000000000000000000000000);
+    poolName = "UNCLEON HUB eSpace";
+    _minexchangelimits = 1 ether;
     _exchangeSummary.xcfxvalues = 1 ether;
     _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
     XCFX_address = _XCFXaddress;
     IXCFX(XCFX_address).addTokens(msg.sender, xCFXamountInit);
-    poolName = "UNCLEON HUB eSpace";
     _exchangeSummary.totalxcfxs = xCFXamountInit;
     _exchangeSummary.xCFXincrease = xCFXamountInit;
   }
-
   // ======================== Contract methods =========================
-
-  //
   // @title CFX_exchange_estim
   // @dev _amount The amount of CFX to stake
   // return xCFX numbers can get
@@ -132,7 +126,7 @@ contract Exchangeroom is Ownable,Initializable {
   // emit IncreasePoSStake(msg.sender, msg.value);
   //
   function CFX_exchange_XCFX() external payable returns(uint256){
-    require(msg.value >= 1 ether, "Min msg.value is 1 CFX");
+    require(msg.value >= _minexchangelimits, "Min msg.value is minexchangelimits");
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
 
     address payable receiver = payable(_bridgeAddress);
@@ -159,7 +153,7 @@ contract Exchangeroom is Ownable,Initializable {
   // emit DecreasePoSStake(msg.sender, _amount);
   //
   function XCFX_burn(uint256 _amount) public virtual onlyRegisted returns(uint256, uint256){
-    require(_amount >= 1 ether,"Min amount is 1 xCFX");
+    require(_amount >= _minexchangelimits,"Min amount is minexchangelimits");
     require(_amount <= IXCFX(XCFX_address).balanceOf(msg.sender),"Exceed your xCFX balance");
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
     uint256 _mode = 0;
@@ -251,35 +245,40 @@ contract Exchangeroom is Ownable,Initializable {
   // ======================== admin methods =============================
   // Set the exchange paramters by admin
   // 1 LockPeriod
-  // 2 bridgeAddress
+  // 2 _minexchangelimits
   // 3 PoolName
+  // 4 _bridgeAddress
+  // 5 _CoreExchange
+  // 6 Storage_addr
+  // 7 XCFX_address
   //
   function _setLockPeriod(uint64 _slow,uint64 _fast) public onlyOwner {
     _poolLockPeriod_slow = _slow;
     _poolLockPeriod_fast = _fast;
   }
-
+  function _setminexchangelimits(uint256 _min) external onlyOwner {
+    _minexchangelimits = _min;
+  }
+  function _setPoolName(string memory name) public onlyOwner {
+    poolName = name;
+  }
   function _setBridge(address bridgeAddress) public onlyOwner {
     _bridgeAddress = bridgeAddress;
     birdgeAddrSetted = true;
   }
-
-  function _setPoolName(string memory name) public onlyOwner {
-    poolName = name;
-  }
   function _setCoreExchange(address _addr) external onlyOwner {
-        _CoreExchange = _addr;
-    }
+    _CoreExchange = _addr;
+  }
   function _setStorageaddr(address _S_addr) external onlyOwner {
-        Storage_addr = _S_addr;
-    }  
+    Storage_addr = _S_addr;
+  }  
   function _setXCFXaddr(address _XCFX_addr) external onlyOwner {
-        XCFX_address = _XCFX_addr;
-    } 
-  function getSettings() external view returns(address,address){
-    return (XCFX_address,Storage_addr);
-    }
-
+    XCFX_address = _XCFX_addr;
+  } 
+  // Get Settings 
+  function getSettings() external view returns(string memory name,address,address,address,address){
+    return (poolName,_bridgeAddress,_CoreExchange,Storage_addr,XCFX_address);
+  }
   // ==================== cross space bridge methods ====================
   // methods that the core bridge use
   function handleCFXexchangeXCFX() external payable onlyBridge returns(uint256){
