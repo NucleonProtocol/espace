@@ -20,6 +20,7 @@ interface IXCFX{
 
 ///
 ///  @title Exchange room
+///  @notice Users use this contract to participate Conflux PoS stake.
 ///
 contract Exchangeroom is Ownable,Initializable {
   using SafeMath for uint256;
@@ -184,7 +185,6 @@ contract Exchangeroom is Ownable,Initializable {
     uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
     userSummaries[msg.sender].unlocked += temp_amount;
     userSummaries[msg.sender].unlocking -= temp_amount;
-    //_exchangeSummary.unlockingCFX -= temp_amount;
     
     return (cfx_back, _amount);
   }
@@ -299,7 +299,6 @@ contract Exchangeroom is Ownable,Initializable {
   function handlexCFXadd() public onlyBridge returns(uint256 ){
     uint256 temp_stake = _exchangeSummary.xCFXincrease ;
     if( temp_stake == 0 ){return 0;}
-    //require( temp_stake > 0, "xCFX have not increase");
      _exchangeSummary.xCFXincrease = 0;
      return temp_stake;
   }
@@ -307,7 +306,6 @@ contract Exchangeroom is Ownable,Initializable {
   function handleUnstake() public onlyBridge returns (uint256) {
     uint256 temp_unstake = _exchangeSummary.unlockingCFX;
     if( temp_unstake == 0 ){return 0;}
-    // require( temp_unstake > 0, "unstaked CFX have not decrease");
      _exchangeSummary.unlockingCFX = 0;
      return temp_unstake;
   }
@@ -351,12 +349,9 @@ contract Exchangeroom is Ownable,Initializable {
         // This method relies on extcodesize/address.code.length, which returns 0
         // for contracts in construction, since the code is only stored at the end
         // of the constructor execution.
-
         return account.code.length > 0;
   }
 
-  // receive interest
-  // function receiveInterest() public payable onlyBridge {}  
   // ======================== contract base methods =====================
   fallback() external payable {}
   receive() external payable {}
