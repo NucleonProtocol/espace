@@ -37,10 +37,12 @@ contract Exchangeroom is Ownable,Initializable {
   bool public birdgeAddrSetted;
   address private _bridgeAddress;
   address private _CoreExchange;
+  uint256 private _minexchangelimits;
+  uint256 private _unstakeVotes;
   // lock period: 14 days
   uint256 public _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
   uint256 public _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
-  uint256 public _minexchangelimits;
+  
    // ======================== xCFX use ==================================
   address XCFX_address;
   address Storage_addr;
@@ -185,7 +187,7 @@ contract Exchangeroom is Ownable,Initializable {
     uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
     userSummaries[msg.sender].unlocked += temp_amount;
     userSummaries[msg.sender].unlocking -= temp_amount;
-    
+    _unstakeVotes += cfx_back;
     return (cfx_back, _amount);
   }
   //
@@ -304,25 +306,30 @@ contract Exchangeroom is Ownable,Initializable {
   }
   //let bridge know the  CFX need to get back, and set the para::unlockingCFX to 0 
   function handleUnstake() public onlyBridge returns (uint256) {
-    uint256 temp_unstake = _exchangeSummary.unlockingCFX;
+    uint256 temp_unstake = _unstakeVotes;
     if( temp_unstake == 0 ){return 0;}
-     _exchangeSummary.unlockingCFX = 0;
+     _unstakeVotes = 0;
      return temp_unstake;
   }
-  function handleUnstakeTask() public onlyBridge {
-    unstakeQueue.dequeue();
+  // function handleUnstakeTask() public onlyBridge {
+  //   unstakeQueue.dequeue();
+  // }
+  function handleAllUnstakeTask() public onlyBridge {
+    for(uint256 i=0;i<unstakeLen();i++){
+      unstakeQueue.dequeue();
+    }
   }
 
   function unstakeLen() public view returns (uint256) {
     return unstakeQueue.end - unstakeQueue.start;
   }
 
-  function firstUnstakeVotes() public view returns (uint256) {
-    if (unstakeQueue.end == unstakeQueue.start) {
-      return 0;
-    }
-    return unstakeQueue.items[unstakeQueue.start].CFXs;
-  }
+  // function firstUnstakeVotes() public view returns (uint256) {
+  //   if (unstakeQueue.end == unstakeQueue.start) {
+  //     return 0;
+  //   }
+  //   return unstakeQueue.items[unstakeQueue.start].CFXs;
+  // }
 
   function setxCFXValue(uint256 _cfxvalue) public onlyBridge returns (uint256){
     _exchangeSummary.xcfxvalues = _cfxvalue;
