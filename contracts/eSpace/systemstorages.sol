@@ -12,7 +12,8 @@ interface IERC20crossIneSpace{
    function lockToken(address _token, address _cfxAccount,uint256 _amount) external;
 }
 interface IExchangeroom{
-    function XCFX_burn(uint256 _amount) external returns (uint256);
+    function XCFX_burn(uint256 _amount) external returns (uint256,uint256);
+    function getback_CFX(uint256 _amount) external ;
 }
 ///
 ///  @title System Storage in Conflux eSpace
@@ -165,19 +166,19 @@ contract systemstorage is Ownable,Initializable {
     }
   }
   // ======================== CoreExchange used functions =============================
-  function handlelock(uint256 _amount) public onlyCoreExchange returns(uint256){
+  function handlelock(uint256 _amount) external onlyCoreExchange returns(uint256){
     IERC20(xCFXaddr).approve(bridgeeSpacesideaddr,_amount);
     IERC20crossIneSpace(bridgeeSpacesideaddr).lockToken(xCFXaddr, CoreExchange, _amount) ;
     return _amount;
   }
-  function handlexCFXburn(uint256 _amount) public  onlyCoreExchange returns(uint256, uint256){
-    uint256 withdrawCFXs;
-    uint256 withdrawtimes;
-    // (withdrawCFXs,withdrawtimes) = 
-    IExchangeroom(eSpaceExchange).XCFX_burn( _amount);
-    return (withdrawCFXs,withdrawtimes) ;
+  function handlexCFXburn(uint256 _amount) external onlyCoreExchange returns(uint256, uint256){
+    return IExchangeroom(eSpaceExchange).XCFX_burn( _amount);
   }
-  
+  function handlegetbackCFX(uint256 _amount) external onlyCoreExchange {
+    IExchangeroom(eSpaceExchange).getback_CFX(_amount);
+    address payable receiver = payable(CoreExchangeEspace);
+    receiver.transfer(_amount);
+  }
   // ======================== contract base methods =====================
   fallback() external payable {}
   receive() external payable {}
