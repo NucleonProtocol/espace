@@ -175,11 +175,11 @@ contract Exchangeroom is Ownable,Initializable {
     emit DecreasePoSStake(msg.sender, _amount);
     if(_mode == 1){
       userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, _blockNumber() + _poolLockPeriod_fast));
-      _amount = _blockNumber() + _poolLockPeriod_fast;
+      _amount = 101109; //fast code
       }
     else{
       userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, _blockNumber() + _poolLockPeriod_slow));
-      _amount = _blockNumber() + _poolLockPeriod_slow;
+      _amount = 100001; //slow code
     }
     
     userSummaries[msg.sender].unlocking += cfx_back;
