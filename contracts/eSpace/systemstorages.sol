@@ -27,6 +27,8 @@ contract systemstorage is Ownable,Initializable {
   address eSpaceExchange;
   address CoreExchange;// use CoreExchange addr 0x version tansfered by conflux scan
   uint256 private constant RATIO_BASE = 10000;
+  address CoreExchangeEspace;// use CoreExchange Espace addr
+  address xCFXaddr;// xCFX Espace addr
   // ======================== Modifiers =================================
   modifier onlyAdmin() {
     require(msg.sender == _adminAddress, "Only Admin is allowed");
@@ -34,7 +36,7 @@ contract systemstorage is Ownable,Initializable {
   }
   modifier onlyCoreExchange() {
     //require(isContract(msg.sender),"bridge is contracts");
-    require(msg.sender == CoreExchange, "Only bridge is allowed");
+    require(msg.sender == CoreExchangeEspace, "Only CoreExchange is allowed");
     _;
   }
    // ======================== init =================================
@@ -45,11 +47,18 @@ contract systemstorage is Ownable,Initializable {
   function _setAdmin(address _admin) public onlyOwner{
     _adminAddress = _admin;
   }
+
+  function _setxCFXaddr(address _xCFXaddr) public onlyOwner{
+    xCFXaddr = _xCFXaddr;
+  }
   function _seteSpaceExchange(address _eSpaceExchange) public onlyOwner{
     eSpaceExchange = _eSpaceExchange;
   }
   function _setCoreExchange(address _CoreExchange) public onlyOwner{
     CoreExchange = _CoreExchange;
+  }
+  function _setCoreExchangeEspace(address _CoreExchangeeEspace) public onlyOwner{
+    CoreExchangeEspace = _CoreExchangeeEspace;
   }
   function _setbridgeeSpacesideaddr(address _bridgeeSpacesideaddr) public onlyOwner{
     bridgeeSpacesideaddr = _bridgeeSpacesideaddr;
@@ -156,13 +165,19 @@ contract systemstorage is Ownable,Initializable {
     }
   }
   // ======================== CoreExchange used functions =============================
-  function handlelocktoCoreExchange(address _token, uint256 _amount) public onlyCoreExchange {
-    IERC20crossIneSpace(bridgeeSpacesideaddr).lockToken(_token, CoreExchange, _amount) ;
+  function handlelock(uint256 _amount) public onlyCoreExchange returns(uint256){
+    IERC20(xCFXaddr).approve(bridgeeSpacesideaddr,_amount);
+    IERC20crossIneSpace(bridgeeSpacesideaddr).lockToken(xCFXaddr, CoreExchange, _amount) ;
+    return _amount;
   }
-  function handlexCFXburn(uint256 _amount) public  onlyCoreExchange returns (uint256 ){
-    return IExchangeroom(eSpaceExchange).XCFX_burn( _amount) ;
+  function handlexCFXburn(uint256 _amount) public  onlyCoreExchange returns(uint256, uint256){
+    uint256 withdrawCFXs;
+    uint256 withdrawtimes;
+    // (withdrawCFXs,withdrawtimes) = 
+    IExchangeroom(eSpaceExchange).XCFX_burn( _amount);
+    return (withdrawCFXs,withdrawtimes) ;
   }
-
+  
   // ======================== contract base methods =====================
   fallback() external payable {}
   receive() external payable {}
