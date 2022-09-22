@@ -8,6 +8,9 @@ The project is licensed under the BSL version 1.1. See LICENSE.txt for details. 
 **need audit contracts**：
         \contracts\eSpace\Exchangeroom.sol
         
+        test address：0x9c92DfD17CC380fE5CB4Fb60A93a5f001a6F21De
+
+        
 
 
 ## Reference
