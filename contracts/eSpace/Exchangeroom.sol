@@ -2,7 +2,7 @@
 // Licensor:            X-Dao.
 // Licensed Work:       NUCLEON 1.0
 
-pragma solidity ^0.8.0;
+pragma solidity 0.8.2;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "../VotePowerQueue.sol";
-import "./UnstakeQueueCFX.sol";
+
 interface IXCFX{
     function addTokens(address _account, uint256 _value) external;
     function burnTokens(address _account, uint256 _value) external;
@@ -26,9 +26,7 @@ contract Exchangeroom is Ownable,Initializable {
   using SafeMath for uint256;
   using EnumerableSet for EnumerableSet.AddressSet;
   using VotePowerQueue for VotePowerQueue.InOutQueue;
-  using UnstakeQueueCFX for UnstakeQueueCFX.Queue;
 
-  uint256 private constant RATIO_BASE = 10000;
   uint256 private constant ONE_DAY_BLOCK_COUNT = 3600 * 24;
   
   // ======================== Pool config ===============================
@@ -39,20 +37,21 @@ contract Exchangeroom is Ownable,Initializable {
   address private _CoreExchange;
   uint256 private _minexchangelimits;
   uint256 private _unstakeVotes;
-  // lock period: 14 days
+  // lock period: 15 days or 2 days
   uint256 public _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
   uint256 public _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
   
    // ======================== xCFX use ==================================
-  address XCFX_address;
-  address Storage_addr;
-  address zero_addr=address(0x0000000000000000000000000000000000000000);
+  address private XCFX_address;
+  address private Storage_addr;
+  //address zero_addr=address(0x0000000000000000000000000000000000000000);
   // ======================== Struct definitions =========================
   /// @title ExchangeSummary
   /// @custom:field totalxcfxs
-  /// @custom:field totalinterests
-  /// @custom:field cfxstillinstore
-  /// @custom:field remainedcfx
+  /// @custom:field xcfxvalues
+  /// @custom:field alloflockedvotes
+  /// @custom:field xCFXincrease
+  /// @custom:field unlockingCFX
   struct ExchangeSummary {
     uint256 totalxcfxs;
     uint256 xcfxvalues;
@@ -71,8 +70,6 @@ contract Exchangeroom is Ownable,Initializable {
   ExchangeSummary private _exchangeSummary;
   mapping(address => UserSummary) private userSummaries;
   VotePowerQueue.InOutQueue private Inqueues;
-  // Unstake votes queue
-  UnstakeQueueCFX.Queue public unstakeQueue;  //private--debug
   mapping(address => VotePowerQueue.InOutQueue) private userOutqueues;
   // ======================== Modifiers =================================
   modifier onlyRegisted() {
@@ -80,7 +77,6 @@ contract Exchangeroom is Ownable,Initializable {
     _;
   }
   modifier onlyBridge() {
-    //require(isContract(msg.sender),"bridge is contracts");
     require(msg.sender == _bridgeAddress||msg.sender == _CoreExchange, "Only bridge is allowed");
     _;
   }
@@ -88,9 +84,7 @@ contract Exchangeroom is Ownable,Initializable {
   function _selfBalance() internal view virtual returns (uint256) {
     return address(this).balance;
   }
-  function _blockNumber() internal view virtual returns (uint256) {
-    return block.number;
-  }
+
   // ======================== Events ====================================
 
   event IncreasePoSStake(address indexed user, uint256 votePower);
@@ -99,21 +93,45 @@ contract Exchangeroom is Ownable,Initializable {
 
   event WithdrawStake(address indexed user, uint256 votePower);
 
+  event SetLockPeriod(address indexed user, uint256 slow, uint256 fast);
+
+  event Setminexchangelimits(address indexed user, uint256 _min);
+
+  event SetPoolName(address indexed user, string name);
+
+  event SetBridge(address indexed user, address bridgeAddress);
+
+  event SetCoreExchange(address indexed user, address addr);
+
+  event SetStorageaddr(address indexed user, address s_addr);
+
+  event SetXCFXaddr(address indexed user, address xcfx_addr);
+
+  event HandleCFXexchangeXCFX(address indexed user);
+
+  event HandlexCFXadd(address indexed user, uint256 amount);
+
+  event HandleUnstake(address indexed user, uint256 amount);
+
+  event SetxCFXValue(address indexed user, uint256 cfxvalue);
+
+  event Setlockedvotes(address indexed user, uint256 lockedvotes);
+
   // ======================== Init methods ==============================
 
   // call this method when depoly the 1967 proxy contract
   function initialize(address _XCFXaddress,uint256 xCFXamountInit) public payable initializer {
     require(xCFXamountInit==msg.value,'xCFXamountInit should be equal to msg.value');
-    zero_addr=address(0x0000000000000000000000000000000000000000);
+    require(_XCFXaddress!=address(0x0000000000000000000000000000000000000000),'Can not be Zero adress');
     poolName = "UNCLEON HUB eSpace";
     _minexchangelimits = 1 ether;
     _exchangeSummary.xcfxvalues = 1 ether;
     _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
     XCFX_address = _XCFXaddress;
-    IXCFX(XCFX_address).addTokens(msg.sender, xCFXamountInit);
     _exchangeSummary.totalxcfxs = xCFXamountInit;
     _exchangeSummary.xCFXincrease = xCFXamountInit;
+    IXCFX(XCFX_address).addTokens(msg.sender, xCFXamountInit);
   }
   // ======================== Contract methods =========================
   // @title CFX_exchange_estim
@@ -131,14 +149,14 @@ contract Exchangeroom is Ownable,Initializable {
   function CFX_exchange_XCFX() external payable returns(uint256){
     require(msg.value >= _minexchangelimits, "Min msg.value is minexchangelimits");
     _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
-
-    address payable receiver = payable(_bridgeAddress);
-    receiver.transfer(msg.value);
+    collectOutqueuesFinishedVotes();
     uint256 xcfx_exchange = CFX_exchange_estim(msg.value);
-    IXCFX(XCFX_address).addTokens(msg.sender, xcfx_exchange);
 
     _exchangeSummary.totalxcfxs += xcfx_exchange;
     _exchangeSummary.xCFXincrease += xcfx_exchange;
+    address payable receiver = payable(_bridgeAddress);
+    receiver.transfer(msg.value);
+    IXCFX(XCFX_address).addTokens(msg.sender, xcfx_exchange);
     emit IncreasePoSStake(msg.sender, msg.value);
     return xcfx_exchange;
   }
@@ -170,24 +188,23 @@ contract Exchangeroom is Ownable,Initializable {
     }
     _exchangeSummary.totalxcfxs -= _amount;
     _exchangeSummary.unlockingCFX += cfx_back;
-    unstakeQueue.enqueue(UnstakeQueueCFX.Node(cfx_back));
-    IXCFX(XCFX_address).burnTokens(msg.sender, _amount);
-    emit DecreasePoSStake(msg.sender, _amount);
+    
     if(_mode == 1){
-      userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, _blockNumber() + _poolLockPeriod_fast));
+      userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, block.number + _poolLockPeriod_fast));
       _amount = 101109; //fast code
       }
     else{
-      userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, _blockNumber() + _poolLockPeriod_slow));
+      userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, block.number + _poolLockPeriod_slow));
       _amount = 100001; //slow code
     }
     
     userSummaries[msg.sender].unlocking += cfx_back;
-    
-    uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
-    userSummaries[msg.sender].unlocked += temp_amount;
-    userSummaries[msg.sender].unlocking -= temp_amount;
+
+    collectOutqueuesFinishedVotes() ;
+    require(userOutqueues[msg.sender].queueLength()<100,"TOO long queues!");
     _unstakeVotes += cfx_back;
+    IXCFX(XCFX_address).burnTokens(msg.sender, _amount);
+    emit DecreasePoSStake(msg.sender, _amount);
     return (cfx_back, _amount);
   }
   //
@@ -203,11 +220,10 @@ contract Exchangeroom is Ownable,Initializable {
   // @notice Withdraw CFX
   // @param _amount The amount of CFX to withdraw
   //
-  function withdraw(uint256 _amount) private onlyRegisted {
+  function withdraw(uint256 _amount) private {
     require(address(this).balance>=_amount,"pool Unlocked CFX is not enough");
-    uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
-    userSummaries[msg.sender].unlocked += temp_amount;
-    userSummaries[msg.sender].unlocking -= temp_amount;
+
+    collectOutqueuesFinishedVotes() ;
     _exchangeSummary.unlockingCFX -= _amount;
 
     require(userSummaries[msg.sender].unlocked >= _amount, "your Unlocked CFX is not enough");
@@ -215,6 +231,12 @@ contract Exchangeroom is Ownable,Initializable {
     address payable receiver = payable(msg.sender);
     receiver.transfer(_amount);
     emit WithdrawStake(msg.sender, _amount);
+  }
+
+  function collectOutqueuesFinishedVotes() public {
+    uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
+    userSummaries[msg.sender].unlocked += temp_amount;
+    userSummaries[msg.sender].unlocking -= temp_amount;
   }
 
   // 
@@ -254,28 +276,39 @@ contract Exchangeroom is Ownable,Initializable {
   // 6 Storage_addr
   // 7 XCFX_address
   //
-  function _setLockPeriod(uint64 _slow,uint64 _fast) public onlyOwner {
-    _poolLockPeriod_slow = _slow;
-    _poolLockPeriod_fast = _fast;
+  function _setLockPeriod(uint256 slow,uint256 fast) public onlyOwner {
+    _poolLockPeriod_slow = slow;
+    _poolLockPeriod_fast = fast;
+    emit SetLockPeriod(msg.sender, slow, fast);
   }
-  function _setminexchangelimits(uint256 _min) external onlyOwner {
-    _minexchangelimits = _min;
+  function _setminexchangelimits(uint256 minlimits) external onlyOwner {
+    _minexchangelimits = minlimits;
+    emit Setminexchangelimits(msg.sender, minlimits);
   }
   function _setPoolName(string memory name) public onlyOwner {
     poolName = name;
+    emit SetPoolName(msg.sender, name);
   }
   function _setBridge(address bridgeAddress) public onlyOwner {
+    require(bridgeAddress!=address(0x0000000000000000000000000000000000000000),'Can not be Zero adress');
     _bridgeAddress = bridgeAddress;
     birdgeAddrSetted = true;
+    emit SetBridge(msg.sender, bridgeAddress);
   }
-  function _setCoreExchange(address _addr) external onlyOwner {
-    _CoreExchange = _addr;
+  function _setCoreExchange(address coreExchangeaddr) external onlyOwner {
+    require(coreExchangeaddr!=address(0x0000000000000000000000000000000000000000),'Can not be Zero adress');
+    _CoreExchange = coreExchangeaddr;
+    emit SetCoreExchange(msg.sender, coreExchangeaddr);
   }
-  function _setStorageaddr(address _S_addr) external onlyOwner {
-    Storage_addr = _S_addr;
+  function _setStorageaddr(address storageaddr) external onlyOwner {
+    require(storageaddr!=address(0x0000000000000000000000000000000000000000),'Can not be Zero adress');
+    Storage_addr = storageaddr;
+    emit SetStorageaddr(msg.sender, storageaddr);
   }  
-  function _setXCFXaddr(address _XCFX_addr) external onlyOwner {
-    XCFX_address = _XCFX_addr;
+  function _setXCFXaddr(address xCFXaddr) external onlyOwner {
+    require(xCFXaddr!=address(0x0000000000000000000000000000000000000000),'Can not be Zero adress');
+    XCFX_address = xCFXaddr;
+    emit SetXCFXaddr(msg.sender, xCFXaddr);
   } 
   // Get Settings 
   function getSettings() external view returns(string memory name,address,address,address,address){
@@ -290,73 +323,44 @@ contract Exchangeroom is Ownable,Initializable {
     address payable receiver = payable(_bridgeAddress);
     receiver.transfer(msg.value);
     uint256 xcfx_exchange = CFX_exchange_estim(msg.value);
-    IXCFX(XCFX_address).addTokens(Storage_addr, xcfx_exchange);
-
+    
     _exchangeSummary.totalxcfxs += xcfx_exchange;
     _exchangeSummary.xCFXincrease += xcfx_exchange;
+
+    IXCFX(XCFX_address).addTokens(Storage_addr, xcfx_exchange);
     emit IncreasePoSStake(Storage_addr, msg.value);
+    emit HandleCFXexchangeXCFX(msg.sender);
     return xcfx_exchange;
   }
   //let bridge know the xCFX increased in this exchangeroom , and set the para::xCFXincrease to 0 
   function handlexCFXadd() public onlyBridge returns(uint256 ){
     uint256 temp_stake = _exchangeSummary.xCFXincrease ;
-    if( temp_stake == 0 ){return 0;}
-     _exchangeSummary.xCFXincrease = 0;
-     return temp_stake;
+    _exchangeSummary.xCFXincrease = 0;
+    emit HandlexCFXadd(msg.sender, temp_stake);
+    return temp_stake;
   }
   //let bridge know the  CFX need to get back, and set the para::unlockingCFX to 0 
   function handleUnstake() public onlyBridge returns (uint256) {
     uint256 temp_unstake = _unstakeVotes;
-    if( temp_unstake == 0 ){return 0;}
-     _unstakeVotes = 0;
-     return temp_unstake;
-  }
-  // function handleUnstakeTask() public onlyBridge {
-  //   unstakeQueue.dequeue();
-  // }
-  function handleAllUnstakeTask() public onlyBridge {
-    for(uint256 i=0;i<unstakeLen();i++){
-      unstakeQueue.dequeue();
-    }
+    _unstakeVotes = 0;
+    emit HandleUnstake(msg.sender, temp_unstake);
+    return temp_unstake;
   }
 
-  function unstakeLen() public view returns (uint256) {
-    return unstakeQueue.end - unstakeQueue.start;
-  }
-
-  // function firstUnstakeVotes() public view returns (uint256) {
-  //   if (unstakeQueue.end == unstakeQueue.start) {
-  //     return 0;
-  //   }
-  //   return unstakeQueue.items[unstakeQueue.start].CFXs;
-  // }
-
-  function setxCFXValue(uint256 _cfxvalue) public onlyBridge returns (uint256){
-    _exchangeSummary.xcfxvalues = _cfxvalue;
-    // struct ExchangeSummary {
-    // uint256 totalxcfxs;
-    // uint256 xcfxvalues;
-    // uint256 alloflockedvotes;
-    // uint256 xCFXincrease;
-    // uint256 unlockingCFX;
-    // }
+  function setxCFXValue(uint256 xcfxvalue) public onlyBridge returns (uint256){
+    _exchangeSummary.xcfxvalues = xcfxvalue;
+    emit SetxCFXValue(msg.sender, _exchangeSummary.xcfxvalues);
     return  _exchangeSummary.xcfxvalues;
   }
 
-  function setlockedvotes(uint256 _lockedvotes) public onlyBridge returns (uint256){
-    _exchangeSummary.alloflockedvotes = _lockedvotes;
+  function setlockedvotes(uint256 lockedvotes) public onlyBridge returns (uint256){
+    _exchangeSummary.alloflockedvotes = lockedvotes;
+    emit Setlockedvotes(msg.sender, _exchangeSummary.alloflockedvotes);
     return  _exchangeSummary.alloflockedvotes;
   }
 
   function espacebalanceof(address _addr) public view returns(uint256) {
-        return _addr.balance;
-  }
-
-  function isContract(address account) internal view returns (bool) {
-        // This method relies on extcodesize/address.code.length, which returns 0
-        // for contracts in construction, since the code is only stored at the end
-        // of the constructor execution.
-        return account.code.length > 0;
+    return _addr.balance;
   }
 
   // ======================== contract base methods =====================
