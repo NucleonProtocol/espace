@@ -42,7 +42,7 @@ contract Exchangeroom is Ownable,Initializable {
   uint256 public _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
   
    // ======================== xCFX use ==================================
-  address private XCFX_address;
+  address private xCFX_address;
   address private Storage_addr;
   //address zero_addr=address(0x0000000000000000000000000000000000000000);
   // ======================== Struct definitions =========================
@@ -128,10 +128,10 @@ contract Exchangeroom is Ownable,Initializable {
     _exchangeSummary.xcfxvalues = 1 ether;
     _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
-    XCFX_address = _XCFXaddress;
+    xCFX_address = _XCFXaddress;
     _exchangeSummary.totalxcfxs = xCFXamountInit;
     _exchangeSummary.xCFXincrease = xCFXamountInit;
-    IXCFX(XCFX_address).addTokens(msg.sender, xCFXamountInit);
+    IXCFX(xCFX_address).addTokens(msg.sender, xCFXamountInit);
   }
   // ======================== Contract methods =========================
   // @title CFX_exchange_estim
@@ -148,15 +148,18 @@ contract Exchangeroom is Ownable,Initializable {
   //
   function CFX_exchange_XCFX() external payable returns(uint256){
     require(msg.value >= _minexchangelimits, "Min msg.value is minexchangelimits");
-    _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
+    _exchangeSummary.totalxcfxs = IXCFX(xCFX_address).totalSupply();
     collectOutqueuesFinishedVotes();
     uint256 xcfx_exchange = CFX_exchange_estim(msg.value);
 
     _exchangeSummary.totalxcfxs += xcfx_exchange;
     _exchangeSummary.xCFXincrease += xcfx_exchange;
     address payable receiver = payable(_bridgeAddress);
-    receiver.transfer(msg.value);
-    IXCFX(XCFX_address).addTokens(msg.sender, xcfx_exchange);
+    (bool success, ) = receiver.call{value:msg.value}("");
+    require(success,"CFX Transfer Failed");
+    // receiver.transfer(msg.value);
+
+    IXCFX(xCFX_address).addTokens(msg.sender, xcfx_exchange);
     emit IncreasePoSStake(msg.sender, msg.value);
     return xcfx_exchange;
   }
@@ -175,8 +178,8 @@ contract Exchangeroom is Ownable,Initializable {
   //
   function XCFX_burn(uint256 _amount) public virtual onlyRegisted returns(uint256, uint256){
     require(_amount >= _minexchangelimits,"Min amount is minexchangelimits");
-    require(_amount <= IXCFX(XCFX_address).balanceOf(msg.sender),"Exceed your xCFX balance");
-    _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
+    require(_amount <= IXCFX(xCFX_address).balanceOf(msg.sender),"Exceed your xCFX balance");
+    _exchangeSummary.totalxcfxs = IXCFX(xCFX_address).totalSupply();
     uint256 _mode = 0;
     uint256 cfx_back = XCFX_burn_estim(_amount);
     if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether)){
@@ -203,7 +206,7 @@ contract Exchangeroom is Ownable,Initializable {
     collectOutqueuesFinishedVotes() ;
     require(userOutqueues[msg.sender].queueLength()<100,"TOO long queues!");
     _unstakeVotes += cfx_back;
-    IXCFX(XCFX_address).burnTokens(msg.sender, _amount);
+    IXCFX(xCFX_address).burnTokens(msg.sender, _amount);
     emit DecreasePoSStake(msg.sender, _amount);
     return (cfx_back, _amount);
   }
@@ -229,7 +232,9 @@ contract Exchangeroom is Ownable,Initializable {
     require(userSummaries[msg.sender].unlocked >= _amount, "your Unlocked CFX is not enough");
     userSummaries[msg.sender].unlocked -= _amount;
     address payable receiver = payable(msg.sender);
-    receiver.transfer(_amount);
+    (bool success, ) = receiver.call{value: _amount}("");
+    require(success,"CFX Transfer Failed");
+    // receiver.transfer(_amount);
     emit WithdrawStake(msg.sender, _amount);
   }
 
@@ -274,7 +279,7 @@ contract Exchangeroom is Ownable,Initializable {
   // 4 _bridgeAddress
   // 5 _CoreExchange
   // 6 Storage_addr
-  // 7 XCFX_address
+  // 7 xCFX_address
   //
   function _setLockPeriod(uint256 slow,uint256 fast) public onlyOwner {
     _poolLockPeriod_slow = slow;
@@ -307,27 +312,29 @@ contract Exchangeroom is Ownable,Initializable {
   }  
   function _setXCFXaddr(address xCFXaddr) external onlyOwner {
     require(xCFXaddr!=address(0x0000000000000000000000000000000000000000),'Can not be Zero adress');
-    XCFX_address = xCFXaddr;
+    xCFX_address = xCFXaddr;
     emit SetXCFXaddr(msg.sender, xCFXaddr);
   } 
   // Get Settings 
   function getSettings() external view returns(string memory name,address,address,address,address){
-    return (poolName,_bridgeAddress,_CoreExchange,Storage_addr,XCFX_address);
+    return (poolName,_bridgeAddress,_CoreExchange,Storage_addr,xCFX_address);
   }
   // ==================== cross space bridge methods ====================
   // methods that the core bridge use
   function handleCFXexchangeXCFX() external payable onlyBridge returns(uint256){
     require(msg.value>0 , 'must > 0');
-    _exchangeSummary.totalxcfxs = IXCFX(XCFX_address).totalSupply();
+    _exchangeSummary.totalxcfxs = IXCFX(xCFX_address).totalSupply();
 
-    address payable receiver = payable(_bridgeAddress);
-    receiver.transfer(msg.value);
     uint256 xcfx_exchange = CFX_exchange_estim(msg.value);
     
     _exchangeSummary.totalxcfxs += xcfx_exchange;
     _exchangeSummary.xCFXincrease += xcfx_exchange;
 
-    IXCFX(XCFX_address).addTokens(Storage_addr, xcfx_exchange);
+    address payable receiver = payable(_bridgeAddress);
+    (bool success, ) = receiver.call{value:msg.value}("");
+    require(success,"CFX Transfer Failed");
+
+    IXCFX(xCFX_address).addTokens(Storage_addr, xcfx_exchange);
     emit IncreasePoSStake(Storage_addr, msg.value);
     emit HandleCFXexchangeXCFX(msg.sender);
     return xcfx_exchange;
@@ -364,6 +371,11 @@ contract Exchangeroom is Ownable,Initializable {
   }
 
   // ======================== contract base methods =====================
+  function transferCFX(address _address, uint256 _value) internal{
+    (bool success, ) = address(uint160(_address)).call{value:_value}("");
+    require(success,"CFX Transfer Failed");
+  }
+
   fallback() external payable {}
   receive() external payable {}
 
