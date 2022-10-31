@@ -371,11 +371,6 @@ contract Exchangeroom is Ownable,Initializable {
   }
 
   // ======================== contract base methods =====================
-  function transferCFX(address _address, uint256 _value) internal{
-    (bool success, ) = address(uint160(_address)).call{value:_value}("");
-    require(success,"CFX Transfer Failed");
-  }
-
   fallback() external payable {}
   receive() external payable {}
 
