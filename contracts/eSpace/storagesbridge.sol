@@ -66,10 +66,18 @@ contract storagesbridge is Ownable,Initializable {
   }
   function handlegetbackCFX(uint256 _amount) external onlyCoreExchange {
     IExchangeroom(eSpaceExchange).getback_CFX(_amount);
-    address payable receiver = payable(CoreExchangeEspace);
-    receiver.transfer(_amount);
+    transferCFX(CoreExchangeEspace, _amount);
+    // address payable receiver = payable(CoreExchangeEspace);
+    // receiver.transfer(_amount);
+
   }
+  
   // ======================== contract base methods =====================
+  function transferCFX(address _address, uint256 _value) internal{
+    (bool success, ) = address(uint160(_address)).call{value:_value}("");
+    require(success,"CFX Transfer Failed");
+  }
+  
   fallback() external payable {}
   receive() external payable {}
 }
