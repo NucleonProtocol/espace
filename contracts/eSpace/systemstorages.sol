@@ -46,7 +46,9 @@ contract systemstorage is Ownable,Initializable {
   function transferCFX(address _recipient,uint256 _amount) private onlyAdmin {
     require(address(this).balance>=_amount,"exceed the storage CFX balance");
     address payable receiver = payable(_recipient); // Set receiver
-    receiver.transfer(_amount);
+    (bool success, ) = receiver.call{value:_amount}("");
+    require(success,"CFX Transfer Failed");
+    // receiver.transfer(_amount);
   }
   // ======================== public =================================
   function transferERC20byPercentage(uint256[] memory _Percentage,
