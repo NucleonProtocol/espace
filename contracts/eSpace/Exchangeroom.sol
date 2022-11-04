@@ -36,10 +36,10 @@ contract Exchangeroom is Ownable,Initializable {
   address private _bridgeAddress;
   address private _CoreExchange;
   uint256 private _minexchangelimits;
-  uint256 private _unstakeVotes;
+  uint256 private _unstakeCFXs;
   // lock period: 15 days or 2 days
-  uint256 public _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
-  uint256 public _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
+  uint256 public _poolLockPeriod_slow ; //= ONE_DAY_BLOCK_COUNT * 15;
+  uint256 public _poolLockPeriod_fast;  // = ONE_DAY_BLOCK_COUNT * 2;
   
    // ======================== xCFX use ==================================
   address private xCFX_address;
@@ -104,6 +104,8 @@ contract Exchangeroom is Ownable,Initializable {
   event SetCoreExchange(address indexed user, address addr);
 
   event SetStorageaddr(address indexed user, address s_addr);
+
+  event SetstorageBridge(address indexed user, address s_addr);
 
   event SetXCFXaddr(address indexed user, address xcfx_addr);
 
@@ -182,6 +184,7 @@ contract Exchangeroom is Ownable,Initializable {
     _exchangeSummary.totalxcfxs = IXCFX(xCFX_address).totalSupply();
     uint256 _mode = 0;
     uint256 cfx_back = XCFX_burn_estim(_amount);
+    uint256 speedMode;
     if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether)){
       _mode=1;
     }
@@ -194,21 +197,21 @@ contract Exchangeroom is Ownable,Initializable {
     
     if(_mode == 1){
       userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, block.number + _poolLockPeriod_fast));
-      _amount = 101109; //fast code
+      speedMode = 101109; //fast code
       }
     else{
       userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, block.number + _poolLockPeriod_slow));
-      _amount = 100001; //slow code
+      speedMode = 100001; //slow code
     }
     
     userSummaries[msg.sender].unlocking += cfx_back;
 
     collectOutqueuesFinishedVotes() ;
     require(userOutqueues[msg.sender].queueLength()<100,"TOO long queues!");
-    _unstakeVotes += cfx_back;
+    _unstakeCFXs += cfx_back;
     IXCFX(xCFX_address).burnTokens(msg.sender, _amount);
-    emit DecreasePoSStake(msg.sender, _amount);
-    return (cfx_back, _amount);
+    emit DecreasePoSStake(msg.sender, cfx_back);
+    return (cfx_back, speedMode);
   }
   //
   // @title getback_CFX
@@ -305,6 +308,11 @@ contract Exchangeroom is Ownable,Initializable {
     _CoreExchange = coreExchangeaddr;
     emit SetCoreExchange(msg.sender, coreExchangeaddr);
   }
+  function _setstorageBridge(address storageBridgeaddr) external onlyOwner {
+    require(storageBridgeaddr!=address(0x0000000000000000000000000000000000000000),'Can not be Zero adress');
+    storageBridge = storageBridgeaddr;
+    emit SetstorageBridge(msg.sender, storageBridge);
+  }
   function _setStorageaddr(address storageaddr) external onlyOwner {
     require(storageaddr!=address(0x0000000000000000000000000000000000000000),'Can not be Zero adress');
     Storage_addr = storageaddr;
@@ -316,8 +324,8 @@ contract Exchangeroom is Ownable,Initializable {
     emit SetXCFXaddr(msg.sender, xCFXaddr);
   } 
   // Get Settings 
-  function getSettings() external view returns(string memory name,address,address,address,address){
-    return (poolName,_bridgeAddress,_CoreExchange,Storage_addr,xCFX_address);
+  function getSettings() external view returns(string memory name,address,address,address,address,address){
+    return (poolName,_bridgeAddress,_CoreExchange,storageBridge,Storage_addr,xCFX_address);
   }
   // ==================== cross space bridge methods ====================
   // methods that the core bridge use
@@ -333,9 +341,15 @@ contract Exchangeroom is Ownable,Initializable {
     address payable receiver = payable(_bridgeAddress);
     (bool success, ) = receiver.call{value:msg.value}("");
     require(success,"CFX Transfer Failed");
+    if(msg.sender == _CoreExchange){
+      IXCFX(xCFX_address).addTokens(storageBridge, xcfx_exchange);
+      emit IncreasePoSStake(storageBridge, msg.value);
+    }
+    else{
+      IXCFX(xCFX_address).addTokens(Storage_addr, xcfx_exchange);
+      emit IncreasePoSStake(Storage_addr, msg.value);
+    }
 
-    IXCFX(xCFX_address).addTokens(Storage_addr, xcfx_exchange);
-    emit IncreasePoSStake(Storage_addr, msg.value);
     emit HandleCFXexchangeXCFX(msg.sender);
     return xcfx_exchange;
   }
@@ -348,8 +362,8 @@ contract Exchangeroom is Ownable,Initializable {
   }
   //let bridge know the  CFX need to get back, and set the para::unlockingCFX to 0 
   function handleUnstake() public onlyBridge returns (uint256) {
-    uint256 temp_unstake = _unstakeVotes;
-    _unstakeVotes = 0;
+    uint256 temp_unstake = _unstakeCFXs;
+    _unstakeCFXs = 0;
     emit HandleUnstake(msg.sender, temp_unstake);
     return temp_unstake;
   }
@@ -370,6 +384,7 @@ contract Exchangeroom is Ownable,Initializable {
     return _addr.balance;
   }
 
+  address storageBridge;
   // ======================== contract base methods =====================
   fallback() external payable {}
   receive() external payable {}
