@@ -27,7 +27,7 @@ contract Exchangeroom is Ownable,Initializable {
   using EnumerableSet for EnumerableSet.AddressSet;
   using VotePowerQueue for VotePowerQueue.InOutQueue;
 
-  uint256 private constant ONE_DAY_BLOCK_COUNT = 3600 * 24;
+  uint256 private constant ONE_DAY_BLOCK_COUNT = 3600 * 24; // 86400
   
   // ======================== Pool config ===============================
   // wheter this poolContract registed in PoS
@@ -38,8 +38,8 @@ contract Exchangeroom is Ownable,Initializable {
   uint256 private _minexchangelimits;
   uint256 private _unstakeCFXs;
   // lock period: 15 days or 2 days
-  uint256 public _poolLockPeriod_slow ; //= ONE_DAY_BLOCK_COUNT * 15;
-  uint256 public _poolLockPeriod_fast;  // = ONE_DAY_BLOCK_COUNT * 2;
+  uint256 public _poolLockPeriod_slow ; //= ONE_DAY_BLOCK_COUNT * 15; 1296000
+  uint256 public _poolLockPeriod_fast;  // = ONE_DAY_BLOCK_COUNT * 2; 172800
   
    // ======================== xCFX use ==================================
   address private xCFX_address;
