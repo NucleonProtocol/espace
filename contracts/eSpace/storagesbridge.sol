@@ -64,12 +64,12 @@ contract storagesbridge is Ownable,Initializable {
   function handlexCFXburn(uint256 _amount) external onlyCoreExchange returns(uint256, uint256){
     return IExchangeroom(eSpaceExchange).XCFX_burn( _amount);
   }
-  function handlegetbackCFX(uint256 _amount) external onlyCoreExchange {
+  function handlegetbackCFX(uint256 _amount) external onlyCoreExchange returns(uint256) {
     IExchangeroom(eSpaceExchange).getback_CFX(_amount);
     transferCFX(CoreExchangeEspace, _amount);
     // address payable receiver = payable(CoreExchangeEspace);
     // receiver.transfer(_amount);
-
+    return _amount;
   }
   
   // ======================== contract base methods =====================

@@ -38,8 +38,8 @@ contract Exchangeroom is Ownable,Initializable {
   uint256 private _minexchangelimits;
   uint256 private _unstakeCFXs;
   // lock period: 15 days or 2 days
-  uint256 public _poolLockPeriod_slow ; //= ONE_DAY_BLOCK_COUNT * 15; 1296000
-  uint256 public _poolLockPeriod_fast;  // = ONE_DAY_BLOCK_COUNT * 2; 172800
+  uint256 private _poolLockPeriod_slow ; //= ONE_DAY_BLOCK_COUNT * 15; 1296000
+  uint256 private _poolLockPeriod_fast;  // = ONE_DAY_BLOCK_COUNT * 2; 172800
   
    // ======================== xCFX use ==================================
   address private xCFX_address;
@@ -170,8 +170,13 @@ contract Exchangeroom is Ownable,Initializable {
   // @dev estimate The amount of CFX to user when user burn a _amount xCFX
   // return CFX amounts user can get
   //
-  function XCFX_burn_estim(uint256 _amount) public view returns(uint256){
-    return _amount.mul(_exchangeSummary.xcfxvalues).div(1 ether);
+  function XCFX_burn_estim(uint256 _amount) public view returns(uint256,uint256){
+    uint256 cfx_back = _amount.mul(_exchangeSummary.xcfxvalues).div(1 ether);
+    uint256 mode = 0;
+    if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether)){
+      mode = 1;
+    }
+    return (cfx_back,mode);
     }
   //
   // @title XCFX_burn
@@ -183,15 +188,11 @@ contract Exchangeroom is Ownable,Initializable {
     require(_amount <= IXCFX(xCFX_address).balanceOf(msg.sender),"Exceed your xCFX balance");
     _exchangeSummary.totalxcfxs = IXCFX(xCFX_address).totalSupply();
     uint256 _mode = 0;
-    uint256 cfx_back = XCFX_burn_estim(_amount);
+    uint256 cfx_back;
     uint256 speedMode;
-    if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether)){
-      _mode=1;
-    }
-    else {
-      require(_amount<=_exchangeSummary.totalxcfxs,"Exceed exchange limit");
-      _mode=0;
-    }
+    (cfx_back,_mode) = XCFX_burn_estim(_amount);
+    require(_amount<=_exchangeSummary.totalxcfxs,"Exceed exchange limit");
+    
     _exchangeSummary.totalxcfxs -= _amount;
     _exchangeSummary.unlockingCFX += cfx_back;
     
@@ -323,6 +324,10 @@ contract Exchangeroom is Ownable,Initializable {
     xCFX_address = xCFXaddr;
     emit SetXCFXaddr(msg.sender, xCFXaddr);
   } 
+  // Get LockPeriod 
+  function getLockPeriod() external view returns(uint256,uint256){
+    return (_poolLockPeriod_slow, _poolLockPeriod_fast);
+  }
   // Get Settings 
   function getSettings() external view returns(string memory name,address,address,address,address,address){
     return (poolName,_bridgeAddress,_CoreExchange,storageBridge,Storage_addr,xCFX_address);
