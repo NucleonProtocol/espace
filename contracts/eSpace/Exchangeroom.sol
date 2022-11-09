@@ -81,9 +81,9 @@ contract Exchangeroom is Ownable,Initializable {
     _;
   }
   // ======================== Helpers ===================================
-  function _selfBalance() internal view virtual returns (uint256) {
-    return address(this).balance;
-  }
+  // function _selfBalance() internal view virtual returns (uint256) {
+  //   return address(this).balance;
+  // }
 
   // ======================== Events ====================================
 
