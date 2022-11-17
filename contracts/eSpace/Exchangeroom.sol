@@ -172,9 +172,9 @@ contract Exchangeroom is Ownable,Initializable {
   //
   function XCFX_burn_estim(uint256 _amount) public view returns(uint256,uint256){
     uint256 cfx_back = _amount.mul(_exchangeSummary.xcfxvalues).div(1 ether);
-    uint256 mode = 0;
+    uint256 mode = 0;  //default slow mode
     if(cfx_back<=_exchangeSummary.alloflockedvotes.mul(1000 ether)){
-      mode = 1;
+      mode = 1;  //set fast mode
     }
     return (cfx_back,mode);
     }
@@ -197,18 +197,18 @@ contract Exchangeroom is Ownable,Initializable {
     _exchangeSummary.unlockingCFX += cfx_back;
     
     if(_mode == 1){
-      userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, block.number + _poolLockPeriod_fast));
+      userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(_amount, cfx_back, block.number + _poolLockPeriod_fast));
       speedMode = 101109; //fast code
       }
     else{
-      userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(cfx_back, block.number + _poolLockPeriod_slow));
+      userOutqueues[msg.sender].enqueue(VotePowerQueue.QueueNode(_amount, cfx_back, block.number + _poolLockPeriod_slow));
       speedMode = 100001; //slow code
     }
     
     userSummaries[msg.sender].unlocking += cfx_back;
 
     collectOutqueuesFinishedVotes() ;
-    require(userOutqueues[msg.sender].queueLength()<100,"TOO long queues!");
+    require(userOutqueues[msg.sender].queueLength()<36,"TOO long queues!");
     _unstakeCFXs += cfx_back;
     IXCFX(xCFX_address).burnTokens(msg.sender, _amount);
     emit DecreasePoSStake(msg.sender, cfx_back);

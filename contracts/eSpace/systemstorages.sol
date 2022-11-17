@@ -48,7 +48,6 @@ contract systemstorage is Ownable,Initializable {
     address payable receiver = payable(_recipient); // Set receiver
     (bool success, ) = receiver.call{value:_amount}("");
     require(success,"CFX Transfer Failed");
-    // receiver.transfer(_amount);
   }
   // ======================== public =================================
   function transferERC20byPercentage(uint256[] memory _Percentage,
@@ -56,7 +55,6 @@ contract systemstorage is Ownable,Initializable {
                                      address _ERC20address) public onlyAdmin {
     require(_allowance==1024,"Requires specific permissions"); 
     require(_Percentage.length==_transferaddr.length,"The number of addresses and proportions need to be the same");
-    //address payable receiver; // Set receiver
     uint256[] memory amountsbyPercentage = _Percentage;
     uint256 PercentageSum;
     uint256 transferAmountSum;

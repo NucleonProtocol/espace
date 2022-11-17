@@ -4,6 +4,7 @@ pragma solidity 0.8.2;
 library VotePowerQueue {
 
   struct QueueNode {
+    uint256 xCFXAmounts;
     uint256 votePower;
     uint256 endBlock;
   }

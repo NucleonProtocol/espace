@@ -10,27 +10,27 @@ contract nucleon_token is ERC20, Initializable {
     string  _name;
     string  _symbol;
 
-  constructor(uint256 initialSupply) ERC20("Nucleon Governance token", "NUN") {
-    _mint(msg.sender, initialSupply);
+  constructor() ERC20("Nucleon Governance Token", "NUT") {
+    _mint(msg.sender, 300000000000000000000000);
   }
   function initialize(ERC20 _token) public initializer {
         token = _token;
+        _name = "Nucleon Governance Token";
+        _symbol = "NUT";
+        _mint(msg.sender, 300000000000000000000000);
+  }
+  // /**
+  //    * @dev Returns the name of the token.
+  //    */
+  // function name() public view virtual override returns (string memory) {
+  //   return _name;
+  // }
 
-        _name = "Nucleon Governance token";
-        _symbol = "NUN";
-  }
-  /**
-     * @dev Returns the name of the token.
-     */
-  function name() public view virtual override returns (string memory) {
-    return _name;
-  }
-
-    /**
-     * @dev Returns the symbol of the token, usually a shorter version of the
-     * name.
-     */
-  function symbol() public view virtual override returns (string memory) {
-      return _symbol;
-  }
+  //   /**
+  //    * @dev Returns the symbol of the token, usually a shorter version of the
+  //    * name.
+  //    */
+  // function symbol() public view virtual override returns (string memory) {
+  //     return _symbol;
+  // }
 }

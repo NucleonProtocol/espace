@@ -31,7 +31,6 @@ contract storagesbridge is Ownable,Initializable {
   address xCFXaddr;// xCFX Espace addr
   // ======================== Modifiers =================================
   modifier onlyCoreExchange() {
-    //require(isContract(msg.sender),"bridge is contracts");
     require(msg.sender == CoreExchangeEspace, "Only CoreExchange is allowed");
     _;
   }
@@ -67,8 +66,6 @@ contract storagesbridge is Ownable,Initializable {
   function handlegetbackCFX(uint256 _amount) external onlyCoreExchange returns(uint256) {
     IExchangeroom(eSpaceExchange).getback_CFX(_amount);
     transferCFX(CoreExchangeEspace, _amount);
-    // address payable receiver = payable(CoreExchangeEspace);
-    // receiver.transfer(_amount);
     return _amount;
   }
   
