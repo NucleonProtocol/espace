@@ -44,7 +44,6 @@ contract Exchangeroom is Ownable,Initializable {
    // ======================== xCFX use ==================================
   address private xCFX_address;
   address private Storage_addr;
-  //address zero_addr=address(0x0000000000000000000000000000000000000000);
   // ======================== Struct definitions =========================
   /// @title ExchangeSummary
   /// @custom:field totalxcfxs
@@ -80,10 +79,6 @@ contract Exchangeroom is Ownable,Initializable {
     require(msg.sender == _bridgeAddress||msg.sender == _CoreExchange, "Only bridge is allowed");
     _;
   }
-  // ======================== Helpers ===================================
-  // function _selfBalance() internal view virtual returns (uint256) {
-  //   return address(this).balance;
-  // }
 
   // ======================== Events ====================================
 
@@ -159,7 +154,6 @@ contract Exchangeroom is Ownable,Initializable {
     address payable receiver = payable(_bridgeAddress);
     (bool success, ) = receiver.call{value:msg.value}("");
     require(success,"CFX Transfer Failed");
-    // receiver.transfer(msg.value);
 
     IXCFX(xCFX_address).addTokens(msg.sender, xcfx_exchange);
     emit IncreasePoSStake(msg.sender, msg.value);
@@ -238,7 +232,6 @@ contract Exchangeroom is Ownable,Initializable {
     address payable receiver = payable(msg.sender);
     (bool success, ) = receiver.call{value: _amount}("");
     require(success,"CFX Transfer Failed");
-    // receiver.transfer(_amount);
     emit WithdrawStake(msg.sender, _amount);
   }
 
