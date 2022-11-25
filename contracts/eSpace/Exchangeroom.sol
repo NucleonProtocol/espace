@@ -225,9 +225,9 @@ contract Exchangeroom is Ownable,Initializable {
     require(address(this).balance>=_amount,"pool Unlocked CFX is not enough");
 
     collectOutqueuesFinishedVotes() ;
-    _exchangeSummary.unlockingCFX -= _amount;
-
     require(userSummaries[msg.sender].unlocked >= _amount, "your Unlocked CFX is not enough");
+    _exchangeSummary.unlockingCFX -= _amount;
+    
     userSummaries[msg.sender].unlocked -= _amount;
     address payable receiver = payable(msg.sender);
     (bool success, ) = receiver.call{value: _amount}("");
