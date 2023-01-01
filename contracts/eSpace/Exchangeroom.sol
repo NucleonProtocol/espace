@@ -182,7 +182,7 @@ contract Exchangeroom is Ownable,Initializable {
     
     userSummaries[msg.sender].unlocking += cfx_back;
 
-    collectOutqueuesFinishedVotes() ;
+    collectOutqueuesFinishedVotes();
     require(userOutqueues[msg.sender].queueLength()<36,"TOO long queues!");
     _unstakeCFXs += cfx_back;
     IXCFX(xCFX_address).burnTokens(msg.sender, _amount);
@@ -212,7 +212,7 @@ contract Exchangeroom is Ownable,Initializable {
     emit WithdrawStake(msg.sender, _amount);
   }
 
-  function collectOutqueuesFinishedVotes() public {
+  function collectOutqueuesFinishedVotes() private {
     uint256 temp_amount = userOutqueues[msg.sender].collectEndedVotes();
     userSummaries[msg.sender].unlocked += temp_amount;
     userSummaries[msg.sender].unlocking -= temp_amount;
