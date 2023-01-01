@@ -60,11 +60,10 @@ library VotePowerQueue {
   function collectEndedVotes(InOutQueue storage q) internal returns (uint256) {
     uint256 total = 0;
     for (uint256 i = q.start; i < q.end; i++) {
-      if (q.items[i].endBlock > block.number) {
-        continue ;
+      if (q.items[i].endBlock <= block.number) {
+        total += q.items[i].votePower;
+        dequeue(q,i);
       }
-      total += q.items[i].votePower;
-      dequeue(q,i);
     }
     return total;
   }
@@ -72,12 +71,10 @@ library VotePowerQueue {
   function sumEndedVotes(InOutQueue storage q) internal view returns (uint256) {
     uint256 total = 0;
     for (uint256 i = q.start; i < q.end; i++) {
-      if (q.items[i].endBlock > block.number) {
-        continue;
+      if (q.items[i].endBlock <= block.number) {
+        total += q.items[i].votePower;
       }
-      total += q.items[i].votePower;
     }
     return total;
   }
-  
 }
