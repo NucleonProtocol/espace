@@ -259,7 +259,6 @@ contract Exchangeroom is Ownable,Initializable {
     emit SetLockPeriod(msg.sender, slow, fast);
   }
   /// @notice Enable Owner to set min exchange limits
-  /// @notice  fast < slow
   /// @param minlimits The min exchange limits
   function _setminexchangelimits(uint256 minlimits) external onlyOwner {
     _minexchangelimits = minlimits;
