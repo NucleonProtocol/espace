@@ -13,12 +13,12 @@ contract nucleon_token is ERC20, Initializable {
   constructor() ERC20("Nucleon Governance Token", "NUT") {
     _mint(msg.sender, 300000000000000000000000);
   }
-  function initialize(ERC20 _token) public initializer {
-        token = _token;
-        _name = "Nucleon Governance Token";
-        _symbol = "NUT";
-        _mint(msg.sender, 300000000000000000000000);
-  }
+  // function initialize(ERC20 _token) public initializer {
+  //       token = _token;
+  //       _name = "Nucleon Governance Token";
+  //       _symbol = "NUT";
+  //       _mint(msg.sender, 300000000000000000000000);
+  // }
   // /**
   //    * @dev Returns the name of the token.
   //    */

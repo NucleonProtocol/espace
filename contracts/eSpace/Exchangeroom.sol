@@ -106,7 +106,7 @@ contract Exchangeroom is Ownable,Initializable {
     poolName = "UNCLEON HUB eSpace";
     _minexchangelimits = 1 ether;
     _exchangeSummary.xcfxvalues = 1 ether;
-    _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 15;
+    _poolLockPeriod_slow = ONE_DAY_BLOCK_COUNT * 16;
     _poolLockPeriod_fast = ONE_DAY_BLOCK_COUNT * 2;
     xCFX_address = _XCFXaddress;
     _exchangeSummary.totalxcfxs = xCFXamountInit;
