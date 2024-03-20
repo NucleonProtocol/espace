@@ -13,11 +13,11 @@ import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 ///
 contract systemstorage is Ownable,Initializable {
   // ======================== System Definition =================================
-  using SafeMath for uint256;
+  using SafeMath for uint;
   address _adminAddress;
   address _balanceAddress;
-  uint256 _allowance;
-  uint256 private constant RATIO_BASE = 10000;
+  uint _allowance;
+  uint private constant RATIO_BASE = 10000;
   // ======================== Modifiers =================================
   modifier onlyAdmin() {
     require(msg.sender == _adminAddress, "Only Admin is allowed");
@@ -34,31 +34,31 @@ contract systemstorage is Ownable,Initializable {
   function _setbalanceAddress(address _balance) public onlyOwner{
     _balanceAddress = _balance;
   }
-  function _setallow(uint256 _allow) public onlyOwner{
+  function _setallow(uint _allow) public onlyOwner{
     _allowance = _allow;
   }
   // ======================== private =================================
-  function transferERC20(address _ERC20address,address _recipient,uint256 _amount) private onlyAdmin {
+  function transferERC20(address _ERC20address,address _recipient,uint _amount) private onlyAdmin {
     require(IERC20(_ERC20address).balanceOf(address(this))>=_amount,"exceed the storage ERC20 balance");
     IERC20(_ERC20address).transfer( _recipient, _amount);
   }
 
-  function transferCFX(address _recipient,uint256 _amount) private onlyAdmin {
+  function transferCFX(address _recipient,uint _amount) private onlyAdmin {
     require(address(this).balance>=_amount,"exceed the storage CFX balance");
     address payable receiver = payable(_recipient); // Set receiver
     (bool success, ) = receiver.call{value:_amount}("");
     require(success,"CFX Transfer Failed");
   }
   // ======================== public =================================
-  function transferERC20byPercentage(uint256[] memory _Percentage,
+  function transferERC20byPercentage(uint[] memory _Percentage,
                                      address[] memory _transferaddr,
                                      address _ERC20address) public onlyAdmin {
     require(_allowance==1024,"Requires specific permissions"); 
     require(_Percentage.length==_transferaddr.length,"The number of addresses and proportions need to be the same");
-    uint256[] memory amountsbyPercentage = _Percentage;
-    uint256 PercentageSum;
-    uint256 transferAmountSum;
-    uint256 StorageBalance = IERC20(_ERC20address).balanceOf(address(this));
+    uint[] memory amountsbyPercentage = _Percentage;
+    uint PercentageSum;
+    uint transferAmountSum;
+    uint StorageBalance = IERC20(_ERC20address).balanceOf(address(this));
     for(uint i=0;i<_Percentage.length;i++){
         PercentageSum += _Percentage[i];
         amountsbyPercentage[i] = _Percentage[i].mul(StorageBalance).div(RATIO_BASE);
@@ -73,14 +73,14 @@ contract systemstorage is Ownable,Initializable {
         transferERC20( _ERC20address, _balanceAddress, StorageBalance-transferAmountSum);
     }
   }
-  function transferCFXbyPercentage(uint256[] memory _Percentage,
+  function transferCFXbyPercentage(uint[] memory _Percentage,
                                    address[] memory _transferaddr) public onlyAdmin {
     require(_allowance==1024,"Requires specific permissions"); 
     require(_Percentage.length==_transferaddr.length,"The number of addresses and proportions need to be the same");
-    uint256[] memory amountsbyPercentage = _Percentage;
-    uint256 PercentageSum;
-    uint256 transferAmountSum;
-    uint256 StorageBalance = address(this).balance;
+    uint[] memory amountsbyPercentage = _Percentage;
+    uint PercentageSum;
+    uint transferAmountSum;
+    uint StorageBalance = address(this).balance;
     for(uint i=0;i<_Percentage.length;i++){
         PercentageSum += _Percentage[i];
         amountsbyPercentage[i] = _Percentage[i].mul(StorageBalance).div(RATIO_BASE);
@@ -95,13 +95,13 @@ contract systemstorage is Ownable,Initializable {
         transferCFX( _balanceAddress, StorageBalance-transferAmountSum);
     }
   }
-  function transferERC20byAmount(uint256[] memory _amount,
+  function transferERC20byAmount(uint[] memory _amount,
                                  address[] memory _transferaddr,
                                  address _ERC20address) public onlyAdmin {
     require(_allowance==1080,"Requires specific permissions"); 
     require(_amount.length==_transferaddr.length,"The number of addresses and amount need to be the same");
-    uint256 transferAmountSum;
-    uint256 StorageBalance = IERC20(_ERC20address).balanceOf(address(this));
+    uint transferAmountSum;
+    uint StorageBalance = IERC20(_ERC20address).balanceOf(address(this));
     for(uint i=0;i<_amount.length;i++){
         transferAmountSum += _amount[i];
     }
@@ -113,12 +113,12 @@ contract systemstorage is Ownable,Initializable {
         transferERC20( _ERC20address, _balanceAddress, StorageBalance-transferAmountSum);
     }
   }
-  function transferCFXbyAmount(uint256[] memory _amount,
+  function transferCFXbyAmount(uint[] memory _amount,
                                address[] memory _transferaddr) public onlyAdmin {
     require(_allowance==1080,"Requires specific permissions"); 
     require(_amount.length==_transferaddr.length,"The number of addresses and amount need to be the same");
-    uint256 transferAmountSum;
-    uint256 StorageBalance = address(this).balance;
+    uint transferAmountSum;
+    uint StorageBalance = address(this).balance;
     for(uint i=0;i<_amount.length;i++){
         transferAmountSum += _amount[i];
     }

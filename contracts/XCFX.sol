@@ -8,7 +8,7 @@ contract XCFX is ERC20{
     ERC20 token;
     address owner;
     mapping(address=>bool) mainMinter;
-    uint256 unlocked=1;
+    uint unlocked=1;
 
     // ======================== Methods =========================
     modifier onlyMinter() {
@@ -38,12 +38,12 @@ contract XCFX is ERC20{
         mainMinter[_minter] = false;
     }
     // ======================== Minter function =========================
-    function addTokens(address _account, uint256 _value) external lock onlyMinter(){
+    function addTokens(address _account, uint _value) external lock onlyMinter(){
         require(_value>0,"Con't add 0");
         //require( isContract(msg.sender) ,"msg.sender must be a contract");
         _mint(_account, _value);
     }
-    function burnTokens(address _account, uint256 _value) external lock onlyMinter(){
+    function burnTokens(address _account, uint _value) external lock onlyMinter(){
         require(_value > 0,"Con't burn 0");
         require(_value <= balanceOf(_account),"Must < account balance");
         //require( isContract(msg.sender) ,"msg.sender must be a contract");

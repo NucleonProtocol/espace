@@ -13,21 +13,21 @@ import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 ///
 contract systemdistribute is Ownable,Initializable {
   // ======================== System Definition =================================
-  using SafeMath for uint256;
+  using SafeMath for uint;
   address _adminAddress;
   address _balanceAddress;
-  uint256 _allowance;
-  uint256 public constant tranferInterval = 2592000;//86,400 1 days;2,592,000 30 days
-  uint256 public lastTransferTime;
+  uint _allowance;
+  uint public constant tranferInterval = 2592000;//86,400 1 days;2,592,000 30 days
+  uint public lastTransferTime;
   address[] public _receiveAddrs;
-  uint256[] public _receiveAmount;
+  uint[] public _receiveAmount;
   // ======================== Modifiers =================================
   modifier onlyAdmin() {
     require(msg.sender == _adminAddress, "Only Admin is allowed");
     _;
   }
    // ======================== init =================================
-  function initialize(uint256 _lastTransferTime) public initializer {
+  function initialize(uint _lastTransferTime) public initializer {
     _adminAddress = msg.sender;
     lastTransferTime = _lastTransferTime;
   }
@@ -38,15 +38,15 @@ contract systemdistribute is Ownable,Initializable {
   function _setbalanceAddress(address _balance) public onlyOwner{
     _balanceAddress = _balance;
   }
-  function _setallow(uint256 _allow) public onlyOwner{
+  function _setallow(uint _allow) public onlyOwner{
     _allowance = _allow;
   }
-  function _setAccounts(uint256[] memory _amount, address[] memory _addr) public onlyOwner{
+  function _setAccounts(uint[] memory _amount, address[] memory _addr) public onlyOwner{
     _receiveAddrs = _addr;
     _receiveAmount = _amount;
   }
   // ======================== private =================================
-  function transferERC20(address _ERC20address,address _recipient,uint256 _amount) private onlyAdmin {
+  function transferERC20(address _ERC20address,address _recipient,uint _amount) private onlyAdmin {
     require(IERC20(_ERC20address).balanceOf(address(this))>=_amount,"exceed the storage ERC20 balance");
     IERC20(_ERC20address).transfer( _recipient, _amount);
   }
@@ -57,8 +57,8 @@ contract systemdistribute is Ownable,Initializable {
     require(_allowance==1080,"Requires specific permissions"); 
     require(_receiveAddrs.length==_receiveAmount.length,"The number of addresses and amount need to be the same");
     lastTransferTime = lastTransferTime+tranferInterval;
-    uint256 transferAmountSum;
-    uint256 StorageBalance = IERC20(_ERC20address).balanceOf(address(this));
+    uint transferAmountSum;
+    uint StorageBalance = IERC20(_ERC20address).balanceOf(address(this));
     for(uint i=0;i<_receiveAddrs.length;i++){
         transferAmountSum += _receiveAmount[i];
     }

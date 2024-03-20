@@ -1,0 +1,21 @@
+//SPDX-License-Identifier: BUSL-1.1
+// Licensor:            X-Dao.
+// Licensed Work:       NUCLEON 1.0
+
+pragma solidity ^0.8.0;
+
+contract espacetest {
+    function testuint(uint _amount) public returns(uint){
+        require(_amount == 1,'must be 1');
+        return _amount;
+    }
+
+    function teststring(string memory _string) public returns(string memory){
+        return _string;
+    }
+
+    function testsbool(bool _bool) public returns(bool){
+        require(_bool,'must be true');
+        return _bool;
+    }
+}

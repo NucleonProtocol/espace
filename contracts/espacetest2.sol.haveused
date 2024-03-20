@@ -1,0 +1,33 @@
+//SPDX-License-Identifier: BUSL-1.1
+// Licensor:            X-Dao.
+// Licensed Work:       NUCLEON 1.0
+
+pragma solidity ^0.8.0;
+
+interface Iespacetest{
+    function testuint(uint _amount) external;
+    function teststring(string memory _string) external;
+    function testsbool(bool _bool) external;
+}
+
+contract espacetest2 {
+    address espacetest;
+    function _setaddr(address _addr) public {
+        espacetest = _addr;
+    }
+
+    function testuint(uint _amount) public returns(uint){
+        Iespacetest(espacetest).testuint(_amount);
+        return _amount;
+    }
+
+    function teststring(string memory _string) public returns(string memory){
+        Iespacetest(espacetest).teststring(_string);
+        return _string;
+    }
+
+    function testsbool(bool _bool) public returns(bool){
+        Iespacetest(espacetest).testsbool(_bool);
+        return _bool;
+    }
+}
